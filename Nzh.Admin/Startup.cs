@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
+using Nzh.Admin.Http;
 using Nzh.Admin.Model;
 using Nzh.Admin.Model.Base;
 using Nzh.Admin.SwaggerHelp;

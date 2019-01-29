@@ -12,6 +12,12 @@ namespace Nzh.Admin.Repository.Base
 {
     public class BaseRepository<T> : IBaseRepository<T>
     {
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public async Task Add(T entity, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
@@ -20,22 +26,12 @@ namespace Nzh.Admin.Repository.Base
             }
         }
 
-        public async Task Add(T entity)
-        {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
-            {
-                await conn.Add(entity);
-            }
-        }
-
-        public async Task AddRange(List<T> entitylist, string sql)
-        {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
-            {
-                await conn.ExecuteAsync(sql, entitylist);
-            }
-        }
-
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public async Task Delete(Guid Id, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
@@ -44,6 +40,12 @@ namespace Nzh.Admin.Repository.Base
             }
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public async Task Update(T entity, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
@@ -52,6 +54,12 @@ namespace Nzh.Admin.Repository.Base
             }
         }
 
+        /// <summary>
+        /// 获取实体
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public async Task<T> Get(Guid Id, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
@@ -60,19 +68,30 @@ namespace Nzh.Admin.Repository.Base
             }
         }
 
-        public async Task<List<T>> ExecuteSP(string SpName)
-        {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
-            {
-                return await Task.Run(() => conn.Query<T>(SpName, null, null, true, null, CommandType.StoredProcedure).ToList());
-            }
-        }
-
+        /// <summary>
+        /// 获取List
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public async Task<List<T>> GetList(string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
                 return await Task.Run(() => conn.Query<T>(sql).ToList());
+            }
+        }
+
+        /// <summary>
+        /// 返回数量
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<int> Count(string sql, object param = null)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                return await conn.ExecuteScalarAsync<int>(sql, param);
             }
         }
     }

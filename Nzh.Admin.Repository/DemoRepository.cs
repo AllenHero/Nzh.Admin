@@ -13,47 +13,58 @@ namespace Nzh.Admin.Repository
 {
     public class DemoRepository : BaseRepository<Demo>, IDemoRepository
     {
-        public async Task DeleteUser(Guid Id)
+        /// <summary>
+        /// 获取所有Demo
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Demo>> GetDemoList()
         {
-            string deleteSql = "DELETE FROM [dbo].[Users] WHERE Id=@Id";
-            await Delete(Id, deleteSql);
+            string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo]";
+            return await GetList(sql);
         }
 
-        public string ExecExecQueryParamSP(string spName, string name, int Id)
+        /// <summary>
+        /// 获取单个Demo
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public async Task<Demo> GetDemo(Guid ID)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
-            {
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@UserName", name, DbType.String, ParameterDirection.Output, 100);
-                parameters.Add("@Id", Id, DbType.String, ParameterDirection.Input);
-                conn.Execute(spName, parameters, null, null, CommandType.StoredProcedure);
-                string strUserName = parameters.Get<string>("@UserName");
-                return strUserName;
-            }
+            string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo] WHERE ID=@ID";
+            return await Get(ID, sql);
         }
 
-        public async Task<Demo> GetUserDetail(Guid Id)
+        /// <summary>
+        /// 新增Demo
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task AddDemo(Demo entity)
         {
-            string detailSql = @"SELECT Id, UserName, Password, Gender, Birthday, CreateDate, IsDelete FROM [dbo].[Users] WHERE Id=@Id";
-            return await Get(Id, detailSql);
+            string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
+            await Add(entity, sql);
         }
 
-        public async Task<List<Demo>> GetUsers()
+        /// <summary>
+        /// 修改Demo
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task UpdateDemo(Demo entity)
         {
-            string selectSql = @"SELECT Id, UserName, Password, Gender, Birthday, CreateDate, IsDelete FROM [dbo].[Users]";
-            return await GetList(selectSql);
+            string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
+            await Update(entity, sql);
         }
 
-        public async Task PostUser(Demo entity)
+        /// <summary>
+        /// 删除Demo
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public async Task DeleteDemo(Guid ID)
         {
-            string insertSql = @"INSERT INTO [dbo].[Users](Id, UserName, Password, Gender, Birthday, CreateDate, IsDelete) VALUES(@Id, @UserName, @Password, @Gender, @Birthday, @CreateDate, @IsDelete)";
-            await Add(entity, insertSql);
-        }
-
-        public async Task PutUser(Demo entity)
-        {
-            string updateSql = "UPDATE [dbo].[Users] SET UserName=@UserName, Password=@Password, Gender=@Gender, Birthday=@Birthday, CreateDate=@CreateDate, IsDelete=@IsDelete WHERE Id=@Id";
-            await Update(entity, updateSql);
+            string sql = "DELETE FROM [dbo].[Demo] WHERE ID=@ID";
+            await Delete(ID, sql);
         }
     }
 }

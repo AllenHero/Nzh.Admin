@@ -33,7 +33,7 @@ namespace Nzh.Admin.Unit
                 }
                 catch (Exception ex)
                 {
-                    //
+                    throw ex;
                 }
             }
             return list;

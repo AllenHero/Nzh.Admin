@@ -33,7 +33,6 @@ namespace Nzh.Admin.Extension
             {
                 throw new DllNotFoundException($"the dll {interfaceAssemblyName} not be found");
             }
-            //
             var types = assembly.GetTypes().Where(w => w.IsInterface && !w.IsGenericType);
             foreach (var type in types)
             {

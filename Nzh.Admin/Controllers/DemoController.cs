@@ -23,41 +23,53 @@ namespace Nzh.Admin.Controllers
         }
 
         /// <summary>
-        /// 获取所有用户
+        /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        /// 
         [HttpGet]
-        public async Task<JsonResult> GetUsers()
+        public async Task<JsonResult> GetDemoList()
         {
-            List<Demo> list = await demoRepository.GetUsers();
+            List<Demo> list = await demoRepository.GetDemoList();
             Logger.Info(JsonConvert.SerializeObject(list));//此处调用日志记录函数记录日志
             return Json(list);
         }
 
         /// <summary>
-        /// 新增用户
+        /// 获取单个Demo
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<JsonResult> GetDemo(Guid ID)
+        {
+            Demo model = await demoRepository.GetDemo(ID);
+            Logger.Info(JsonConvert.SerializeObject(model));//此处调用日志记录函数记录日志
+            return Json(model);
+        }
+
+        /// <summary>
+        /// 新增Demo
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task PostUser(Demo entity)
+        public async Task AddDemo(Demo entity)
         {
-            await demoRepository.PostUser(entity);
+            await demoRepository.AddDemo(entity);
             Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
         }
 
         /// <summary>
-        /// 修改用户信息
+        /// 修改Demo
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task PutUser(Demo entity)
+        public async Task  UpdateDemo(Demo entity)
         {
             try
             {
-                await demoRepository.PutUser(entity);
+                await demoRepository.UpdateDemo(entity);
                 Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
             }
             catch (Exception ex)
@@ -67,17 +79,17 @@ namespace Nzh.Admin.Controllers
         }
 
         /// <summary>
-        /// 删除用户
+        /// 删除Demo
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task DeleteUser(Guid Id)
+        public async Task DeleteDemo(Guid ID)
         {
             try
             {
-                await demoRepository.DeleteUser(Id);
-                Logger.Info(JsonConvert.SerializeObject(Id));//此处调用日志记录函数记录日志
+                await demoRepository.DeleteDemo(ID);
+                Logger.Info(JsonConvert.SerializeObject(ID));//此处调用日志记录函数记录日志
             }
             catch (Exception ex)
             {

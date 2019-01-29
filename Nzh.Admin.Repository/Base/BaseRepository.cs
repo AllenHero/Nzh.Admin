@@ -12,58 +12,51 @@ namespace Nzh.Admin.Repository.Base
 {
     public class BaseRepository<T> : IBaseRepository<T>
     {
-        public async Task Delete(Guid Id, string deleteSql)
+        public async Task Delete(Guid Id, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(deleteSql, new { Id = Id });
+                await conn.ExecuteAsync(sql, new { Id = Id });
             }
         }
 
-        public async Task<T> Detail(Guid Id, string detailSql)
+        public async Task<T> Get(Guid Id, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                //string querySql = @"SELECT Id, UserName, Password, Gender, Birthday, CreateDate, IsDelete FROM dbo.Users WHERE Id=@Id";
-                return await conn.QueryFirstOrDefaultAsync<T>(detailSql, new { Id = Id });
+                return await conn.QueryFirstOrDefaultAsync<T>(sql, new { Id = Id });
             }
         }
 
-        /// <summary>
-        /// 无参存储过程
-        /// </summary>
-        /// <param name="SPName"></param>
-        /// <returns></returns>
-        public async Task<List<T>> ExecQuerySP(string SPName)
+        public async Task<List<T>> ExecuteSP(string SpName)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                return await Task.Run(() => conn.Query<T>(SPName, null, null, true, null, CommandType.StoredProcedure).ToList());
+                return await Task.Run(() => conn.Query<T>(SpName, null, null, true, null, CommandType.StoredProcedure).ToList());
             }
         }
 
-        public async Task Insert(T entity, string insertSql)
+        public async Task Add(T entity, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(insertSql, entity);
+                await conn.ExecuteAsync(sql, entity);
             }
         }
 
-        public async Task<List<T>> Select(string selectSql)
+        public async Task<List<T>> GetList(string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                //string selectSql = @"SELECT Id, UserName, Password, Gender, Birthday, CreateDate, IsDelete FROM dbo.Users";
-                return await Task.Run(() => conn.Query<T>(selectSql).ToList());
+                return await Task.Run(() => conn.Query<T>(sql).ToList());
             }
         }
 
-        public async Task Update(T entity, string updateSql)
+        public async Task Update(T entity, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(updateSql, entity);
+                await conn.ExecuteAsync(sql, entity);
             }
         }
     }

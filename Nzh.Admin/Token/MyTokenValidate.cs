@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Nzh.Admin
+namespace Nzh.Admin.Token
 {
     public class MyTokenValidate : ISecurityTokenValidator
     {

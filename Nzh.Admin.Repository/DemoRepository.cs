@@ -35,19 +35,19 @@ namespace Nzh.Admin.Repository
         public async Task<Demo> GetUserDetail(Guid Id)
         {
             string detailSql = @"SELECT Id, UserName, Password, Gender, Birthday, CreateDate, IsDelete FROM [dbo].[Users] WHERE Id=@Id";
-            return await Detail(Id, detailSql);
+            return await Get(Id, detailSql);
         }
 
         public async Task<List<Demo>> GetUsers()
         {
             string selectSql = @"SELECT Id, UserName, Password, Gender, Birthday, CreateDate, IsDelete FROM [dbo].[Users]";
-            return await Select(selectSql);
+            return await GetList(selectSql);
         }
 
         public async Task PostUser(Demo entity)
         {
             string insertSql = @"INSERT INTO [dbo].[Users](Id, UserName, Password, Gender, Birthday, CreateDate, IsDelete) VALUES(@Id, @UserName, @Password, @Gender, @Birthday, @CreateDate, @IsDelete)";
-            await Insert(entity, insertSql);
+            await Add(entity, insertSql);
         }
 
         public async Task PutUser(Demo entity)

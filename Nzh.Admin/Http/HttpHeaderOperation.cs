@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Nzh.Admin
+namespace Nzh.Admin.Http
 {
     public class HttpHeaderOperation
     {

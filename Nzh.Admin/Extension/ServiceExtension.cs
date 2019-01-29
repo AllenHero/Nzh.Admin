@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Nzh.Admin
+namespace Nzh.Admin.Extension
 {
     public static class ServiceExtension
     {

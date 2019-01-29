@@ -19,7 +19,7 @@ namespace Nzh.Admin.Controllers
         private readonly IDemoRepository _demoRepository;
 
         /// <summary>
-        /// 构造hanshu
+        /// 构造函数
         /// </summary>
         /// <param name="demoRepository"></param>
         public DemoController(IDemoRepository demoRepository)
@@ -31,7 +31,7 @@ namespace Nzh.Admin.Controllers
         /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetDemoList")]
         public async Task<JsonResult> GetDemoList()
         {
             List<Demo> list = await _demoRepository.GetDemoList();
@@ -44,7 +44,7 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("GetDemo")]
         public async Task<JsonResult> GetDemo(Guid ID)
         {
             Demo model = await _demoRepository.GetDemo(ID);
@@ -57,7 +57,7 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("AddDemo")]
         public async Task AddDemo(Demo entity)
         {
             try
@@ -76,7 +76,7 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("UpdateDemo")]
         public async Task  UpdateDemo(Demo entity)
         {
             try
@@ -95,7 +95,7 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("DeleteDemo")]
         public async Task DeleteDemo(Guid ID)
         {
             try

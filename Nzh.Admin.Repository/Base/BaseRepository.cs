@@ -12,11 +12,43 @@ namespace Nzh.Admin.Repository.Base
 {
     public class BaseRepository<T> : IBaseRepository<T>
     {
+        public async Task Add(T entity, string sql)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                await conn.ExecuteAsync(sql, entity);
+            }
+        }
+
+        public async Task Add(T entity)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                await conn.Add(entity);
+            }
+        }
+
+        public async Task AddRange(List<T> entitylist, string sql)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                await conn.ExecuteAsync(sql, entitylist);
+            }
+        }
+
         public async Task Delete(Guid Id, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
                 await conn.ExecuteAsync(sql, new { Id = Id });
+            }
+        }
+
+        public async Task Update(T entity, string sql)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                await conn.ExecuteAsync(sql, entity);
             }
         }
 
@@ -36,27 +68,11 @@ namespace Nzh.Admin.Repository.Base
             }
         }
 
-        public async Task Add(T entity, string sql)
-        {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
-            {
-                await conn.ExecuteAsync(sql, entity);
-            }
-        }
-
         public async Task<List<T>> GetList(string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
                 return await Task.Run(() => conn.Query<T>(sql).ToList());
-            }
-        }
-
-        public async Task Update(T entity, string sql)
-        {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
-            {
-                await conn.ExecuteAsync(sql, entity);
             }
         }
     }

@@ -12,8 +12,8 @@ using STD.NetCore.Common;
 
 namespace Nzh.Admin.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/[controller]/[action]")]
+    //[ApiController]
     public class DemoController : Controller
     {
         private readonly IDemoRepository demoRepository;

@@ -4,12 +4,19 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\Debug\netcoreapp2.1\</OutputPath>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\Nzh.Admin.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="Log\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Configuration" Version="4.0.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
@@ -20,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Nzh.Admin.Common\Nzh.Admin.Common.csproj" />
     <ProjectReference Include="..\Nzh.Admin.IRepository\Nzh.Admin.IRepository.csproj" />
+    <ProjectReference Include="..\Nzh.Admin.Repository\Nzh.Admin.Repository.csproj" />
   </ItemGroup>
 
 </Project>

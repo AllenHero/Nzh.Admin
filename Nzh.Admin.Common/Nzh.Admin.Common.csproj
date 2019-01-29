@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\64450\Desktop\Nzh.Admin\Nzh.Admin.Common\Nzh.Admin.Common.xml</DocumentationFile>
+    <OutputPath>C:\Users\64450\Desktop\Nzh.Admin\Nzh.Admin\bin\Debug\netcoreapp2.1\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />

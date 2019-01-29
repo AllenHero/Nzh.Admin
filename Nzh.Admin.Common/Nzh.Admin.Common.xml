@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nzh.Admin.Common</name>
+    </assembly>
+    <members>
+        <member name="T:STD.NetCore.Common.Logger">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="M:STD.NetCore.Common.Logger.Info(System.String,System.Exception)">
+            <summary>
+            普通日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:STD.NetCore.Common.Logger.Warn(System.String,System.Exception)">
+            <summary>
+            告警日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:STD.NetCore.Common.Logger.Error(System.String,System.Exception)">
+            <summary>
+            错误日志
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+    </members>
+</doc>

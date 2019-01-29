@@ -39,7 +39,7 @@ namespace Nzh.Admin.IRepository
         /// <summary>
         /// 删除Demo
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="ID"></param>
         /// <returns></returns>
         Task DeleteDemo(Guid ID);
     }

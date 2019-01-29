@@ -16,10 +16,15 @@ namespace Nzh.Admin.Controllers
     //[ApiController]
     public class DemoController : Controller
     {
-        private readonly IDemoRepository demoRepository;
-        public DemoController(IDemoRepository _demoRepository)
+        private readonly IDemoRepository _demoRepository;
+
+        /// <summary>
+        /// 构造hanshu
+        /// </summary>
+        /// <param name="demoRepository"></param>
+        public DemoController(IDemoRepository demoRepository)
         {
-            demoRepository = _demoRepository;
+            _demoRepository = demoRepository;
         }
 
         /// <summary>
@@ -29,7 +34,7 @@ namespace Nzh.Admin.Controllers
         [HttpGet]
         public async Task<JsonResult> GetDemoList()
         {
-            List<Demo> list = await demoRepository.GetDemoList();
+            List<Demo> list = await _demoRepository.GetDemoList();
             Logger.Info(JsonConvert.SerializeObject(list));//此处调用日志记录函数记录日志
             return Json(list);
         }
@@ -42,7 +47,7 @@ namespace Nzh.Admin.Controllers
         [HttpGet]
         public async Task<JsonResult> GetDemo(Guid ID)
         {
-            Demo model = await demoRepository.GetDemo(ID);
+            Demo model = await _demoRepository.GetDemo(ID);
             Logger.Info(JsonConvert.SerializeObject(model));//此处调用日志记录函数记录日志
             return Json(model);
         }
@@ -55,8 +60,15 @@ namespace Nzh.Admin.Controllers
         [HttpPost]
         public async Task AddDemo(Demo entity)
         {
-            await demoRepository.AddDemo(entity);
-            Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
+            try
+            {
+                await _demoRepository.AddDemo(entity);
+                Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }   
         }
 
         /// <summary>
@@ -69,7 +81,7 @@ namespace Nzh.Admin.Controllers
         {
             try
             {
-                await demoRepository.UpdateDemo(entity);
+                await _demoRepository.UpdateDemo(entity);
                 Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
             }
             catch (Exception ex)
@@ -81,14 +93,14 @@ namespace Nzh.Admin.Controllers
         /// <summary>
         /// 删除Demo
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="ID"></param>
         /// <returns></returns>
         [HttpDelete]
         public async Task DeleteDemo(Guid ID)
         {
             try
             {
-                await demoRepository.DeleteDemo(ID);
+                await _demoRepository.DeleteDemo(ID);
                 Logger.Info(JsonConvert.SerializeObject(ID));//此处调用日志记录函数记录日志
             }
             catch (Exception ex)

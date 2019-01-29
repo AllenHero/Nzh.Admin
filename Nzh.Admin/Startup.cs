@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
+using Nzh.Admin.Common.Base;
 using Nzh.Admin.Http;
 using Nzh.Admin.Model;
 using Nzh.Admin.Model.Base;
@@ -42,6 +43,9 @@ namespace Nzh.Admin
         {
             //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc();
+
+            services.AddOptions();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             #region JWT认证
 
@@ -111,8 +115,11 @@ namespace Nzh.Admin
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer); //第三方IOC接管 core内置DI容器 
-            //return services.BuilderInterceptableServiceProvider(builder => builder.SetDynamicProxyFactory());
+                                                                     //return services.BuilderInterceptableServiceProvider(builder => builder.SetDynamicProxyFactory());
             #endregion
+
+           
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

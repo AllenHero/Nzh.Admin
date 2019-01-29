@@ -47,15 +47,15 @@ namespace Nzh.Admin.Repository
             {
                 using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
                 {
-                    transaction = conn.BeginTransaction();
+                    transaction = conn.BeginTransaction();//开始事务
                     string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
                     await Add(entity, sql);
-                    transaction.Commit();
+                    transaction.Commit();//提交事务
                 } 
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                transaction.Rollback();//回滚
                 throw ex;     
             }
         }
@@ -71,15 +71,15 @@ namespace Nzh.Admin.Repository
             {
                 using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
                 {
-                    transaction = conn.BeginTransaction();
+                    transaction = conn.BeginTransaction();//开始事务
                     string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
                     await Update(entity, sql);
-                    transaction.Commit();
+                    transaction.Commit(); //提交事务
                 }
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                transaction.Rollback();//回滚
                 throw ex;
             }
         }
@@ -95,15 +95,15 @@ namespace Nzh.Admin.Repository
             {
                 using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
                 {
-                    transaction = conn.BeginTransaction();
+                    transaction = conn.BeginTransaction(); //开始事务
                     string sql = "DELETE FROM [dbo].[Demo] WHERE ID=@ID";
                     await Delete(ID, sql);
-                    transaction.Commit();
+                    transaction.Commit();//提交事务
                 }
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                transaction.Rollback();//回滚
                 throw ex;
             }
         }

@@ -6,15 +6,19 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="Log\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Nzh.Admin.Common\Nzh.Admin.Common.csproj" />
     <ProjectReference Include="..\Nzh.Admin.IRepository\Nzh.Admin.IRepository.csproj" />
   </ItemGroup>
 

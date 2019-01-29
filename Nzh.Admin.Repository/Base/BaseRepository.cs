@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,10 @@ namespace Nzh.Admin.Repository.Base
 {
     public class BaseRepository<T> : IBaseRepository<T>
     {
+        protected bool _RestoreMapping = true;
+
+        #region  添加
+
         /// <summary>
         /// 添加
         /// </summary>
@@ -27,18 +32,68 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 删除
+        /// 批量添加
+        /// </summary>
+        /// <param name="entitylist"></param>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task AddRange(List<T> entitylist, string sql)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                await conn.ExecuteAsync(sql, entitylist);
+            }
+        }
+
+        #endregion
+
+        #region  删除
+
+        /// <summary>
+        /// 根据ID删除
         /// </summary>
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task Delete(Guid Id, string sql)
+        public async Task DeleteByID(Guid Id, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
                 await conn.ExecuteAsync(sql, new { Id = Id });
             }
         }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task Delete(T entity, string sql)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                await conn.ExecuteAsync(sql, entity);
+            }
+        }
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task DeleteRange(List<T> entitylist, string sql)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                await conn.ExecuteAsync(sql, entitylist);
+            }
+        }
+
+        #endregion
+
+        #region 修改
 
         /// <summary>
         /// 修改
@@ -51,6 +106,37 @@ namespace Nzh.Admin.Repository.Base
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
                 await conn.ExecuteAsync(sql, entity);
+            }
+        }
+
+        /// <summary>
+        /// 批量修改
+        /// </summary>
+        /// <param name="entitylist"></param>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task UpdateRange(List<T> entitylist, string sql)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                await conn.ExecuteAsync(sql, entitylist);
+            }
+        }
+
+        #endregion
+
+
+        /// <summary>
+        /// 返回数量
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<int> Count(string sql)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                return await conn.ExecuteScalarAsync<int>(sql);
             }
         }
 
@@ -82,16 +168,16 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 返回数量
+        /// 根据条件获取List
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<int> Count(string sql, object param = null)
+        public async Task<List<T>> GetList(string sql , object param = null)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                return await conn.ExecuteScalarAsync<int>(sql, param);
+                return await Task.Run(() => conn.Query<T>(sql, param).ToList());
             }
         }
     }

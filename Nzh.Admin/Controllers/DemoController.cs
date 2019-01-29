@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Nzh.Admin.IRepository;
 using Nzh.Admin.Model;
+using Nzh.Admin.Model.Page;
 using STD.NetCore.Common;
 
 namespace Nzh.Admin.Controllers
@@ -32,11 +33,20 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetDemoList")]
-        public async Task<JsonResult> GetDemoList()
+        public async Task<JsonResult> GetDemoList(int PageIndex,int PageSize)
         {
-            List<Demo> list = await _demoRepository.GetDemoList();
-            Logger.Info(JsonConvert.SerializeObject(list));//此处调用日志记录函数记录日志
-            return Json(list);
+            var result = new OperationResult<PageResult<Demo>>();
+            try
+            {
+                result.data = await _demoRepository.GetDemoList(PageIndex, PageSize);
+            }
+            catch (Exception ex)
+            {
+                result.code = -1;
+                result.msg = ex.Message;
+            }
+            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
+            return Json(result);
         }
 
         /// <summary>

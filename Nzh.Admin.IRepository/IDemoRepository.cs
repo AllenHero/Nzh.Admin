@@ -1,5 +1,6 @@
 ﻿using Nzh.Admin.IRepository.Base;
 using Nzh.Admin.Model;
+using Nzh.Admin.Model.Page;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Nzh.Admin.IRepository
         /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        Task<List<Demo>> GetDemoList();
+        Task<PageResult<Demo>> GetDemoList(int PageIndex, int PageSize);
 
         /// <summary>
         /// 获取单个Demo

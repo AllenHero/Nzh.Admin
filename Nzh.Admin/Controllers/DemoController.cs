@@ -32,17 +32,17 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetDemoList")]
-        public async Task<JsonResult> GetDemoList(int PageIndex,int PageSize)
+        public async Task<JsonResult> GetDemoList(int PageIndex, int PageSize)
         {
             List<Demo> list = await _demoRepository.GetDemoList();
             int TotalCount = 1;
             TotalCount = list.Count() / PageSize;
             list = list.OrderBy(d => d.Age).Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
-            Logger.Info(JsonConvert.SerializeObject(list));
+            Logger.Info(JsonConvert.SerializeObject(list)); //此处调用日志记录函数记录日志
             return Json(new
             {
                 code = 0,
-                message = true,
+                message = "成功",
                 page = PageIndex,
                 pageCount = TotalCount,
                 data = list
@@ -63,7 +63,7 @@ namespace Nzh.Admin.Controllers
             {
                 code = 0,
                 message = true,
-                data= model
+                data = model
             });
         }
 
@@ -73,17 +73,16 @@ namespace Nzh.Admin.Controllers
         /// <param name="entity"></param>
         /// <returns></returns>
         [HttpPost("AddDemo")]
-        public async Task AddDemo(Demo entity)
+        public async Task<JsonResult> AddDemo(Demo entity)
         {
-            try
+            bool result = await _demoRepository.AddDemo(entity);
+            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
+            return Json(new
             {
-                await _demoRepository.AddDemo(entity);
-                Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException(ex.Message);
-            } 
+                code = 0,
+                message = "成功",
+                data = result
+            });
         }
 
         /// <summary>
@@ -92,17 +91,16 @@ namespace Nzh.Admin.Controllers
         /// <param name="entity"></param>
         /// <returns></returns>
         [HttpPut("UpdateDemo")]
-        public async Task  UpdateDemo(Demo entity)
+        public async Task<JsonResult> UpdateDemo(Demo entity)
         {
-            try
+            bool result = await _demoRepository.UpdateDemo(entity);
+            Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
+            return Json(new
             {
-                await _demoRepository.UpdateDemo(entity);
-                Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+                code = 0,
+                message = "成功",
+                data = result
+            });
         }
 
         /// <summary>
@@ -111,17 +109,16 @@ namespace Nzh.Admin.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpDelete("DeleteDemo")]
-        public async Task DeleteDemo(Guid ID)
+        public async Task<JsonResult> DeleteDemo(Guid ID)
         {
-            try
+            bool result = await _demoRepository.DeleteDemo(ID);
+            Logger.Info(JsonConvert.SerializeObject(ID));//此处调用日志记录函数记录日志
+            return Json(new
             {
-                await _demoRepository.DeleteDemo(ID);
-                Logger.Info(JsonConvert.SerializeObject(ID));//此处调用日志记录函数记录日志
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
+                code = 0,
+                message = "成功",
+                data = result
+            });
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Nzh.Admin.IRepository.Base
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="sql"></param>
-        Task Add(T entity, string sql);
+        Task<bool> Add(T entity, string sql);
 
         /// <summary>
         /// 批量添加
@@ -20,7 +20,7 @@ namespace Nzh.Admin.IRepository.Base
         /// <param name="entitylist"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        Task AddRange(List<T> entitylist, string sql);
+        Task<bool> AddRange(List<T> entitylist, string sql);
 
         /// <summary>
         /// 根据ID删除
@@ -28,7 +28,7 @@ namespace Nzh.Admin.IRepository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        Task DeleteByID(Guid Id, string sql);
+        Task<bool> DeleteByID(Guid Id, string sql);
 
         /// <summary>
         /// 删除
@@ -36,7 +36,7 @@ namespace Nzh.Admin.IRepository.Base
         /// <param name="entity"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        Task Delete(T entity, string sql);
+        Task<bool> Delete(T entity, string sql);
 
         /// <summary>
         /// 批量删除
@@ -44,14 +44,14 @@ namespace Nzh.Admin.IRepository.Base
         /// <param name="entity"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        Task DeleteRange(List<T> entitylist, string sql);
+        Task<bool> DeleteRange(List<T> entitylist, string sql);
 
         /// <summary>
         /// 修改
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="sql"></param>
-        Task Update(T entity, string sql);
+        Task<bool> Update(T entity, string sql);
 
         /// <summary>
         /// 批量修改
@@ -59,7 +59,7 @@ namespace Nzh.Admin.IRepository.Base
         /// <param name="entitylist"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        Task UpdateRange(List<T> entitylist, string sql);
+        Task<bool> UpdateRange(List<T> entitylist, string sql);
 
         /// <summary>
         /// 返回数量

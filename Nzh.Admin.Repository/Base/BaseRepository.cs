@@ -23,11 +23,11 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="entity"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task Add(T entity, string sql)
+        public async Task<bool> Add(T entity, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(sql, entity);
+                return await conn.ExecuteAsync(sql, entity)>0;
             }
         }
 
@@ -37,11 +37,11 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="entitylist"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task AddRange(List<T> entitylist, string sql)
+        public async Task<bool> AddRange(List<T> entitylist, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(sql, entitylist);
+                return await conn.ExecuteAsync(sql, entitylist)>0;
             }
         }
 
@@ -55,11 +55,11 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task DeleteByID(Guid Id, string sql)
+        public async Task<bool> DeleteByID(Guid Id, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(sql, new { Id = Id });
+               return await conn.ExecuteAsync(sql, new { Id = Id })>0;
             }
         }
 
@@ -69,11 +69,11 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="entity"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task Delete(T entity, string sql)
+        public async Task<bool> Delete(T entity, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(sql, entity);
+               return await conn.ExecuteAsync(sql, entity)>0;
             }
         }
 
@@ -83,11 +83,11 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="entity"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task DeleteRange(List<T> entitylist, string sql)
+        public async Task<bool> DeleteRange(List<T> entitylist, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(sql, entitylist);
+              return  await conn.ExecuteAsync(sql, entitylist)>0;
             }
         }
 
@@ -101,11 +101,11 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="entity"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task Update(T entity, string sql)
+        public async Task<bool> Update(T entity, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(sql, entity);
+               return await conn.ExecuteAsync(sql, entity)>0;
             }
         }
 
@@ -115,11 +115,11 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="entitylist"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task UpdateRange(List<T> entitylist, string sql)
+        public async Task<bool> UpdateRange(List<T> entitylist, string sql)
         {
             using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
             {
-                await conn.ExecuteAsync(sql, entitylist);
+               return await conn.ExecuteAsync(sql, entitylist)>0;
             }
         }
 

@@ -27,20 +27,20 @@ namespace Nzh.Admin.IRepository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task AddDemo(Demo entity);
+        Task<bool> AddDemo(Demo entity);
 
         /// <summary>
         /// 修改Demo
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task UpdateDemo(Demo entity);
+        Task<bool> UpdateDemo(Demo entity);
 
         /// <summary>
         /// 删除Demo
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        Task DeleteDemo(Guid ID);
+        Task<bool> DeleteDemo(Guid ID);
     }
 }

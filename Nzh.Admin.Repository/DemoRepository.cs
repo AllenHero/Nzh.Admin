@@ -41,16 +41,19 @@ namespace Nzh.Admin.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task AddDemo(Demo entity)
+        public async Task<bool> AddDemo(Demo entity)
         {
+            bool result = false;
             try
             {
                 using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
                 {
                     transaction = conn.BeginTransaction();//开始事务
                     string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
-                    await Add(entity, sql);
+                    result= await Add(entity, sql);
                     transaction.Commit();//提交事务
+                    result = true;
+                    return result;
                 } 
             }
             catch (Exception ex)
@@ -65,16 +68,19 @@ namespace Nzh.Admin.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task UpdateDemo(Demo entity)
+        public async Task<bool> UpdateDemo(Demo entity)
         {
+            bool result = false;
             try
             {
                 using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
                 {
                     transaction = conn.BeginTransaction();//开始事务
                     string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
-                    await Update(entity, sql);
+                    result= await Update(entity, sql);
                     transaction.Commit(); //提交事务
+                    result = true;
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -89,16 +95,19 @@ namespace Nzh.Admin.Repository
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public async Task DeleteDemo(Guid ID)
+        public async Task<bool> DeleteDemo(Guid ID)
         {
+            bool result = false;
             try
             {
                 using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
                 {
                     transaction = conn.BeginTransaction(); //开始事务
                     string sql = "DELETE FROM [dbo].[Demo] WHERE ID=@ID";
-                    await DeleteByID(ID, sql);
+                    result= await DeleteByID(ID, sql);
                     transaction.Commit();//提交事务
+                    result = true;
+                    return result;
                 }
             }
             catch (Exception ex)

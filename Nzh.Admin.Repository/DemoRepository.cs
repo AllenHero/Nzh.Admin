@@ -2,7 +2,6 @@
 using Nzh.Admin.Common.Base;
 using Nzh.Admin.IRepository;
 using Nzh.Admin.Model;
-using Nzh.Admin.Model.Page;
 using Nzh.Admin.Repository.Base;
 using System;
 using System.Collections.Generic;
@@ -16,31 +15,14 @@ namespace Nzh.Admin.Repository
     {
         IDbTransaction transaction = null;
 
-        private readonly string DEFAULT_SORT_FIELD = "ID";
-
         /// <summary>
         /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        public async Task<PageResult<Demo>> GetDemoList(int PageIndex, int PageSize)
+        public async Task<List<Demo>> GetDemoList()
         {
-            var result = new PageResult<Demo>();
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo]";
-            var DemoList= await GetList(sql);
-            //判断page_size是否在0-100之间，超出范围则默认为20。
-            PageSize = PageSize > 0 && PageSize <= 100 ? PageSize : 20;
-            //判断page_size是否大于0，超出范围则默认为1。
-            PageIndex = PageIndex > 0 ? PageIndex : 1;
-            var maxPage = DemoList.Count == 0 ? DemoList.Count / PageSize : (DemoList.Count / PageSize) + 1;
-            if (PageIndex > maxPage)
-            {
-                PageIndex = maxPage; //超过最大页数默认获取最后一页
-            }
-            result.page_num = PageIndex;
-            result.page_size = PageSize;
-            result.total = DemoList.Count;
-            result.list = DemoList;
-            return result;
+            return await GetList(sql);
         }
 
         /// <summary>

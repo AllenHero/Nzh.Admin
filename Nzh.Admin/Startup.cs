@@ -44,9 +44,6 @@ namespace Nzh.Admin
             //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc();
 
-            services.AddOptions();
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-
             #region JWT认证
 
             services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));

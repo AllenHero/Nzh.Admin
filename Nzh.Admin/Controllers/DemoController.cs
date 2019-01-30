@@ -42,7 +42,7 @@ namespace Nzh.Admin.Controllers
             return Json(new
             {
                 code = 0,
-                message = "成功",
+                message = true,
                 page = PageIndex,
                 pageCount = TotalCount,
                 data = list
@@ -59,7 +59,12 @@ namespace Nzh.Admin.Controllers
         {
             Demo model = await _demoRepository.GetDemo(ID);
             Logger.Info(JsonConvert.SerializeObject(model));//此处调用日志记录函数记录日志
-            return Json(model);
+            return Json(new
+            {
+                code = 0,
+                message = true,
+                data= model
+            });
         }
 
         /// <summary>
@@ -78,7 +83,7 @@ namespace Nzh.Admin.Controllers
             catch (Exception ex)
             {
                 throw new ArgumentException(ex.Message);
-            }   
+            } 
         }
 
         /// <summary>

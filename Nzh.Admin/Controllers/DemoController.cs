@@ -94,7 +94,7 @@ namespace Nzh.Admin.Controllers
         public async Task<JsonResult> UpdateDemo(Demo entity)
         {
             bool result = await _demoRepository.UpdateDemo(entity);
-            Logger.Info(JsonConvert.SerializeObject(entity));//此处调用日志记录函数记录日志
+            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {
                 code = 0,
@@ -112,7 +112,7 @@ namespace Nzh.Admin.Controllers
         public async Task<JsonResult> DeleteDemo(Guid ID)
         {
             bool result = await _demoRepository.DeleteDemo(ID);
-            Logger.Info(JsonConvert.SerializeObject(ID));//此处调用日志记录函数记录日志
+            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {
                 code = 0,

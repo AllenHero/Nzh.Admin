@@ -115,8 +115,6 @@ namespace Nzh.Admin
                                                                      //return services.BuilderInterceptableServiceProvider(builder => builder.SetDynamicProxyFactory());
             #endregion
 
-           
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

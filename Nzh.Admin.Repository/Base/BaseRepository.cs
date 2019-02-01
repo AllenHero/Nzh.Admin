@@ -125,6 +125,7 @@ namespace Nzh.Admin.Repository.Base
 
         #endregion
 
+        #region   查询
 
         /// <summary>
         /// 返回数量
@@ -180,5 +181,6 @@ namespace Nzh.Admin.Repository.Base
                 return await Task.Run(() => conn.Query<T>(sql, param).ToList());
             }
         }
+        #endregion
     }
 }

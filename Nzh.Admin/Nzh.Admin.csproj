@@ -17,6 +17,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Configuration" Version="4.0.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
@@ -27,7 +28,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Nzh.Admin.Common\Nzh.Admin.Common.csproj" />
     <ProjectReference Include="..\Nzh.Admin.IRepository\Nzh.Admin.IRepository.csproj" />
+    <ProjectReference Include="..\Nzh.Admin.IService\Nzh.Admin.IService.csproj" />
     <ProjectReference Include="..\Nzh.Admin.Repository\Nzh.Admin.Repository.csproj" />
+    <ProjectReference Include="..\Nzh.Admin.Service\Nzh.Admin.Service.csproj" />
   </ItemGroup>
 
 </Project>

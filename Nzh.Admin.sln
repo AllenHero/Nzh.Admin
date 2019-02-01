@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzh.Admin", "Nzh.Admin\Nzh.Admin.csproj", "{66251A11-F231-43ED-A9DD-951441718216}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nzh.Admin", "Nzh.Admin\Nzh.Admin.csproj", "{66251A11-F231-43ED-A9DD-951441718216}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzh.Admin.Repository", "Nzh.Admin.Repository\Nzh.Admin.Repository.csproj", "{9A4B726D-0289-44AF-8603-62F3E31A4A35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nzh.Admin.Repository", "Nzh.Admin.Repository\Nzh.Admin.Repository.csproj", "{9A4B726D-0289-44AF-8603-62F3E31A4A35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzh.Admin.IRepository", "Nzh.Admin.IRepository\Nzh.Admin.IRepository.csproj", "{644D7B4D-82EF-4E85-8E7D-D3935519A4F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nzh.Admin.IRepository", "Nzh.Admin.IRepository\Nzh.Admin.IRepository.csproj", "{644D7B4D-82EF-4E85-8E7D-D3935519A4F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzh.Admin.Model", "Nzh.Admin.Model\Nzh.Admin.Model.csproj", "{3E4373B4-BBAD-484D-8F0B-89F2380B7E42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nzh.Admin.Model", "Nzh.Admin.Model\Nzh.Admin.Model.csproj", "{3E4373B4-BBAD-484D-8F0B-89F2380B7E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzh.Admin.Common", "Nzh.Admin.Common\Nzh.Admin.Common.csproj", "{7B454797-60D0-4CB0-B314-8945D3D7CE79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nzh.Admin.Common", "Nzh.Admin.Common\Nzh.Admin.Common.csproj", "{7B454797-60D0-4CB0-B314-8945D3D7CE79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzh.Admin.Service", "Nzh.Admin.Service\Nzh.Admin.Service.csproj", "{068B4F7E-BB17-4642-8BC5-8E7FD311E6D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzh.Admin.IService", "Nzh.Admin.IService\Nzh.Admin.IService.csproj", "{6A8D97E9-02F0-4AD8-9F72-60A4238EC04A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{7B454797-60D0-4CB0-B314-8945D3D7CE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B454797-60D0-4CB0-B314-8945D3D7CE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B454797-60D0-4CB0-B314-8945D3D7CE79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{068B4F7E-BB17-4642-8BC5-8E7FD311E6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068B4F7E-BB17-4642-8BC5-8E7FD311E6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068B4F7E-BB17-4642-8BC5-8E7FD311E6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068B4F7E-BB17-4642-8BC5-8E7FD311E6D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8D97E9-02F0-4AD8-9F72-60A4238EC04A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8D97E9-02F0-4AD8-9F72-60A4238EC04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8D97E9-02F0-4AD8-9F72-60A4238EC04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8D97E9-02F0-4AD8-9F72-60A4238EC04A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

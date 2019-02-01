@@ -20,8 +20,12 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Nzh.Admin.Common.Base;
 using Nzh.Admin.Http;
+using Nzh.Admin.IRepository;
+using Nzh.Admin.IService;
 using Nzh.Admin.Model;
 using Nzh.Admin.Model.Base;
+using Nzh.Admin.Repository;
+using Nzh.Admin.Service;
 using Nzh.Admin.SwaggerHelp;
 using Nzh.Admin.Unit;
 using Swashbuckle.AspNetCore.Swagger;
@@ -41,7 +45,7 @@ namespace Nzh.Admin
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc();
 
             #region JWT认证
@@ -64,6 +68,11 @@ namespace Nzh.Admin
             });
 
             #endregion
+
+            //注入服务、仓储类
+            services.AddTransient<IDemoRepository, DemoRepository>();
+            services.AddTransient<IDemoService, DemoService>();
+            services.AddMvc();
 
             #region Swagger
             services.AddSwaggerGen(c =>
@@ -101,7 +110,6 @@ namespace Nzh.Admin
             //获取所有的程序集
             //var assemblys = BuildManager.GetReferencedAssemblies().Cast<Assembly>().ToArray();
             var assemblys = RuntimeHelper.GetAllAssemblies().ToArray();
-
             //注册所有继承IDependency接口的类
             builder.RegisterAssemblyTypes().Where(type => typeof(IDependency).IsAssignableFrom(type) && !type.IsAbstract);
             //注册仓储，所有IRepository接口到Repository的映射
@@ -112,7 +120,7 @@ namespace Nzh.Admin
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer); //第三方IOC接管 core内置DI容器 
-                                                                     //return services.BuilderInterceptableServiceProvider(builder => builder.SetDynamicProxyFactory());
+            //return services.BuilderInterceptableServiceProvider(builder => builder.SetDynamicProxyFactory());
             #endregion
 
         }
@@ -123,12 +131,8 @@ namespace Nzh.Admin
             {
                 app.UseDeveloperExceptionPage();
             }
-            //else
-            //{
-            //    app.UseHsts();
-            //}
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Nzh.Admin.IRepository;
+using Nzh.Admin.IService;
 using Nzh.Admin.Model;
 using STD.NetCore.Common;
 
@@ -16,15 +17,15 @@ namespace Nzh.Admin.Controllers
     //[ApiController]
     public class DemoController : Controller
     {
-        private readonly IDemoRepository _demoRepository;
+        private readonly IDemoService _demoservice;
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="demoRepository"></param>
-        public DemoController(IDemoRepository demoRepository)
+        /// <param name="demoservice"></param>
+        public DemoController(IDemoService demoservice)
         {
-            _demoRepository = demoRepository;
+            _demoservice = demoservice;
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace Nzh.Admin.Controllers
         [HttpGet("GetDemoList")]
         public async Task<JsonResult> GetDemoList(int PageIndex, int PageSize)
         {
-            List<Demo> list = await _demoRepository.GetDemoList();
+            List<Demo> list = await _demoservice.GetDemoList();
             int TotalCount = 1;
             TotalCount = list.Count() / PageSize;
             list = list.OrderBy(d => d.Age).Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
@@ -57,7 +58,7 @@ namespace Nzh.Admin.Controllers
         [HttpGet("GetDemo")]
         public async Task<JsonResult> GetDemo(Guid ID)
         {
-            Demo model = await _demoRepository.GetDemo(ID);
+            Demo model = await _demoservice.GetDemo(ID);
             Logger.Info(JsonConvert.SerializeObject(model));//此处调用日志记录函数记录日志
             return Json(new
             {
@@ -75,7 +76,7 @@ namespace Nzh.Admin.Controllers
         [HttpPost("AddDemo")]
         public async Task<JsonResult> AddDemo(Demo entity)
         {
-            bool result = await _demoRepository.AddDemo(entity);
+            bool result = await _demoservice.AddDemo(entity);
             Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {
@@ -93,7 +94,7 @@ namespace Nzh.Admin.Controllers
         [HttpPut("UpdateDemo")]
         public async Task<JsonResult> UpdateDemo(Demo entity)
         {
-            bool result = await _demoRepository.UpdateDemo(entity);
+            bool result = await _demoservice.UpdateDemo(entity);
             Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {
@@ -111,7 +112,7 @@ namespace Nzh.Admin.Controllers
         [HttpDelete("DeleteDemo")]
         public async Task<JsonResult> DeleteDemo(Guid ID)
         {
-            bool result = await _demoRepository.DeleteDemo(ID);
+            bool result = await _demoservice.DeleteDemo(ID);
             Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {

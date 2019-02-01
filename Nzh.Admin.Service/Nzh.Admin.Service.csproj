@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nzh.Admin.Common\Nzh.Admin.Common.csproj" />
+    <ProjectReference Include="..\Nzh.Admin.IRepository\Nzh.Admin.IRepository.csproj" />
+    <ProjectReference Include="..\Nzh.Admin.IService\Nzh.Admin.IService.csproj" />
+  </ItemGroup>
+
+</Project>

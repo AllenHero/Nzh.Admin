@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Nzh.Admin.Model
 {
+    /// <summary>
+    ///  Demo
+    /// </summary>
     public class Demo : BaseModel
     {
         public string Name { get; set; }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Nzh.Admin.SwaggerHelp
 {
+    /// <summary>
+    /// Swagger配置
+    /// </summary>
     public class SwaggerDocTag :IDocumentFilter
     {
         /// <summary>

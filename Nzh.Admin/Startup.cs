@@ -19,7 +19,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Nzh.Admin.Common.Base;
-using Nzh.Admin.Http;
 using Nzh.Admin.IRepository;
 using Nzh.Admin.IService;
 using Nzh.Admin.Model;
@@ -27,7 +26,6 @@ using Nzh.Admin.Model.Base;
 using Nzh.Admin.Repository;
 using Nzh.Admin.Service;
 using Nzh.Admin.SwaggerHelp;
-using Nzh.Admin.Unit;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Nzh.Admin
@@ -43,31 +41,10 @@ namespace Nzh.Admin
 
         public IContainer ApplicationContainer { get; private set; }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc();
-
-            #region JWT认证
-
-            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
-            JwtSettings setting = new JwtSettings();
-            Configuration.Bind("JwtSettings", setting);
-            services.AddAuthentication(option =>
-            {
-                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(config =>
-            {
-                config.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidAudience = setting.Audience,
-                    ValidIssuer = setting.Issuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(setting.SecretKey))
-                };
-            });
-
-            #endregion
 
             //注入服务、仓储类
             services.AddTransient<IDemoRepository, DemoRepository>();
@@ -100,27 +77,6 @@ namespace Nzh.Admin
                 c.DocumentFilter<SwaggerDocTag>();
                 //c.OperationFilter<HttpHeaderOperation>(); // 添加httpHeader参数
             });
-            #endregion
-
-            #region 依赖注入
-
-            var builder = new ContainerBuilder();//实例化容器
-            //注册所有模块module
-            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
-            //获取所有的程序集
-            //var assemblys = BuildManager.GetReferencedAssemblies().Cast<Assembly>().ToArray();
-            var assemblys = RuntimeHelper.GetAllAssemblies().ToArray();
-            //注册所有继承IDependency接口的类
-            builder.RegisterAssemblyTypes().Where(type => typeof(IDependency).IsAssignableFrom(type) && !type.IsAbstract);
-            //注册仓储，所有IRepository接口到Repository的映射
-            builder.RegisterAssemblyTypes(assemblys).Where(t => t.Name.EndsWith("Repository") && !t.Name.StartsWith("I")).AsImplementedInterfaces();
-            //注册服务，所有IApplicationService到ApplicationService的映射
-            //builder.RegisterAssemblyTypes(assemblys).Where(t => t.Name.EndsWith("AppService") && !t.Name.StartsWith("I")).AsImplementedInterfaces();
-            builder.Populate(services);
-            ApplicationContainer = builder.Build();
-
-            return new AutofacServiceProvider(ApplicationContainer); //第三方IOC接管 core内置DI容器 
-            //return services.BuilderInterceptableServiceProvider(builder => builder.SetDynamicProxyFactory());
             #endregion
 
         }

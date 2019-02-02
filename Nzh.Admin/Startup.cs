@@ -52,6 +52,7 @@ namespace Nzh.Admin
             services.AddMvc();
 
             #region Swagger
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -75,7 +76,6 @@ namespace Nzh.Admin
                 c.IncludeXmlComments(comonPath);
                 //添加对控制器的标签(描述)
                 c.DocumentFilter<SwaggerDocTag>();
-                //c.OperationFilter<HttpHeaderOperation>(); // 添加httpHeader参数
             });
             #endregion
 

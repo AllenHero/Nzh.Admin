@@ -169,6 +169,21 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public async Task<List<T>> GetList(string sql, int pageIndex, int pageSize)
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                return await Task.Run(() => conn.Query<T>(sql).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
+            }
+        }
+
+        /// <summary>
         /// 根据条件获取List
         /// </summary>
         /// <param name="sql"></param>
@@ -181,6 +196,23 @@ namespace Nzh.Admin.Repository.Base
                 return await Task.Run(() => conn.Query<T>(sql, param).ToList());
             }
         }
+
+        /// <summary>
+        /// 分页加条件
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<List<T>> GetList(string sql, int pageIndex, int pageSize, object param = null )
+        {
+            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            {
+                return await Task.Run(() => conn.Query<T>(sql, param).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
+            }
+        }
         #endregion
+
     }
 }

@@ -85,12 +85,31 @@ namespace Nzh.Admin.IRepository.Base
         Task<List<T>> GetList(string sql);
 
         /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        Task<List<T>> GetList(string sql, int pageIndex, int pageSize);
+
+        /// <summary>
         /// 根据条件获取List
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="param"></param>
         /// <returns></returns>
         Task<List<T>> GetList(string sql, object param = null);
+
+        /// <summary>
+        /// 分页加条件
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<List<T>> GetList(string sql, int pageIndex, int pageSize, object param = null);
 
     }
 }

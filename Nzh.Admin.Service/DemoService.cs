@@ -25,7 +25,7 @@ namespace Nzh.Admin.Service
         /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Demo>> GetDemoList()
+        public async Task<List<Demo>> GetDemoPageList()
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo]";
             return await _demorepository.GetList(sql);
@@ -36,7 +36,7 @@ namespace Nzh.Admin.Service
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public async Task<Demo> GetDemo(Guid ID)
+        public async Task<Demo> GetDemoById(Guid ID)
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo] WHERE ID=@ID";
             return await _demorepository.Get(ID, sql);

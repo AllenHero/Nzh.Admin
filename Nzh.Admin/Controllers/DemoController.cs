@@ -32,10 +32,10 @@ namespace Nzh.Admin.Controllers
         /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetDemoList")]
-        public async Task<JsonResult> GetDemoList(int PageIndex, int PageSize)
+        [HttpGet("GetDemoPageList")]
+        public async Task<JsonResult> GetDGetDemoPageListemoList(int PageIndex, int PageSize)
         {
-            List<Demo> list = await _demoservice.GetDemoList();
+            List<Demo> list = await _demoservice.GetDemoPageList();
             int TotalCount = 1;
             TotalCount = list.Count() / PageSize;
             list = list.OrderBy(d => d.Age).Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
@@ -56,9 +56,9 @@ namespace Nzh.Admin.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         [HttpGet("GetDemo")]
-        public async Task<JsonResult> GetDemo(Guid ID)
+        public async Task<JsonResult> GetDemoById(Guid ID)
         {
-            Demo model = await _demoservice.GetDemo(ID);
+            Demo model = await _demoservice.GetDemoById(ID);
             Logger.Info(JsonConvert.SerializeObject(model));//此处调用日志记录函数记录日志
             return Json(new
             {

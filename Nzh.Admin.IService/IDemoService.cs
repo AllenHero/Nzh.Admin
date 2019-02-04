@@ -12,14 +12,14 @@ namespace Nzh.Admin.IService
         /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        Task<List<Demo>> GetDemoList();
+        Task<List<Demo>> GetDemoPageList();
 
         /// <summary>
         /// 获取单个Demo
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        Task<Demo> GetDemo(Guid ID);
+        Task<Demo> GetDemoById(Guid ID);
 
         /// <summary>
         /// 新增Demo

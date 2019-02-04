@@ -33,7 +33,7 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetDemoPageList")]
-        public async Task<JsonResult> GetDGetDemoPageListemoList(int PageIndex, int PageSize)
+        public async Task<JsonResult> GetDemoPageList(int PageIndex, int PageSize)
         {
             List<Demo> list = await _demoservice.GetDemoPageList();
             int TotalCount = 1;
@@ -55,7 +55,7 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        [HttpGet("GetDemo")]
+        [HttpGet("GetDemoById")]
         public async Task<JsonResult> GetDemoById(Guid ID)
         {
             Demo model = await _demoservice.GetDemoById(ID);

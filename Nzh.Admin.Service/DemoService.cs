@@ -55,8 +55,9 @@ namespace Nzh.Admin.Service
                 using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
                 {
                     transaction = conn.BeginTransaction();//开始事务
-                    string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
-                    result = await _demorepository.Add(entity, sql);
+                    //string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
+                    //result = await _demorepository.Add(entity, sql);
+                    result =  _demorepository.Insert(entity);
                     transaction.Commit();//提交事务
                     result = true;
                     return result;

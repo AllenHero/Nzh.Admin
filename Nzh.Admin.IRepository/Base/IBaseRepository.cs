@@ -1,11 +1,13 @@
-﻿using System;
+﻿using DapperExtensions;
+using Nzh.Admin.Model.Base;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Nzh.Admin.IRepository.Base
 {
-    public interface IBaseRepository<T>
+    public interface IBaseRepository<T> where T : class, new()
     {
         /// <summary>
         /// 添加
@@ -110,6 +112,38 @@ namespace Nzh.Admin.IRepository.Base
         /// <param name="param"></param>
         /// <returns></returns>
         Task<List<T>> GetList(string sql, int pageIndex, int pageSize, object param = null);
+
+        bool Insert(T model);
+
+        bool InsertBatch(List<T> models);
+
+        bool Update(T model);
+
+        bool UpdateBatch(List<T> models);
+
+        bool Delete(T model);
+
+        bool Delete(object predicate);
+
+        bool DeleteByWhere(string where, object param = null);
+
+        bool DeleteBatch(List<T> models);
+
+        T Get(object id);
+
+        T Get(object id, string keyName);
+
+        List<T> GetList(object predicate = null, IList<ISort> sort = null);
+
+        List<T> GetList(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "");
+
+        int Count(object predicate = null);
+
+        int CountByWhere(string where);
+
+        List<T> GetPage(object predicate, IList<ISort> sort, int page, int resultsPerPage);
+
+        PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*");
 
     }
 }

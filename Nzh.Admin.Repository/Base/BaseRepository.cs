@@ -1,6 +1,9 @@
 ﻿using Dapper;
+using DapperExtensions;
 using Nzh.Admin.Common.Base;
 using Nzh.Admin.IRepository.Base;
+using Nzh.Admin.Model.Base;
+using Nzh.Admin.Repository.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,9 +14,11 @@ using System.Threading.Tasks;
 
 namespace Nzh.Admin.Repository.Base
 {
-    public class BaseRepository<T> : IBaseRepository<T>
+    public class BaseRepository<T> : IBaseRepository<T> where T : class, new()
     {
         protected bool _RestoreMapping = true;
+
+        DapperExtensions<T> _dapperExtension = new DapperExtensions<T>(); //dapper扩展
 
         #region  添加
 
@@ -213,6 +218,190 @@ namespace Nzh.Admin.Repository.Base
             }
         }
         #endregion
-  
+
+        #region Dapper扩展方法
+
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool Insert(T model)
+        {
+            return _dapperExtension.Insert(model);
+        }
+
+        /// <summary>
+        /// 批量插入
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public bool InsertBatch(List<T> models)
+        {
+            return _dapperExtension.InsertBatch(models);
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool Update(T model)
+        {
+            return _dapperExtension.Update(model);
+        }
+
+        /// <summary>
+        /// 批量更新
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public bool UpdateBatch(List<T> models)
+        {
+            return _dapperExtension.UpdateBatch(models);
+        }
+
+
+        /// <summary> 
+        ///根据实体删除 id必须是int 或 guid
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool Delete(T model)
+        {
+            return _dapperExtension.Delete(model);
+        }
+
+
+        /// <summary>
+        /// 根据条件删除
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool Delete(object predicate)
+        {
+            return _dapperExtension.Delete(predicate);
+        }
+
+        /// <summary>
+        /// 根据条件删除
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool DeleteByWhere(string where, object param = null)
+        {
+            return _dapperExtension.DeleteByWhere(where, param);
+        }
+
+        /// <summary>
+        /// 根据实体删除 id必须是int 或 guid
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public bool DeleteBatch(List<T> models)
+        {
+            return _dapperExtension.DeleteBatch(models);
+        }
+
+
+        /// <summary>
+        /// 获取一个实体对象
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public T Get(object id)
+        {
+            return _dapperExtension.Get(id);
+        }
+
+        /// <summary>
+        /// 获取一个实体对象
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public T Get(object id, string keyName)
+        {
+            return _dapperExtension.Get(id, keyName);
+        }
+
+
+        /// <summary>
+        /// 根据条件查询实体列表
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public List<T> GetList(object predicate = null, IList<ISort> sort = null)
+        {
+            return _dapperExtension.GetList(predicate, sort);
+
+        }
+
+
+        /// <summary>
+        /// 根据条件查询实体列表
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="limits">前几条</param>
+        /// <returns></returns>
+        public List<T> GetList(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
+        {
+            return _dapperExtension.GetList(where, sort, limits, fields, orderby);
+
+        }
+
+        /// <summary>
+        /// 获取记录条数
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public int Count(object predicate = null)
+        {
+            return _dapperExtension.Count(predicate);
+        }
+
+
+        /// <summary>
+        /// 获取记录条数
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public int CountByWhere(string where)
+        {
+            return _dapperExtension.CountByWhere(where);
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="page">页索引</param>
+        /// <param name="resultsPerPage">页大小</param>
+        /// <returns></returns>
+        public List<T> GetPage(object predicate, IList<ISort> sort, int page, int resultsPerPage)
+        {
+            page = page - 1;
+            return _dapperExtension.GetPage(predicate, sort, page, resultsPerPage);
+
+        }
+
+        /// <summary>
+        /// 存储过程分页查询
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="sort"></param>
+        /// <param name="page"></param>
+        /// <param name="resultsPerPage"></param>
+        /// <returns></returns>
+
+        public PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*")
+        {
+            return _dapperExtension.GetPage(where, sort, page, resultsPerPage, fields);
+        }
+
+        #endregion
     }
 }

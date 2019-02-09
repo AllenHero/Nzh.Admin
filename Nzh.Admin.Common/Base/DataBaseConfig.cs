@@ -17,6 +17,9 @@ namespace Nzh.Admin.Common.Base
         /// </summary>
         private static string DefaultSqlConnectionString = @"Data Source=localhost;Initial Catalog=STD_DB;User ID=sa;Password=123;";
 
+        /// <summary>
+        ///  获取
+        /// </summary>                                                
         public static string ConnStr { get { return DefaultSqlConnectionString; } }
 
         /// <summary>
@@ -28,7 +31,7 @@ namespace Nzh.Admin.Common.Base
         {
             if (string.IsNullOrWhiteSpace(sqlConnectionString))
             {
-                sqlConnectionString = DefaultSqlConnectionString;
+                sqlConnectionString = ConnStr;
             }
             IDbConnection conn = new SqlConnection(sqlConnectionString);
             conn.Open();

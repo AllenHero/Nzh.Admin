@@ -57,7 +57,7 @@ namespace Nzh.Admin.Service
                     transaction = conn.BeginTransaction();//开始事务
                     //string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
                     //result = await _demorepository.Add(entity, sql);
-                    result =  _demorepository.Insert(entity);
+                    result =  _demorepository.Insert(entity);  //dapper扩展方法
                     transaction.Commit();//提交事务
                     result = true;
                     return result;

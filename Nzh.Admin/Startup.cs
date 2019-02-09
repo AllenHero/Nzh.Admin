@@ -5,8 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +22,7 @@ using Nzh.Admin.IService;
 using Nzh.Admin.Model;
 using Nzh.Admin.Model.Base;
 using Nzh.Admin.Repository;
+using Nzh.Admin.Repository.Factory;
 using Nzh.Admin.Service;
 using Nzh.Admin.SwaggerHelp;
 using Swashbuckle.AspNetCore.Swagger;
@@ -39,7 +38,6 @@ namespace Nzh.Admin
 
         public IConfiguration Configuration { get; }
 
-        public IContainer ApplicationContainer { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -47,8 +45,11 @@ namespace Nzh.Admin
             services.AddMvc();
 
             //注入服务、仓储类
-            services.AddTransient<IDemoRepository, DemoRepository>();
-            services.AddTransient<IDemoService, DemoService>();
+            //services.AddTransient<IDemoRepository, DemoRepository>();
+            //services.AddTransient<IDemoService, DemoService>();
+
+             services.AddRepositories();
+
             services.AddMvc();
 
             #region Swagger

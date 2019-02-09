@@ -7,12 +7,15 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="DapperExtensions.NetCore" Version="2.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Nzh.Admin.Common\Nzh.Admin.Common.csproj" />
     <ProjectReference Include="..\Nzh.Admin.IRepository\Nzh.Admin.IRepository.csproj" />
+    <ProjectReference Include="..\Nzh.Admin.IService\Nzh.Admin.IService.csproj" />
     <ProjectReference Include="..\Nzh.Admin.Model\Nzh.Admin.Model.csproj" />
+    <ProjectReference Include="..\Nzh.Admin.Service\Nzh.Admin.Service.csproj" />
   </ItemGroup>
 
 </Project>

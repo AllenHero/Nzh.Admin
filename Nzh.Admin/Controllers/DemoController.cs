@@ -12,6 +12,9 @@ using STD.NetCore.Common;
 
 namespace Nzh.Admin.Controllers
 {
+    /// <summary>
+    /// Demo
+    /// </summary>
     [Route("api/[controller]/[action]")]
     //[ApiController]
     public class DemoController : Controller
@@ -21,7 +24,7 @@ namespace Nzh.Admin.Controllers
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="demoservice"></param>
+        /// <param name="demoService"></param>
         public DemoController(IDemoService demoService)
         {
             _demoService = demoService;

@@ -2,8 +2,8 @@
 using DapperExtensions;
 using Nzh.Admin.IRepository.Base;
 using Nzh.Admin.Model.Base;
+using Nzh.Admin.Repository.Config;
 using Nzh.Admin.Repository.Extensions;
-using Nzh.Admin.Service.Config;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,6 +20,12 @@ namespace Nzh.Admin.Repository.Base
 
         DapperExtensions<T> _dapperExtension = new DapperExtensions<T>(); //dapper扩展
 
+        public IDbConnection GetConnection()
+        {
+            IDbConnection conn = DataBaseConfig.GetSqlConnection();
+            return conn;
+        }
+
         #region  添加
 
         /// <summary>
@@ -30,9 +36,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<bool> Add(T entity, string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-                return await conn.ExecuteAsync(sql, entity)>0;
+                return await GetConnection().ExecuteAsync(sql, entity)>0;
             }
         }
 
@@ -44,9 +50,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<bool> AddRange(List<T> entitylist, string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-                return await conn.ExecuteAsync(sql, entitylist)>0;
+                return await GetConnection().ExecuteAsync(sql, entitylist)>0;
             }
         }
 
@@ -62,9 +68,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<bool> DeleteByID(Guid Id, string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-               return await conn.ExecuteAsync(sql, new { Id = Id })>0;
+               return await GetConnection().ExecuteAsync(sql, new { Id = Id })>0;
             }
         }
 
@@ -76,9 +82,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<bool> Delete(T entity, string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-               return await conn.ExecuteAsync(sql, entity)>0;
+               return await GetConnection().ExecuteAsync(sql, entity)>0;
             }
         }
 
@@ -90,9 +96,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<bool> DeleteRange(List<T> entitylist, string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-              return  await conn.ExecuteAsync(sql, entitylist)>0;
+              return  await GetConnection().ExecuteAsync(sql, entitylist)>0;
             }
         }
 
@@ -108,9 +114,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<bool> Update(T entity, string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-               return await conn.ExecuteAsync(sql, entity)>0;
+               return await GetConnection().ExecuteAsync(sql, entity)>0;
             }
         }
 
@@ -122,9 +128,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<bool> UpdateRange(List<T> entitylist, string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-               return await conn.ExecuteAsync(sql, entitylist)>0;
+               return await GetConnection().ExecuteAsync(sql, entitylist)>0;
             }
         }
 
@@ -140,9 +146,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<int> Count(string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-                return await conn.ExecuteScalarAsync<int>(sql);
+                return await GetConnection().ExecuteScalarAsync<int>(sql);
             }
         }
 
@@ -154,9 +160,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<T> Get(Guid Id, string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-                return await conn.QueryFirstOrDefaultAsync<T>(sql, new { Id = Id });
+                return await GetConnection().QueryFirstOrDefaultAsync<T>(sql, new { Id = Id });
             }
         }
 
@@ -167,9 +173,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<List<T>> GetList(string sql)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-                return await Task.Run(() => conn.Query<T>(sql).ToList());
+                return await Task.Run(() => GetConnection().Query<T>(sql).ToList());
             }
         }
 
@@ -182,9 +188,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<List<T>> GetList(string sql, int pageIndex, int pageSize)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-                return await Task.Run(() => conn.Query<T>(sql).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
+                return await Task.Run(() => GetConnection().Query<T>(sql).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
             }
         }
 
@@ -196,9 +202,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<List<T>> GetList(string sql , object param = null)
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-                return await Task.Run(() => conn.Query<T>(sql, param).ToList());
+                return await Task.Run(() => GetConnection().Query<T>(sql, param).ToList());
             }
         }
 
@@ -212,9 +218,9 @@ namespace Nzh.Admin.Repository.Base
         /// <returns></returns>
         public async Task<List<T>> GetList(string sql, int pageIndex, int pageSize, object param = null )
         {
-            using (IDbConnection conn = DataBaseConfig.GetSqlConnection())
+            using (GetConnection())
             {
-                return await Task.Run(() => conn.Query<T>(sql, param).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
+                return await Task.Run(() => GetConnection().Query<T>(sql, param).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
             }
         }
         #endregion

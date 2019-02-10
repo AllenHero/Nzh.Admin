@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace Nzh.Admin.Service.Config
+namespace Nzh.Admin.Repository.Config
 {
     /// <summary>
     /// 数据库配置

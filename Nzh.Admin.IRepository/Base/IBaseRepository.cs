@@ -2,6 +2,7 @@
 using Nzh.Admin.Model.Base;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,9 @@ namespace Nzh.Admin.IRepository.Base
 {
     public interface IBaseRepository<T> where T : class, new()
     {
+        IDbConnection GetConnection();
+
+
         /// <summary>
         /// 添加
         /// </summary>

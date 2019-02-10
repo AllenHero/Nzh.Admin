@@ -20,6 +20,10 @@ namespace Nzh.Admin.Repository.Base
 
         DapperExtensions<T> _dapperExtension = new DapperExtensions<T>(); //dapper扩展
 
+        /// <summary>
+        /// 数据库连接信息
+        /// </summary>
+        /// <returns></returns>
         public IDbConnection GetConnection()
         {
             IDbConnection conn = DataBaseConfig.GetSqlConnection();

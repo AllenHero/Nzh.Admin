@@ -24,8 +24,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nzh.Admin.Common\Nzh.Admin.Common.csproj" />
+    <ProjectReference Include="..\Nzh.Admin.Extension\Nzh.Admin.Extension.csproj" />
     <ProjectReference Include="..\Nzh.Admin.IService\Nzh.Admin.IService.csproj" />
-    <ProjectReference Include="..\Nzh.Admin.Repository\Nzh.Admin.Repository.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Nzh.Admin.IRepository;
 using Nzh.Admin.IService;
+using Nzh.Admin.Repository;
 using Nzh.Admin.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nzh.Admin.Repository.Factory
+namespace Nzh.Admin.Extension
 {
     public static class SiteServicesExtensions
     {
@@ -24,7 +25,6 @@ namespace Nzh.Admin.Repository.Factory
             services.AddScoped<IDemoService, DemoService>();
 
             return services;
-
         }
     }
 }

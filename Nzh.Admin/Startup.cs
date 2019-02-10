@@ -16,10 +16,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
+using Nzh.Admin.Extension;
 using Nzh.Admin.IService;
 using Nzh.Admin.Model;
 using Nzh.Admin.Model.Base;
-using Nzh.Admin.Repository.Factory;
 using Nzh.Admin.SwaggerHelp;
 using Swashbuckle.AspNetCore.Swagger;
 

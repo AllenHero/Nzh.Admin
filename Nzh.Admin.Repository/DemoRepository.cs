@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Nzh.Admin.Common.Base;
 using Nzh.Admin.IRepository;
 using Nzh.Admin.Model;
 using Nzh.Admin.Repository.Base;

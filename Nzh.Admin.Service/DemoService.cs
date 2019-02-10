@@ -1,7 +1,8 @@
-﻿using Nzh.Admin.Common.Base;
+﻿
 using Nzh.Admin.IRepository;
 using Nzh.Admin.IService;
 using Nzh.Admin.Model;
+using Nzh.Admin.Service.Config;
 using System;
 using System.Collections.Generic;
 using System.Data;

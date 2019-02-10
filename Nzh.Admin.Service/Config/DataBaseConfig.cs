@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace Nzh.Admin.Common.Base
+namespace Nzh.Admin.Service.Config
 {
     /// <summary>
     /// 数据库配置

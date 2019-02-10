@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using DapperExtensions;
-using Nzh.Admin.Common.Base;
 using Nzh.Admin.IRepository.Base;
 using Nzh.Admin.Model.Base;
 using Nzh.Admin.Repository.Extensions;
+using Nzh.Admin.Service.Config;
 using System;
 using System.Collections.Generic;
 using System.Data;

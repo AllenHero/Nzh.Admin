@@ -8,8 +8,10 @@ namespace Nzh.Admin.Model
     /// <summary>
     ///  Demo
     /// </summary>
-    public class Demo : BaseModel
+    public class Demo 
     {
+        public Guid ID { get; set; }
+
         public string Name { get; set; }
 
         public string Sex { get; set; }

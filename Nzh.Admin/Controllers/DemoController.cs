@@ -17,15 +17,15 @@ namespace Nzh.Admin.Controllers
     //[ApiController]
     public class DemoController : Controller
     {
-        private readonly IDemoService _demoservice;
+        private readonly IDemoService _demoService;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="demoservice"></param>
-        public DemoController(IDemoService demoservice)
+        public DemoController(IDemoService demoService)
         {
-            _demoservice = demoservice;
+            _demoService = demoService;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Nzh.Admin.Controllers
         [HttpGet("GetDemoPageList")]
         public async Task<JsonResult> GetDemoPageList(int PageIndex, int PageSize)
         {
-            List<Demo> list = await _demoservice.GetDemoPageList();
+            List<Demo> list = await _demoService.GetDemoPageList();
             int TotalCount = 1;
             TotalCount = list.Count() / PageSize;
             list = list.OrderBy(d => d.Age).Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
@@ -58,7 +58,7 @@ namespace Nzh.Admin.Controllers
         [HttpGet("GetDemoById")]
         public async Task<JsonResult> GetDemoById(Guid ID)
         {
-            Demo model = await _demoservice.GetDemoById(ID);
+            Demo model = await _demoService.GetDemoById(ID);
             Logger.Info(JsonConvert.SerializeObject(model));//此处调用日志记录函数记录日志
             return Json(new
             {
@@ -76,7 +76,7 @@ namespace Nzh.Admin.Controllers
         [HttpPost("AddDemo")]
         public async Task<JsonResult> AddDemo(Demo entity)
         {
-            bool result = await _demoservice.AddDemo(entity);
+            bool result = await _demoService.AddDemo(entity);
             Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {
@@ -94,7 +94,7 @@ namespace Nzh.Admin.Controllers
         [HttpPut("UpdateDemo")]
         public async Task<JsonResult> UpdateDemo(Demo entity)
         {
-            bool result = await _demoservice.UpdateDemo(entity);
+            bool result = await _demoService.UpdateDemo(entity);
             Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {
@@ -112,7 +112,7 @@ namespace Nzh.Admin.Controllers
         [HttpDelete("DeleteDemo")]
         public async Task<JsonResult> DeleteDemo(Guid ID)
         {
-            bool result = await _demoservice.DeleteDemo(ID);
+            bool result = await _demoService.DeleteDemo(ID);
             Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {

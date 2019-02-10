@@ -12,11 +12,11 @@ namespace Nzh.Admin.Service
 {
     public class DemoService : IDemoService
     {
-        private readonly IDemoRepository _demorepository;
+        private readonly IDemoRepository _demoRepository;
 
-        public DemoService(IDemoRepository demorepository)
+        public DemoService(IDemoRepository demoRepository)
         {
-            _demorepository = demorepository;
+            _demoRepository = demoRepository;
         }
 
         IDbTransaction transaction = null;
@@ -28,7 +28,7 @@ namespace Nzh.Admin.Service
         public async Task<List<Demo>> GetDemoPageList()
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo]";
-            return await _demorepository.GetList(sql);
+            return await _demoRepository.GetList(sql);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Nzh.Admin.Service
         public async Task<Demo> GetDemoById(Guid ID)
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo] WHERE ID=@ID";
-            return await _demorepository.Get(ID, sql);
+            return await _demoRepository.Get(ID, sql);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Nzh.Admin.Service
                     transaction = conn.BeginTransaction();//开始事务
                     //string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
                     //result = await _demorepository.Add(entity, sql);
-                    result =  _demorepository.Insert(entity);  //dapper扩展方法
+                    result = _demoRepository.Insert(entity);  //dapper扩展方法
                     transaction.Commit();//提交事务
                     result = true;
                     return result;
@@ -84,7 +84,7 @@ namespace Nzh.Admin.Service
                 {
                     transaction = conn.BeginTransaction();//开始事务
                     string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
-                    result = await _demorepository.Update(entity, sql);
+                    result = await _demoRepository.Update(entity, sql);
                     transaction.Commit(); //提交事务
                     result = true;
                     return result;
@@ -111,7 +111,7 @@ namespace Nzh.Admin.Service
                 {
                     transaction = conn.BeginTransaction(); //开始事务
                     string sql = "DELETE FROM [dbo].[Demo] WHERE ID=@ID";
-                    result = await _demorepository.DeleteByID(ID, sql);
+                    result = await _demoRepository.DeleteByID(ID, sql);
                     transaction.Commit();//提交事务
                     result = true;
                     return result;

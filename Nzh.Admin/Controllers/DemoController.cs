@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Nzh.Admin.IRepository;
 using Nzh.Admin.IService;
 using Nzh.Admin.Model;
 using STD.NetCore.Common;

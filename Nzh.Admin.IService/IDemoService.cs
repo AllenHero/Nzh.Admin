@@ -27,20 +27,20 @@ namespace Nzh.Admin.IService
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<bool> AddDemo(Demo entity);
+        Task<OperationResult<bool>> AddDemo(Demo entity);
 
         /// <summary>
         /// 修改Demo
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<bool> UpdateDemo(Demo entity);
+        Task<OperationResult<bool>> UpdateDemo(Demo entity);
 
         /// <summary>
         /// 删除Demo
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        Task<bool> DeleteDemo(Guid ID);
+        Task<OperationResult<bool>> DeleteDemo(Guid ID);
     }
 }

@@ -38,17 +38,18 @@ namespace Nzh.Admin.Controllers
         [HttpGet("GetDemoPageList")]
         public async Task<JsonResult> GetDemoPageList(int PageIndex, int PageSize)
         {
-            var result =await _demoService.GetDemoPageList(PageIndex, PageSize);
-            int TotalCount = result.Count() == 0 ? result.Count() / PageSize : (result.Count() / PageSize) + 1;
-            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
-            return Json(new
+            var result = new OperationResult<List<Demo>>();
+            try
             {
-                code = 0,
-                message = "成功",
-                page = PageIndex,
-                pageCount = TotalCount,
-                data = result
-            });
+                result.data = await _demoService.GetDemoPageList(PageIndex, PageSize);
+            }
+            catch (Exception ex)
+            {
+                result.code = -1;
+                result.msg = ex.Message;
+            }
+            Logger.Info(JsonConvert.SerializeObject(result)); //此处调用日志记录函数记录日志
+            return Json(result);
         }
 
         /// <summary>
@@ -59,14 +60,18 @@ namespace Nzh.Admin.Controllers
         [HttpGet("GetDemoById")]
         public async Task<JsonResult> GetDemoById(Guid ID)
         {
-            Demo model = await _demoService.GetDemoById(ID);
-            Logger.Info(JsonConvert.SerializeObject(model));//此处调用日志记录函数记录日志
-            return Json(new
+            var result = new OperationResult<Demo>();
+            try
             {
-                code = 0,
-                message = true,
-                data = model
-            });
+                result.data = await _demoService.GetDemoById(ID);
+            }
+            catch (Exception ex)
+            {
+                result.code = -1;
+                result.msg = ex.Message;
+            }
+            Logger.Info(JsonConvert.SerializeObject(result)); //此处调用日志记录函数记录日志
+            return Json(result);
         }
 
         /// <summary>
@@ -77,14 +82,18 @@ namespace Nzh.Admin.Controllers
         [HttpPost("AddDemo")]
         public async Task<JsonResult> AddDemo(Demo entity)
         {
-            bool result = await _demoService.AddDemo(entity);
-            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
-            return Json(new
+            var result = new OperationResult<bool>();
+            try
             {
-                code = 0,
-                message = "成功",
-                data = result
-            });
+                result = await _demoService.AddDemo(entity);
+            }
+            catch (Exception ex)
+            {
+                result.code = -1;
+                result.msg = ex.Message;
+            }
+            Logger.Info(JsonConvert.SerializeObject(result)); //此处调用日志记录函数记录日志
+            return Json(result);
         }
 
         /// <summary>
@@ -95,14 +104,18 @@ namespace Nzh.Admin.Controllers
         [HttpPut("UpdateDemo")]
         public async Task<JsonResult> UpdateDemo(Demo entity)
         {
-            bool result = await _demoService.UpdateDemo(entity);
-            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
-            return Json(new
+            var result = new OperationResult<bool>();
+            try
             {
-                code = 0,
-                message = "成功",
-                data = result
-            });
+                result = await _demoService.UpdateDemo(entity);
+            }
+            catch (Exception ex)
+            {
+                result.code = -1;
+                result.msg = ex.Message;
+            }
+            Logger.Info(JsonConvert.SerializeObject(result)); //此处调用日志记录函数记录日志
+            return Json(result);
         }
 
         /// <summary>
@@ -113,14 +126,18 @@ namespace Nzh.Admin.Controllers
         [HttpDelete("DeleteDemo")]
         public async Task<JsonResult> DeleteDemo(Guid ID)
         {
-            bool result = await _demoService.DeleteDemo(ID);
-            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
-            return Json(new
+            var result = new OperationResult<bool>();
+            try
             {
-                code = 0,
-                message = "成功",
-                data = result
-            });
+                result = await _demoService.DeleteDemo(ID);
+            }
+            catch (Exception ex)
+            {
+                result.code = -1;
+                result.msg = ex.Message;
+            }
+            Logger.Info(JsonConvert.SerializeObject(result)); //此处调用日志记录函数记录日志
+            return Json(result);
         }
     }
 }

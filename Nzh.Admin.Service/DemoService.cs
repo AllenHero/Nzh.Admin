@@ -49,19 +49,18 @@ namespace Nzh.Admin.Service
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<bool> AddDemo(Demo entity)
+        public async Task<OperationResult<bool>> AddDemo(Demo entity)
         {
-            bool result = false;
+            var result = new OperationResult<bool>();
             try
             {
                 using (_demoRepository.GetConnection())
                 {
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
-                    result = await _demoRepository.Add(entity, sql);
+                    result.data = await _demoRepository.Add(entity, sql);
                     //result = _demoRepository.Insert(entity);  //dapper扩展方法
                     transaction.Commit();//提交事务
-                    result = true;
                     return result;
                 }
             }
@@ -77,18 +76,17 @@ namespace Nzh.Admin.Service
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateDemo(Demo entity)
+        public async Task<OperationResult<bool>> UpdateDemo(Demo entity)
         {
-            bool result = false;
+            var result = new OperationResult<bool>();
             try
             {
                 using (_demoRepository.GetConnection())
                 {
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
-                    result = await _demoRepository.Update(entity, sql);
+                    result.data = await _demoRepository.Update(entity, sql);
                     transaction.Commit(); //提交事务
-                    result = true;
                     return result;
                 }
             }
@@ -104,18 +102,17 @@ namespace Nzh.Admin.Service
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteDemo(Guid ID)
+        public async Task<OperationResult<bool>> DeleteDemo(Guid ID)
         {
-            bool result = false;
+            var result = new OperationResult<bool>();
             try
             {
                 using (_demoRepository.GetConnection())
                 {
                     transaction = _demoRepository.GetConnection().BeginTransaction(); //开始事务
                     string sql = "DELETE FROM [dbo].[Demo] WHERE ID=@ID";
-                    result = await _demoRepository.DeleteByID(ID, sql);
+                    result.data = await _demoRepository.DeleteByID(ID, sql);
                     transaction.Commit();//提交事务
-                    result = true;
                     return result;
                 }
             }

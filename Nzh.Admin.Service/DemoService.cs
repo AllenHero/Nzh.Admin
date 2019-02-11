@@ -31,8 +31,8 @@ namespace Nzh.Admin.Service
         public async Task<List<Demo>> GetDemoPageList(int PageIndex, int PageSize)
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo]";
-            var result = await _demoRepository.GetList(sql, PageIndex, PageSize);
-            return result;
+            List <Demo> demoList = await _demoRepository.GetList(sql, PageIndex, PageSize);
+            return demoList;
         }
 
         /// <summary>
@@ -43,7 +43,8 @@ namespace Nzh.Admin.Service
         public async Task<Demo> GetDemoById(Guid ID)
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo] WHERE ID=@ID";
-            return await _demoRepository.Get(ID, sql);
+            var model = await _demoRepository.Get(ID, sql);
+            return model;
         }
 
         /// <summary>
@@ -61,15 +62,15 @@ namespace Nzh.Admin.Service
             {
                 using (_demoRepository.GetConnection())
                 {
-                    Demo entity = new Demo();
-                    entity.ID = Guid.NewGuid();
-                    entity.Name = Name;
-                    entity.Sex = Sex;
-                    entity.Age = Age;
-                    entity.Remark = Remark;
+                    Demo demo = new Demo();
+                    demo.ID = Guid.NewGuid();
+                    demo.Name = Name;
+                    demo.Sex = Sex;
+                    demo.Age = Age;
+                    demo.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
-                    result.data = await _demoRepository.Add(entity, sql);
+                    result.data = await _demoRepository.Add(demo, sql);
                     //result = _demoRepository.Insert(entity);  //dapper扩展方法
                     transaction.Commit();//提交事务
                     return result;
@@ -98,15 +99,15 @@ namespace Nzh.Admin.Service
             {
                 using (_demoRepository.GetConnection())
                 {
-                    Demo entity = new Demo();
-                    entity.ID = ID;
-                    entity.Name = Name;
-                    entity.Sex = Sex;
-                    entity.Age = Age;
-                    entity.Remark = Remark;
+                    Demo demo = new Demo();
+                    demo.ID = ID;
+                    demo.Name = Name;
+                    demo.Sex = Sex;
+                    demo.Age = Age;
+                    demo.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
-                    result.data = await _demoRepository.Update(entity, sql);
+                    result.data = await _demoRepository.Update(demo, sql);
                     transaction.Commit(); //提交事务
                     return result;
                 }

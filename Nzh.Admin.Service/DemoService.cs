@@ -47,7 +47,7 @@ namespace Nzh.Admin.Service
         public async Task<Demo> GetDemoById(Guid ID)
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo] WHERE ID=@ID";
-            var demoModel = await _demoRepository.Get(ID, sql);
+            var demoModel = await _demoRepository.GetAsync(ID, sql);
             return demoModel;
         }
 
@@ -74,7 +74,7 @@ namespace Nzh.Admin.Service
                     demo.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
-                    result.data = await _demoRepository.Add(demo, sql);
+                    result.data = await _demoRepository.AddAsync(demo, sql);
                     //result = _demoRepository.Insert(entity);  //dapper扩展方法
                     transaction.Commit();//提交事务
                     return result;
@@ -111,7 +111,7 @@ namespace Nzh.Admin.Service
                     demo.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
-                    result.data = await _demoRepository.Update(demo, sql);
+                    result.data = await _demoRepository.UpdateAsync(demo, sql);
                     transaction.Commit(); //提交事务
                     return result;
                 }
@@ -137,7 +137,7 @@ namespace Nzh.Admin.Service
                 {
                     transaction = _demoRepository.GetConnection().BeginTransaction(); //开始事务
                     string sql = "DELETE FROM [dbo].[Demo] WHERE ID=@ID";
-                    result.data = await _demoRepository.DeleteByID(ID, sql);
+                    result.data = await _demoRepository.DeleteByIDAsync(ID, sql);
                     transaction.Commit();//提交事务
                     return result;
                 }

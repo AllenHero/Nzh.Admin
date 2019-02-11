@@ -12,23 +12,41 @@ namespace Nzh.Admin.IRepository.Base
     {
         IDbConnection GetConnection();
 
-        Task<bool> Add(T entity, string sql);
+        Task<bool> AddAsync(T entity, string sql);
 
-        Task<bool> AddRange(List<T> entitylist, string sql);
+        bool Add(T entity, string sql);
 
-        Task<bool> DeleteByID(Guid Id, string sql);
+        Task<bool> AddRangeAsync(List<T> entitylist, string sql);
 
-        Task<bool> Delete(T entity, string sql);
+        bool AddRange(List<T> entitylist, string sql);
 
-        Task<bool> DeleteRange(List<T> entitylist, string sql);
+        Task<bool> DeleteByIDAsync(Guid Id, string sql);
 
-        Task<bool> Update(T entity, string sql);
+        bool DeleteByID(Guid Id, string sql);
 
-        Task<bool> UpdateRange(List<T> entitylist, string sql);
+        Task<bool> DeleteAsync(T entity, string sql);
 
-        Task<int> Count(string sql);
+        bool Delete(T entity, string sql);
 
-        Task<T> Get(Guid Id, string sql);
+        Task<bool> DeleteRangeAsync(List<T> entitylist, string sql);
+
+        bool DeleteRange(List<T> entitylist, string sql);
+
+        Task<bool> UpdateAsync(T entity, string sql);
+
+        bool Update(T entity, string sql);
+
+        Task<bool> UpdateRangeAsync(List<T> entitylist, string sql);
+
+        bool UpdateRange(List<T> entitylist, string sql);
+
+        Task<int> CountAsync(string sql);
+
+        int Count(string sql);
+
+        Task<T> GetAsync(Guid Id, string sql);
+
+        T Get(Guid Id, string sql);
 
         Task<List<T>> GetList(string sql);
 
@@ -40,21 +58,39 @@ namespace Nzh.Admin.IRepository.Base
 
         bool Insert(T model);
 
+        Task<bool> InsertAsync(T model);
+
         bool InsertBatch(List<T> models);
+
+        Task<bool> InsertBatchAsync(List<T> models);
 
         bool Update(T model);
 
+        Task<bool> UpdateAsync(T model);
+
         bool UpdateBatch(List<T> models);
+
+        Task<bool> UpdateBatchAsync(List<T> models);
 
         bool Delete(T model);
 
+        Task<bool> DeleteAsync(T model);
+
         bool Delete(object predicate);
 
-        bool DeleteByWhere(string where, object param = null);
+        Task<bool> DeleteAsync(object predicate);
 
         bool DeleteBatch(List<T> models);
 
+        Task<bool> DeleteBatchAsync(List<T> models);
+
+        bool DeleteByWhere(string where, object param = null);
+
+        Task<bool> DeleteByWhereAsync(string where, object param = null);
+
         T Get(object id);
+
+        Task<T> GetAsync(object id);
 
         T Get(object id, string keyName);
 
@@ -64,13 +100,16 @@ namespace Nzh.Admin.IRepository.Base
 
         int Count(object predicate = null);
 
+        Task<int> CountAsync(object predicate = null);
+
         int CountByWhere(string where);
+
+        Task<int> CountByWhereAsync(string where);
 
         List<T> GetPage(object predicate, IList<ISort> sort, int page, int resultsPerPage);
 
         PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*");
 
-        PageDateRep<T> GetPageList(string sql, string where, string sort, int page, int resultsPerPage, string fields = "*");
 
     }
 }

@@ -55,7 +55,7 @@ namespace Nzh.Admin
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1.1.0",
-                    Title = "STD WebAPI",
+                    Title = "Nzh.Admin WebAPI",
                     Description = ".NetCore WebAPI框架",
                     TermsOfService = "None",
                     Contact = new Swashbuckle.AspNetCore.Swagger.Contact { Name = "STD", Email = "", Url = "" }

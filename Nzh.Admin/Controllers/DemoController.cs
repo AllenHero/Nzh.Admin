@@ -32,8 +32,10 @@ namespace Nzh.Admin.Controllers
         }
 
         /// <summary>
-        /// 获取所有Demo
+        /// 获取Demo分页
         /// </summary>
+        /// <param name="PageIndex"></param>
+        /// <param name="PageSize"></param>
         /// <returns></returns>
         [HttpGet("GetDemoPageList")]
         public async Task<JsonResult> GetDemoPageList(int PageIndex, int PageSize)
@@ -53,7 +55,7 @@ namespace Nzh.Admin.Controllers
         }
 
         /// <summary>
-        /// 获取单个Demo
+        /// 获取Demo
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -75,17 +77,20 @@ namespace Nzh.Admin.Controllers
         }
 
         /// <summary>
-        /// 新增Demo
+        /// 添加Demo
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="Name"></param>
+        /// <param name="Sex"></param>
+        /// <param name="Age"></param>
+        /// <param name="Remark"></param>
         /// <returns></returns>
         [HttpPost("AddDemo")]
-        public async Task<JsonResult> AddDemo(Demo entity)
+        public async Task<JsonResult> AddDemo(string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
             {
-                result = await _demoService.AddDemo(entity);
+                result = await _demoService.AddDemo(Name, Sex, Age, Remark);
             }
             catch (Exception ex)
             {
@@ -97,17 +102,21 @@ namespace Nzh.Admin.Controllers
         }
 
         /// <summary>
-        /// 修改Demo
+        ///  修改Demo
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="ID"></param>
+        /// <param name="Name"></param>
+        /// <param name="Sex"></param>
+        /// <param name="Age"></param>
+        /// <param name="Remark"></param>
         /// <returns></returns>
         [HttpPut("UpdateDemo")]
-        public async Task<JsonResult> UpdateDemo(Demo entity)
+        public async Task<JsonResult> UpdateDemo(Guid ID, string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
             {
-                result = await _demoService.UpdateDemo(entity);
+                result = await _demoService.UpdateDemo(ID, Name, Sex, Age, Remark);
             }
             catch (Exception ex)
             {

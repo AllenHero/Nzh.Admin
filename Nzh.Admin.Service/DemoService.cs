@@ -23,8 +23,10 @@ namespace Nzh.Admin.Service
         IDbTransaction transaction = null;
 
         /// <summary>
-        /// 获取所有Demo
+        /// 获取Demo分页
         /// </summary>
+        /// <param name="PageIndex"></param>
+        /// <param name="PageSize"></param>
         /// <returns></returns>
         public async Task<List<Demo>> GetDemoPageList(int PageIndex, int PageSize)
         {
@@ -34,7 +36,7 @@ namespace Nzh.Admin.Service
         }
 
         /// <summary>
-        /// 获取单个Demo
+        /// 获取Demo
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
@@ -45,17 +47,26 @@ namespace Nzh.Admin.Service
         }
 
         /// <summary>
-        /// 新增Demo
+        /// 添加Demo
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="Name"></param>
+        /// <param name="Sex"></param>
+        /// <param name="Age"></param>
+        /// <param name="Remark"></param>
         /// <returns></returns>
-        public async Task<OperationResult<bool>> AddDemo(Demo entity)
+        public async Task<OperationResult<bool>> AddDemo(string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
             {
                 using (_demoRepository.GetConnection())
                 {
+                    Demo entity = new Demo();
+                    entity.ID = Guid.NewGuid();
+                    entity.Name = Name;
+                    entity.Sex = Sex;
+                    entity.Age = Age;
+                    entity.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
                     result.data = await _demoRepository.Add(entity, sql);
@@ -74,15 +85,25 @@ namespace Nzh.Admin.Service
         /// <summary>
         /// 修改Demo
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="ID"></param>
+        /// <param name="Name"></param>
+        /// <param name="Sex"></param>
+        /// <param name="Age"></param>
+        /// <param name="Remark"></param>
         /// <returns></returns>
-        public async Task<OperationResult<bool>> UpdateDemo(Demo entity)
+        public async Task<OperationResult<bool>> UpdateDemo(Guid ID, string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
             {
                 using (_demoRepository.GetConnection())
                 {
+                    Demo entity = new Demo();
+                    entity.ID = ID;
+                    entity.Name = Name;
+                    entity.Sex = Sex;
+                    entity.Age = Age;
+                    entity.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
                     result.data = await _demoRepository.Update(entity, sql);

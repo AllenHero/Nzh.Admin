@@ -43,8 +43,8 @@ namespace Nzh.Admin.Service
         public async Task<Demo> GetDemoById(Guid ID)
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo] WHERE ID=@ID";
-            var model = await _demoRepository.Get(ID, sql);
-            return model;
+            var demoModel = await _demoRepository.Get(ID, sql);
+            return demoModel;
         }
 
         /// <summary>

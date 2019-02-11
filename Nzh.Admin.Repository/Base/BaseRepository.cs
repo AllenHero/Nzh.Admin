@@ -190,13 +190,14 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetList(string sql, int pageIndex, int pageSize)
+        public async Task<List<T>> GetList( string sql, int pageIndex, int pageSize)
         {
+            int count = 0;
             using (GetConnection())
             {
                 return await Task.Run(() => GetConnection().Query<T>(sql).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
             }
-        }
+        } 
 
         /// <summary>
         /// 根据条件获取List

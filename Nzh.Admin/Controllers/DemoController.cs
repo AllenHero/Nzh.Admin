@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Nzh.Admin.IService;
 using Nzh.Admin.Model;
+using Nzh.Admin.Model.Base;
 using STD.NetCore.Common;
 
 namespace Nzh.Admin.Controllers
@@ -37,18 +38,16 @@ namespace Nzh.Admin.Controllers
         [HttpGet("GetDemoPageList")]
         public async Task<JsonResult> GetDemoPageList(int PageIndex, int PageSize)
         {
-            List<Demo> list = await _demoService.GetDemoPageList();
-            int TotalCount = 1;
-            TotalCount = list.Count() / PageSize;
-            list = list.OrderBy(d => d.Age).Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
-            Logger.Info(JsonConvert.SerializeObject(list)); //此处调用日志记录函数记录日志
+            var result =await _demoService.GetDemoPageList(PageIndex, PageSize);
+            int TotalCount = result.Count() == 0 ? result.Count() / PageSize : (result.Count() / PageSize) + 1;
+            Logger.Info(JsonConvert.SerializeObject(result));//此处调用日志记录函数记录日志
             return Json(new
             {
                 code = 0,
                 message = "成功",
                 page = PageIndex,
                 pageCount = TotalCount,
-                data = list
+                data = result
             });
         }
 

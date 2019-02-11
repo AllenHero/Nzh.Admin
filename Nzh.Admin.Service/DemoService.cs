@@ -2,6 +2,7 @@
 using Nzh.Admin.IRepository;
 using Nzh.Admin.IService;
 using Nzh.Admin.Model;
+using Nzh.Admin.Model.Base;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,10 +26,11 @@ namespace Nzh.Admin.Service
         /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Demo>> GetDemoPageList()
+        public async Task<List<Demo>> GetDemoPageList(int PageIndex, int PageSize)
         {
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo]";
-            return await _demoRepository.GetList(sql);
+            var result = await _demoRepository.GetList(sql, PageIndex, PageSize);
+            return result;
         }
 
         /// <summary>

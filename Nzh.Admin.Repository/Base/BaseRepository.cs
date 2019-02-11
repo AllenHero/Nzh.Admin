@@ -344,7 +344,6 @@ namespace Nzh.Admin.Repository.Base
         public List<T> GetList(object predicate = null, IList<ISort> sort = null)
         {
             return _dapperExtension.GetList(predicate, sort);
-
         }
 
 
@@ -358,7 +357,6 @@ namespace Nzh.Admin.Repository.Base
         public List<T> GetList(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
         {
             return _dapperExtension.GetList(where, sort, limits, fields, orderby);
-
         }
 
         /// <summary>
@@ -395,7 +393,6 @@ namespace Nzh.Admin.Repository.Base
         {
             page = page - 1;
             return _dapperExtension.GetPage(predicate, sort, page, resultsPerPage);
-
         }
 
         /// <summary>
@@ -410,6 +407,21 @@ namespace Nzh.Admin.Repository.Base
         public PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*")
         {
             return _dapperExtension.GetPage(where, sort, page, resultsPerPage, fields);
+        }
+
+        /// <summary>
+        /// Sql语句分页查询
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="where"></param>
+        /// <param name="sort"></param>
+        /// <param name="page"></param>
+        /// <param name="resultsPerPage"></param>
+        /// <param name="fields"></param>
+        /// <returns></returns>
+        public  PageDateRep<T> GetPageList(string sql, string where, string sort, int page, int resultsPerPage, string fields = "*")
+        {
+            return  _dapperExtension.GetPageList(sql,where, sort, page, resultsPerPage, fields);
         }
 
         #endregion

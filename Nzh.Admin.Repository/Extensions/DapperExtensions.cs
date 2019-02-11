@@ -39,7 +39,7 @@ namespace Nzh.Admin.Repository.Extensions
             catch (Exception)
             {
                 return result;
-            }       
+            }
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Nzh.Admin.Repository.Extensions
                     cn.Open();
                     foreach (var model in models)
                     {
-                        result=cn.Insert(model);
+                        result = cn.Insert(model);
                     }
                     cn.Close();
                     result = true;
@@ -94,7 +94,7 @@ namespace Nzh.Admin.Repository.Extensions
             catch (Exception)
             {
                 return result;
-            } 
+            }
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Nzh.Admin.Repository.Extensions
                     cn.Open();
                     foreach (var model in models)
                     {
-                        result=cn.Update(model);
+                        result = cn.Update(model);
                     }
                     cn.Close();
                     result = true;
@@ -148,7 +148,7 @@ namespace Nzh.Admin.Repository.Extensions
             catch (Exception)
             {
                 return result;
-            }  
+            }
         }
 
 
@@ -197,7 +197,7 @@ namespace Nzh.Admin.Repository.Extensions
                 using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
                 {
                     cn.Open();
-                    result =cn.Execute(sql.ToString(), param) > 0;
+                    result = cn.Execute(sql.ToString(), param) > 0;
                     cn.Close();
                     return result;
                 }
@@ -205,7 +205,7 @@ namespace Nzh.Admin.Repository.Extensions
             catch (Exception)
             {
                 return result;
-            }    
+            }
         }
 
         /// <summary>
@@ -366,7 +366,6 @@ namespace Nzh.Admin.Repository.Extensions
             using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
             {
                 cn.Open();
-
                 t = cn.GetPage<T>(predicate, sort, page, resultsPerPage).ToList();
                 cn.Close();
             }
@@ -400,7 +399,50 @@ namespace Nzh.Admin.Repository.Extensions
                 var data = cn.Query<T>("P_ZGrid_PagingLarge", p, commandType: CommandType.StoredProcedure, commandTimeout: 120);
                 int totalPage = p.Get<int>("@TotalPage");
                 int totalrow = p.Get<int>("@Totalrow");
+                var rep = new PageDateRep<T>()
+                {
+                    code = 0,
+                    count = totalrow,
+                    totalPage = totalPage,
+                    data = data.ToList(),
+                    PageNum = page,
+                    PageSize = resultsPerPage
+                };
+                return rep;
+            }
+        }
 
+        /// <summary>
+        /// Sql语句分页查询
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="where"></param>
+        /// <param name="sort"></param>
+        /// <param name="page"></param>
+        /// <param name="resultsPerPage"></param>
+        /// <param name="fields"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public PageDateRep<T> GetPageList(string sql, string where, string sort, int page, int resultsPerPage, string fields = "*", Type result = null)
+        {
+            var tableName = typeof(T).Name;
+            var p = new DynamicParameters();
+            p.Add("@TableName", tableName);
+            p.Add("@Fields", fields);
+            p.Add("@OrderField", sort);
+            p.Add("@sqlWhere", where);
+            p.Add("@pageSize", resultsPerPage);
+            p.Add("@pageIndex", page);
+            p.Add("@TotalPage", 0, direction: ParameterDirection.Output);
+            p.Add("@Totalrow", 0, direction: ParameterDirection.Output);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+               
+                var data = cn.Query<T>(sql, p, commandType: CommandType.Text, commandTimeout: 120);
+                //int totalPage = p.Get<int>("@TotalPage");
+                //int totalrow = p.Get<int>("@Totalrow");
+                int totalrow = data.Count();
+                int totalPage = totalrow == 0 ? totalrow / resultsPerPage : (totalrow / resultsPerPage) + 1;
                 var rep = new PageDateRep<T>()
                 {
                     code = 0,

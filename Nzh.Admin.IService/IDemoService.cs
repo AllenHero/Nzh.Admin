@@ -1,4 +1,5 @@
 ﻿using Nzh.Admin.Model;
+using Nzh.Admin.Model.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Nzh.Admin.IService
         /// 获取所有Demo
         /// </summary>
         /// <returns></returns>
-        Task<List<Demo>> GetDemoPageList();
+        Task<List<Demo>> GetDemoPageList(int PageIndex, int PageSize);
 
         /// <summary>
         /// 获取单个Demo

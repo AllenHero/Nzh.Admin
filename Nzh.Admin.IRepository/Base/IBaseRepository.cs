@@ -70,5 +70,7 @@ namespace Nzh.Admin.IRepository.Base
 
         PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*");
 
+        PageDateRep<T> GetPageList(string sql, string where, string sort, int page, int resultsPerPage, string fields = "*");
+
     }
 }

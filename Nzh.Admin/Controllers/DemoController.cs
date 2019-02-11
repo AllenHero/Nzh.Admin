@@ -40,7 +40,7 @@ namespace Nzh.Admin.Controllers
         [HttpGet("GetDemoPageList")]
         public async Task<JsonResult> GetDemoPageList(int PageIndex, int PageSize)
         {
-            var result = new OperationResult<List<Demo>>();
+            var result = new OperationResult<PageResult<Demo>>();
             try
             {
                 result.data = await _demoService.GetDemoPageList(PageIndex, PageSize);

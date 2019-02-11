@@ -13,7 +13,7 @@ namespace Nzh.Admin.IService
         /// 获取Demo分页
         /// </summary>
         /// <returns></returns>
-        Task<List<Demo>> GetDemoPageList(int PageIndex, int PageSize);
+        Task<PageResult<Demo>> GetDemoPageList(int PageIndex, int PageSize);
 
         /// <summary>
         /// 获取Demo

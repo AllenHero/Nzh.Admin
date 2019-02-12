@@ -48,13 +48,23 @@ namespace Nzh.Admin.IRepository.Base
 
         T Get(Guid Id, string sql);
 
-        Task<List<T>> GetList(string sql);
+        Task<List<T>> GetListAsync(string sql);
 
-        Task<List<T>> GetList(string sql, int pageIndex, int pageSize);
+        List<T> GetList(string sql);
 
-        Task<List<T>> GetList(string sql, object param = null);
+        Task<List<T>> GetListAsync(string sql, int pageIndex, int pageSize);
 
-        Task<List<T>> GetList(string sql, int pageIndex, int pageSize, object param = null);
+        List<T> GetList(string sql, int pageIndex, int pageSize);
+
+        Task<List<T>> GetListAsync(string sql, object param = null);
+
+        List<T> GetList(string sql, object param = null);
+
+        Task<List<T>> GetListAsync(string sql, int pageIndex, int pageSize, object param = null);
+
+        List<T> GetList(string sql, int pageIndex, int pageSize, object param = null);
+
+        #region   Dapper扩展方法
 
         bool Insert(T model);
 
@@ -94,9 +104,15 @@ namespace Nzh.Admin.IRepository.Base
 
         T Get(object id, string keyName);
 
+        Task<T> GetAsync(object id, string keyName);
+
         List<T> GetList(object predicate = null, IList<ISort> sort = null);
 
+        Task<List<T>> GetListAsync(object predicate = null, IList<ISort> sort = null);
+
         List<T> GetList(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "");
+
+        Task<List<T>> GetListAsync(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "");
 
         int Count(object predicate = null);
 
@@ -108,8 +124,12 @@ namespace Nzh.Admin.IRepository.Base
 
         List<T> GetPage(object predicate, IList<ISort> sort, int page, int resultsPerPage);
 
+        Task<List<T>> GetPageAsync(object predicate, IList<ISort> sort, int page, int resultsPerPage);
+
         PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*");
 
+        Task<PageDateRep<T>> GetPageAsync(string where, string sort, int page, int resultsPerPage, string fields = "*");
 
+        #endregion
     }
 }

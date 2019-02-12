@@ -32,7 +32,7 @@ namespace Nzh.Admin.Service
         {
             var demoList = new PageResult<Demo>();
             string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo]";
-            demoList.list = await _demoRepository.GetList(sql, PageIndex, PageSize);
+            demoList.list = await _demoRepository.GetListAsync(sql, PageIndex, PageSize);
             demoList.TotalCount = demoList.list.Count;
             demoList.PageIndex = PageIndex;
             demoList.PageSize = PageSize;

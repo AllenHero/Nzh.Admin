@@ -302,11 +302,24 @@ namespace Nzh.Admin.Repository.Base
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetList(string sql)
+        public async Task<List<T>> GetListAsync(string sql)
         {
             using (GetConnection())
             {
                 return await Task.Run(() => GetConnection().Query<T>(sql).ToList());
+            }
+        }
+
+        /// <summary>
+        /// 获取List
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public List<T> GetList(string sql)
+        {
+            using (GetConnection())
+            {
+                return GetConnection().Query<T>(sql).ToList();
             }
         }
 
@@ -317,13 +330,28 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetList( string sql, int pageIndex, int pageSize)
+        public async Task<List<T>> GetListAsync( string sql, int pageIndex, int pageSize)
         {
             using (GetConnection())
             {
                 return await Task.Run(() => GetConnection().Query<T>(sql).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
             }
-        } 
+        }
+
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public List<T> GetList(string sql, int pageIndex, int pageSize)
+        {
+            using (GetConnection())
+            {
+                return GetConnection().Query<T>(sql).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+            }
+        }
 
         /// <summary>
         /// 根据条件获取List
@@ -331,11 +359,25 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="sql"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetList(string sql , object param = null)
+        public async Task<List<T>> GetListAsync(string sql , object param = null)
         {
             using (GetConnection())
             {
                 return await Task.Run(() => GetConnection().Query<T>(sql, param).ToList());
+            }
+        }
+
+        /// <summary>
+        /// 根据条件获取List
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<T> GetList(string sql, object param = null)
+        {
+            using (GetConnection())
+            {
+                return  GetConnection().Query<T>(sql, param).ToList();
             }
         }
 
@@ -347,11 +389,27 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="pageSize"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetList(string sql, int pageIndex, int pageSize, object param = null )
+        public async Task<List<T>> GetListAsync(string sql, int pageIndex, int pageSize, object param = null )
         {
             using (GetConnection())
             {
                 return await Task.Run(() => GetConnection().Query<T>(sql, param).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList());
+            }
+        }
+
+        /// <summary>
+        /// 分页加条件
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public List<T> GetList(string sql, int pageIndex, int pageSize, object param = null)
+        {
+            using (GetConnection())
+            {
+                return  GetConnection().Query<T>(sql, param).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
             }
         }
         #endregion
@@ -532,6 +590,8 @@ namespace Nzh.Admin.Repository.Base
 
         #endregion
 
+        #region  查询
+
 
         /// <summary>
         /// 获取一个实体对象
@@ -563,6 +623,16 @@ namespace Nzh.Admin.Repository.Base
             return _dapperExtension.Get(id, keyName);
         }
 
+        /// <summary>
+        /// 获取一个实体对象
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public async Task<T> GetAsync(object id, string keyName)
+        {
+            return await _dapperExtension.GetAsync(id, keyName);
+        }
+
 
         /// <summary>
         /// 根据条件查询实体列表
@@ -573,6 +643,17 @@ namespace Nzh.Admin.Repository.Base
         public List<T> GetList(object predicate = null, IList<ISort> sort = null)
         {
             return _dapperExtension.GetList(predicate, sort);
+        }
+
+        /// <summary>
+        /// 根据条件查询实体列表
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public async Task<List<T>> GetListAsync(object predicate = null, IList<ISort> sort = null)
+        {
+            return await _dapperExtension.GetListAsync(predicate, sort);
         }
 
 
@@ -586,6 +667,18 @@ namespace Nzh.Admin.Repository.Base
         public List<T> GetList(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
         {
             return _dapperExtension.GetList(where, sort, limits, fields, orderby);
+        }
+
+        /// <summary>
+        /// 根据条件查询实体列表
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="limits">前几条</param>
+        /// <returns></returns>
+        public async Task<List<T>> GetListAsync(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
+        {
+            return await _dapperExtension.GetListAsync(where, sort, limits, fields, orderby);
         }
 
         /// <summary>
@@ -646,6 +739,20 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="page">页索引</param>
+        /// <param name="resultsPerPage">页大小</param>
+        /// <returns></returns>
+        public async Task<List<T>> GetPageAsync(object predicate, IList<ISort> sort, int page, int resultsPerPage)
+        {
+            page = page - 1;
+            return await _dapperExtension.GetPageAsync(predicate, sort, page, resultsPerPage);
+        }
+
+        /// <summary>
         /// 存储过程分页查询
         /// </summary>
         /// <param name="where"></param>
@@ -658,6 +765,21 @@ namespace Nzh.Admin.Repository.Base
         {
             return _dapperExtension.GetPage(where, sort, page, resultsPerPage, fields);
         }
+
+        /// <summary>
+        /// 存储过程分页查询
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="sort"></param>
+        /// <param name="page"></param>
+        /// <param name="resultsPerPage"></param>
+        /// <returns></returns>
+        public async Task<PageDateRep<T>> GetPageAsync(string where, string sort, int page, int resultsPerPage, string fields = "*")
+        {
+            return  await _dapperExtension.GetPageAsync(where, sort, page, resultsPerPage, fields);
+        }
+
+        #endregion
 
         #endregion
     }

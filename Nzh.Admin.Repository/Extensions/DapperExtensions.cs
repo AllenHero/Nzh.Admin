@@ -421,7 +421,7 @@ namespace Nzh.Admin.Repository.Extensions
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
-        public T Get(object id, string keyName)
+        public T Query(object id, string keyName)
         {
             var tableName = typeof(T).Name;
             StringBuilder sql = new StringBuilder().AppendFormat("SELECT  TOP 1 * FROM {0} WHERE {1}=@id ", tableName, keyName);
@@ -437,7 +437,7 @@ namespace Nzh.Admin.Repository.Extensions
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
-        public async Task<T> GetAsync(object id, string keyName)
+        public async Task<T> QueryAsync(object id, string keyName)
         {
             var tableName = typeof(T).Name;
             StringBuilder sql = new StringBuilder().AppendFormat("SELECT  TOP 1 * FROM {0} WHERE {1}=@id ", tableName, keyName);
@@ -487,7 +487,7 @@ namespace Nzh.Admin.Repository.Extensions
         /// <param name="where"></param>
         /// <param name="sort"></param>
         /// <returns></returns>
-        public List<T> GetList(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "")
+        public List<T> Query(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "")
         {
             var tableName = typeof(T).Name;
             StringBuilder sql = new StringBuilder().AppendFormat("SELECT " + (limits > 0 ? (" TOP " + limits) : " ") + fileds + "  FROM {0} {1} ",
@@ -512,7 +512,7 @@ namespace Nzh.Admin.Repository.Extensions
         /// <param name="where"></param>
         /// <param name="sort"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetListAsync(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "")
+        public async Task<List<T>> QueryAsync(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "")
         {
             var tableName = typeof(T).Name;
             StringBuilder sql = new StringBuilder().AppendFormat("SELECT " + (limits > 0 ? (" TOP " + limits) : " ") + fileds + "  FROM {0} {1} ",

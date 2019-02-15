@@ -680,9 +680,9 @@ namespace Nzh.Admin.Repository.Base
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
-        public T Get(object id, string keyName)
+        public T Query(object id, string keyName)
         {
-            return _dapperExtension.Get(id, keyName);
+            return _dapperExtension.Query(id, keyName);
         }
 
         /// <summary>
@@ -690,9 +690,9 @@ namespace Nzh.Admin.Repository.Base
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
-        public async Task<T> GetAsync(object id, string keyName)
+        public async Task<T> QueryAsync(object id, string keyName)
         {
-            return await _dapperExtension.GetAsync(id, keyName);
+            return await _dapperExtension.QueryAsync(id, keyName);
         }
 
 
@@ -726,9 +726,9 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="sort">排序</param>
         /// <param name="limits">前几条</param>
         /// <returns></returns>
-        public List<T> GetList(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
+        public List<T> Query(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
         {
-            return _dapperExtension.GetList(where, sort, limits, fields, orderby);
+            return _dapperExtension.Query(where, sort, limits, fields, orderby);
         }
 
         /// <summary>
@@ -738,9 +738,9 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="sort">排序</param>
         /// <param name="limits">前几条</param>
         /// <returns></returns>
-        public async Task<List<T>> GetListAsync(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
+        public async Task<List<T>> QueryAsync(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
         {
-            return await _dapperExtension.GetListAsync(where, sort, limits, fields, orderby);
+            return await _dapperExtension.QueryAsync(where, sort, limits, fields, orderby);
         }
 
         /// <summary>

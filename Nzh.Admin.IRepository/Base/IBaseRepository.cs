@@ -114,17 +114,17 @@ namespace Nzh.Admin.IRepository.Base
 
         Task<T> QuerySingleAsync(string sql);
 
-        T Get(object id, string keyName);
+        T Query(object id, string keyName);
 
-        Task<T> GetAsync(object id, string keyName);
+        Task<T> QueryAsync(object id, string keyName);
 
         List<T> GetList(object predicate = null, IList<ISort> sort = null);
 
         Task<List<T>> GetListAsync(object predicate = null, IList<ISort> sort = null);
 
-        List<T> GetList(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "");
+        List<T> Query(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "");
 
-        Task<List<T>> GetListAsync(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "");
+        Task<List<T>> QueryAsync(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "");
 
         int Count(object predicate = null);
 

@@ -98,10 +98,6 @@ namespace Nzh.Admin.IRepository.Base
 
         Task<bool> DeleteByWhereAsync(string where, object param = null);
 
-        T Get(object id);
-
-        Task<T> GetAsync(object id);
-
         T QueryFirst(string sql);
 
         Task<T> QueryFirstAsync(string sql);
@@ -113,6 +109,22 @@ namespace Nzh.Admin.IRepository.Base
         T QuerySingle(string sql);
 
         Task<T> QuerySingleAsync(string sql);
+
+        T QuerySingleOrDefault(string sql);
+
+        Task<T> QuerySingleOrDefaultAsync(string sql);
+
+        T FirstOrDefault(object id);
+
+        Task<T> FirstOrDefaultAsync(object id);
+
+        T SingleOrDefault(object id);
+
+        Task<T> SingleOrDefaultAsync(object id);
+
+        T Get(object id);
+
+        Task<T> GetAsync(object id);
 
         T Query(object id, string keyName);
 
@@ -138,9 +150,9 @@ namespace Nzh.Admin.IRepository.Base
 
         Task<List<T>> GetPageAsync(object predicate, IList<ISort> sort, int page, int resultsPerPage);
 
-        PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*");
+        PageDateRep<T> GetPage(string SpName,string where, string sort, int page, int resultsPerPage, string fields = "*");
 
-        Task<PageDateRep<T>> GetPageAsync(string where, string sort, int page, int resultsPerPage, string fields = "*");
+        Task<PageDateRep<T>> GetPageAsync(string SpName, string where, string sort, int page, int resultsPerPage, string fields = "*");
 
         #endregion
     }

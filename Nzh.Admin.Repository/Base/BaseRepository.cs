@@ -592,27 +592,6 @@ namespace Nzh.Admin.Repository.Base
 
         #region  查询
 
-
-        /// <summary>
-        /// 获取一个实体对象
-        /// </summary>
-        /// <param name="models"></param>
-        /// <returns></returns>
-        public T Get(object id)
-        {
-            return _dapperExtension.Get(id);
-        }
-
-        /// <summary>
-        /// 获取一个实体对象
-        /// </summary>
-        /// <param name="models"></param>
-        /// <returns></returns>
-        public async Task<T> GetAsync(object id)
-        {
-            return await _dapperExtension.GetAsync(id);
-        }
-
         /// <summary>
         /// 获取单个实体
         /// </summary>
@@ -674,7 +653,90 @@ namespace Nzh.Admin.Repository.Base
             return await _dapperExtension.QuerySingleAsync(sql);
         }
 
+        /// <summary>
+        /// 获取的那个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T QuerySingleOrDefault(string sql)
+        {
+            return _dapperExtension.QuerySingleOrDefault(sql);
+        }
 
+        /// <summary>
+        /// 获取的那个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> QuerySingleOrDefaultAsync(string sql)
+        {
+            return  await _dapperExtension.QuerySingleOrDefaultAsync(sql);
+        }
+
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public T FirstOrDefault(object id)
+        {
+            return _dapperExtension.FirstOrDefault(id);
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<T> FirstOrDefaultAsync(object id)
+        {
+            return await _dapperExtension.FirstOrDefaultAsync(id);
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public T SingleOrDefault(object id)
+        {
+            return _dapperExtension.SingleOrDefault(id);
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<T> SingleOrDefaultAsync(object id)
+        {
+            return await _dapperExtension.SingleOrDefaultAsync(id);
+        }
+
+
+
+        /// <summary>
+        /// 获取一个实体对象
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public T Get(object id)
+        {
+            return _dapperExtension.Get(id);
+        }
+
+        /// <summary>
+        /// 获取一个实体对象
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public async Task<T> GetAsync(object id)
+        {
+            return await _dapperExtension.GetAsync(id);
+        }
+
+       
         /// <summary>
         /// 获取一个实体对象
         /// </summary>
@@ -823,9 +885,9 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="resultsPerPage"></param>
         /// <returns></returns>
 
-        public PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*")
+        public PageDateRep<T> GetPage(string SpName, string where, string sort, int page, int resultsPerPage, string fields = "*")
         {
-            return _dapperExtension.GetPage(where, sort, page, resultsPerPage, fields);
+            return _dapperExtension.GetPage(SpName,where, sort, page, resultsPerPage, fields);
         }
 
         /// <summary>
@@ -836,9 +898,9 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="page"></param>
         /// <param name="resultsPerPage"></param>
         /// <returns></returns>
-        public async Task<PageDateRep<T>> GetPageAsync(string where, string sort, int page, int resultsPerPage, string fields = "*")
+        public async Task<PageDateRep<T>> GetPageAsync(string SpName, string where, string sort, int page, int resultsPerPage, string fields = "*")
         {
-            return  await _dapperExtension.GetPageAsync(where, sort, page, resultsPerPage, fields);
+            return  await _dapperExtension.GetPageAsync(SpName,where, sort, page, resultsPerPage, fields);
         }
 
         #endregion

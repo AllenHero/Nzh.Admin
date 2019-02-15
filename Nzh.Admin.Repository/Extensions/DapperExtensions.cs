@@ -295,43 +295,13 @@ namespace Nzh.Admin.Repository.Extensions
         #region   查询
 
         /// <summary>
-        /// 根据一个实体对象
-        /// </summary>
-        /// <param name="models"></param>
-        /// <returns></returns>
-        public T Get(object id)
-        {
-            T t = default(T); //默认只对int guid主键有作用除非使用ClassMapper
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
-            {
-                t = cn.Get<T>(id);
-            }
-            return t;
-        }
-
-        /// <summary>
-        /// 根据一个实体对象
-        /// </summary>
-        /// <param name="models"></param>
-        /// <returns></returns>
-        public async Task<T> GetAsync(object id)
-        {
-            T t = default(T); //默认只对int guid主键有作用除非使用ClassMapper
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
-            {
-                t =await cn.GetAsync<T>(id);
-            }
-            return t;
-        }
-
-        /// <summary>
         /// 获取单个对象
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
         public T QueryFirst(string sql)
         {
-            T t = default(T); 
+            T t = default(T);
             using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
             {
                 t = cn.QueryFirst<T>(sql);
@@ -349,7 +319,7 @@ namespace Nzh.Admin.Repository.Extensions
             T t = default(T);
             using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
             {
-                t =await cn.QueryFirstAsync<T>(sql);
+                t = await cn.QueryFirstAsync<T>(sql);
             }
             return t;
         }
@@ -380,10 +350,11 @@ namespace Nzh.Admin.Repository.Extensions
             T t = default(T);
             using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
             {
-                t =await cn.QueryFirstOrDefaultAsync<T>(sql);
+                t = await cn.QueryFirstOrDefaultAsync<T>(sql);
             }
             return t;
         }
+
 
         /// <summary>
         /// 获取单个对象
@@ -410,12 +381,132 @@ namespace Nzh.Admin.Repository.Extensions
             T t = default(T);
             using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
             {
-                t =await cn.QuerySingleAsync<T>(sql);
+                t = await cn.QuerySingleAsync<T>(sql);
             }
             return t;
         }
 
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T QuerySingleOrDefault(string sql)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = cn.QuerySingleOrDefault<T>(sql);
+            }
+            return t;
+        }
 
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> QuerySingleOrDefaultAsync(string sql)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = await cn.QuerySingleOrDefaultAsync<T>(sql);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public T FirstOrDefault(object id)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = cn.FirstOrDefault<T>(id);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<T> FirstOrDefaultAsync(object id)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = await cn.FirstOrDefaultAsync<T>(id);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public T SingleOrDefault(object id)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = cn.SingleOrDefault<T>(id);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<T> SingleOrDefaultAsync(object id)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = await cn.SingleOrDefaultAsync<T>(id);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 根据一个实体对象
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public T Get(object id)
+        {
+            T t = default(T); 
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = cn.Get<T>(id);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 根据一个实体对象
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public async Task<T> GetAsync(object id)
+        {
+            T t = default(T); 
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t =await cn.GetAsync<T>(id);
+            }
+            return t;
+        }
+
+       
         /// <summary>
         /// 获取一个实体对象
         /// </summary>
@@ -648,7 +739,7 @@ namespace Nzh.Admin.Repository.Extensions
         /// <param name="resultsPerPage">页大小</param>
         /// <param name="fields">查询字段</param>
         /// <returns></returns>
-        public PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*", Type result = null)
+        public PageDateRep<T> GetPage(string SpName, string where, string sort, int page, int resultsPerPage, string fields = "*", Type result = null)
         {
             var tableName = typeof(T).Name;
             var p = new DynamicParameters();
@@ -662,7 +753,7 @@ namespace Nzh.Admin.Repository.Extensions
             p.Add("@Totalrow", 0, direction: ParameterDirection.Output);
             using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
             {
-                var data = cn.Query<T>("P_ZGrid_PagingLarge", p, commandType: CommandType.StoredProcedure, commandTimeout: 120);
+                var data = cn.Query<T>(SpName, p, commandType: CommandType.StoredProcedure, commandTimeout: 120);
                 int totalPage = p.Get<int>("@TotalPage");
                 int totalrow = p.Get<int>("@Totalrow");
                 var rep = new PageDateRep<T>()
@@ -687,7 +778,7 @@ namespace Nzh.Admin.Repository.Extensions
         /// <param name="resultsPerPage">页大小</param>
         /// <param name="fields">查询字段</param>
         /// <returns></returns>
-        public async Task<PageDateRep<T>> GetPageAsync(string where, string sort, int page, int resultsPerPage, string fields = "*", Type result = null)
+        public async Task<PageDateRep<T>> GetPageAsync(string SpName, string where, string sort, int page, int resultsPerPage, string fields = "*", Type result = null)
         {
             var tableName = typeof(T).Name;
             var p = new DynamicParameters();
@@ -701,7 +792,7 @@ namespace Nzh.Admin.Repository.Extensions
             p.Add("@Totalrow", 0, direction: ParameterDirection.Output);
             using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
             {
-                var data = await Task.Run(() => cn.Query<T>("P_ZGrid_PagingLarge", p, commandType: CommandType.StoredProcedure, commandTimeout: 120));
+                var data = await Task.Run(() => cn.Query<T>(SpName, p, commandType: CommandType.StoredProcedure, commandTimeout: 120));
                 int totalPage = p.Get<int>("@TotalPage");
                 int totalrow = p.Get<int>("@Totalrow");
                 var rep = new PageDateRep<T>()

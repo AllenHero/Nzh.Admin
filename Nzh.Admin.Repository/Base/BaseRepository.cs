@@ -30,7 +30,7 @@ namespace Nzh.Admin.Repository.Base
             return conn;
         }
 
-        #region  添加
+        #region  新增
 
         /// <summary>
         /// 添加
@@ -416,7 +416,7 @@ namespace Nzh.Admin.Repository.Base
 
         #region Dapper扩展方法
 
-        #region  插入
+        #region  新增
 
         /// <summary>
         /// 插入
@@ -462,7 +462,7 @@ namespace Nzh.Admin.Repository.Base
 
         #endregion
 
-        #region 更新
+        #region 修改
 
         /// <summary>
         /// 更新

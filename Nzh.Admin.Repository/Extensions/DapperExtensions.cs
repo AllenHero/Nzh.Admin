@@ -18,7 +18,7 @@ namespace Nzh.Admin.Repository.Extensions
     /// <typeparam name="T"></typeparam>
     public partial class DapperExtensions<T> where T : class, new()
     {
-        #region 插入
+        #region 新增
 
         /// <summary>
         /// 插入
@@ -86,7 +86,7 @@ namespace Nzh.Admin.Repository.Extensions
 
         #endregion
 
-        #region 更新
+        #region 修改
 
         /// <summary>
         /// 更新

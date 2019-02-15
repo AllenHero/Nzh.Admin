@@ -614,6 +614,68 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T QueryFirst(string sql)
+        {
+            return _dapperExtension.QueryFirst(sql);
+        }
+
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> QueryFirstAsync(string sql)
+        {
+            return await _dapperExtension.QueryFirstAsync(sql);
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T QueryFirstOrDefault(string sql)
+        {
+            return _dapperExtension.QueryFirstOrDefault(sql);
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> QueryFirstOrDefaultAsync(string sql)
+        {
+            return await _dapperExtension.QueryFirstOrDefaultAsync(sql);
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T QuerySingle(string sql)
+        {
+            return _dapperExtension.QuerySingle(sql);
+        }
+
+        /// <summary>
+        /// 获取单个实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> QuerySingleAsync(string sql)
+        {
+            return await _dapperExtension.QuerySingleAsync(sql);
+        }
+
+
+        /// <summary>
         /// 获取一个实体对象
         /// </summary>
         /// <param name="models"></param>

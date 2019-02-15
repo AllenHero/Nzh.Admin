@@ -325,6 +325,98 @@ namespace Nzh.Admin.Repository.Extensions
         }
 
         /// <summary>
+        /// 获取单个对象
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T QueryFirst(string sql)
+        {
+            T t = default(T); 
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = cn.QueryFirst<T>(sql);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 获取单个对象
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> QueryFirstAsync(string sql)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t =await cn.QueryFirstAsync<T>(sql);
+            }
+            return t;
+        }
+
+
+        /// <summary>
+        /// 获取单个对象
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T QueryFirstOrDefault(string sql)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = cn.QueryFirstOrDefault<T>(sql);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 获取单个对象
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> QueryFirstOrDefaultAsync(string sql)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t =await cn.QueryFirstOrDefaultAsync<T>(sql);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 获取单个对象
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T QuerySingle(string sql)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t = cn.QuerySingle<T>(sql);
+            }
+            return t;
+        }
+
+        /// <summary>
+        /// 获取单个对象
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> QuerySingleAsync(string sql)
+        {
+            T t = default(T);
+            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnStr))
+            {
+                t =await cn.QuerySingleAsync<T>(sql);
+            }
+            return t;
+        }
+
+
+        /// <summary>
         /// 获取一个实体对象
         /// </summary>
         /// <param name="models"></param>

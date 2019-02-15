@@ -102,6 +102,18 @@ namespace Nzh.Admin.IRepository.Base
 
         Task<T> GetAsync(object id);
 
+        T QueryFirst(string sql);
+
+        Task<T> QueryFirstAsync(string sql);
+
+        T QueryFirstOrDefault(string sql);
+
+        Task<T> QueryFirstOrDefaultAsync(string sql);
+
+        T QuerySingle(string sql);
+
+        Task<T> QuerySingleAsync(string sql);
+
         T Get(object id, string keyName);
 
         Task<T> GetAsync(object id, string keyName);

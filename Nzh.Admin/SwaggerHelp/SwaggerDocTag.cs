@@ -22,7 +22,7 @@ namespace Nzh.Admin.SwaggerHelp
             swaggerDoc.Tags = new List<Tag>
             {
                 //添加对应的控制器描述 这个是我好不容易在issues里面翻到的
-                new Tag { Name = "Values", Description = "测试模块" },
+                //new Tag { Name = "Values", Description = "测试模块" },
                 new Tag { Name = "Demo", Description = "Demo模块" },
             };
         }

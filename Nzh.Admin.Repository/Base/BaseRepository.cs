@@ -330,7 +330,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetListAsync(string sql, int pageIndex, int pageSize)
+        public async Task<List<T>> GetListAsync(string sql,int pageIndex, int pageSize)
         {
             using (GetConnection())
             {

@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Nzh.Admin.Controllers
 {
-    [Route("api/[controller]/[action]")]
-    //[ApiController]
+    /// <summary>
+    ///  Values
+    /// </summary>
+    [Produces("application/json")]
+    [Route("api/Values")]
     public class ValuesController : ControllerBase
     {
         // GET api/values

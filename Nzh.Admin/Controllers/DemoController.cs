@@ -16,8 +16,8 @@ namespace Nzh.Admin.Controllers
     /// <summary>
     /// Demo
     /// </summary>
-    [Route("api/[controller]/[action]")]
-    //[ApiController]
+    [Produces("application/json")]
+    [Route("api/Demo")]
     public class DemoController : Controller
     {
         private readonly IDemoService _demoService;

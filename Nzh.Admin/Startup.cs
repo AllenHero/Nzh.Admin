@@ -49,8 +49,6 @@ namespace Nzh.Admin
 
             services.AddMvc();
 
-            DataBaseConfig.ConnStr = this.Configuration.GetSection("ConnectionStrings:SqlServer").Value;
-
             #region Swagger
 
             services.AddSwaggerGen(c =>
@@ -78,6 +76,8 @@ namespace Nzh.Admin
                 c.DocumentFilter<SwaggerDocTag>();
             });
             #endregion
+
+            DataBaseConfig.ConnStr = this.Configuration.GetSection("ConnectionStrings:SqlServer").Value;
 
         }
 

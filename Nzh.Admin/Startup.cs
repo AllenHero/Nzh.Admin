@@ -20,6 +20,7 @@ using Nzh.Admin.Extension;
 using Nzh.Admin.IService;
 using Nzh.Admin.Model;
 using Nzh.Admin.Model.Base;
+using Nzh.Admin.Repository.Config;
 using Nzh.Admin.SwaggerHelp;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -47,6 +48,8 @@ namespace Nzh.Admin
              services.AddRepositories();
 
             services.AddMvc();
+
+            DataBaseConfig.ConnStr = this.Configuration.GetSection("ConnectionStrings:SqlServer").Value;
 
             #region Swagger
 

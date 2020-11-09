@@ -57,15 +57,15 @@ namespace Nzh.Admin.Controllers
         /// <summary>
         /// 获取Demo
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet("GetDemoById")]
-        public async Task<JsonResult> GetDemoById(Guid ID)
+        public async Task<JsonResult> GetDemoById(Guid Id)
         {
             var result = new OperationResult<Demo>();
             try
             {
-                result.data = await _demoService.GetDemoById(ID);
+                result.data = await _demoService.GetDemoById(Id);
             }
             catch (Exception ex)
             {
@@ -104,19 +104,19 @@ namespace Nzh.Admin.Controllers
         /// <summary>
         ///  修改Demo
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="Id"></param>
         /// <param name="Name"></param>
         /// <param name="Sex"></param>
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
         [HttpPut("UpdateDemo")]
-        public async Task<JsonResult> UpdateDemo(Guid ID, string Name, string Sex, int Age, string Remark)
+        public async Task<JsonResult> UpdateDemo(Guid Id, string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
             {
-                result = await _demoService.UpdateDemo(ID, Name, Sex, Age, Remark);
+                result = await _demoService.UpdateDemo(Id, Name, Sex, Age, Remark);
             }
             catch (Exception ex)
             {
@@ -130,15 +130,15 @@ namespace Nzh.Admin.Controllers
         /// <summary>
         /// 删除Demo
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
         [HttpDelete("DeleteDemo")]
-        public async Task<JsonResult> DeleteDemo(Guid ID)
+        public async Task<JsonResult> DeleteDemo(Guid Id)
         {
             var result = new OperationResult<bool>();
             try
             {
-                result = await _demoService.DeleteDemo(ID);
+                result = await _demoService.DeleteDemo(Id);
             }
             catch (Exception ex)
             {

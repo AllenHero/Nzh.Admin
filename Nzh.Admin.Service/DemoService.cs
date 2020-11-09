@@ -32,7 +32,7 @@ namespace Nzh.Admin.Service
         public async Task<PageResult<Demo>> GetDemoPageList(int PageIndex, int PageSize)
         {
             var demoList = new PageResult<Demo>();
-            string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo]";
+            string sql = @"SELECT Id, Name, Sex, Age, Remark FROM [dbo].[Demo]";
             string sqlCount = @"SELECT count(*) FROM [dbo].[Demo]";
             demoList.list = await _demoRepository.GetListAsync(sql, PageIndex, PageSize);
             demoList.TotalCount = await _demoRepository.CountAsync(sqlCount);
@@ -44,12 +44,12 @@ namespace Nzh.Admin.Service
         /// <summary>
         /// 获取Demo
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<Demo> GetDemoById(Guid ID)
+        public async Task<Demo> GetDemoById(Guid Id)
         {
-            string sql = @"SELECT ID, Name, Sex, Age, Remark FROM [dbo].[Demo] WHERE ID=@ID";
-            var demoModel = await _demoRepository.GetAsync(ID, sql);
+            string sql = @"SELECT Id, Name, Sex, Age, Remark FROM [dbo].[Demo] WHERE Id=@Id";
+            var demoModel = await _demoRepository.GetAsync(Id, sql);
             return demoModel;
         }
 
@@ -69,13 +69,13 @@ namespace Nzh.Admin.Service
                 using (_demoRepository.GetConnection())
                 {
                     Demo demo = new Demo();
-                    demo.ID = Guid.NewGuid();
+                    demo.Id = Guid.NewGuid();
                     demo.Name = Name;
                     demo.Sex = Sex;
                     demo.Age = Age;
                     demo.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
-                    string sql = @"INSERT INTO [dbo].[Demo](ID, Name, Sex, Age, Remark) VALUES(@ID, @Name, @Sex, @Age, @Remark)";
+                    string sql = @"INSERT INTO [dbo].[Demo](Id, Name, Sex, Age, Remark) VALUES(@Id, @Name, @Sex, @Age, @Remark)";
                     result.data = await _demoRepository.AddAsync(demo, sql);
                     //result = _demoRepository.Insert(entity);  //dapper扩展方法
                     transaction.Commit();//提交事务
@@ -92,13 +92,13 @@ namespace Nzh.Admin.Service
         /// <summary>
         /// 修改Demo
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="Id"></param>
         /// <param name="Name"></param>
         /// <param name="Sex"></param>
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
-        public async Task<OperationResult<bool>> UpdateDemo(Guid ID, string Name, string Sex, int Age, string Remark)
+        public async Task<OperationResult<bool>> UpdateDemo(Guid Id, string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
@@ -106,13 +106,13 @@ namespace Nzh.Admin.Service
                 using (_demoRepository.GetConnection())
                 {
                     Demo demo = new Demo();
-                    demo.ID = ID;
+                    demo.Id = Id;
                     demo.Name = Name;
                     demo.Sex = Sex;
                     demo.Age = Age;
                     demo.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
-                    string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE ID=@ID";
+                    string sql = "UPDATE [dbo].[Demo] SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE Id=@Id";
                     result.data = await _demoRepository.UpdateAsync(demo, sql);
                     transaction.Commit(); //提交事务
                     return result;
@@ -128,9 +128,9 @@ namespace Nzh.Admin.Service
         /// <summary>
         /// 删除Demo
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<OperationResult<bool>> DeleteDemo(Guid ID)
+        public async Task<OperationResult<bool>> DeleteDemo(Guid Id)
         {
             var result = new OperationResult<bool>();
             try
@@ -138,8 +138,8 @@ namespace Nzh.Admin.Service
                 using (_demoRepository.GetConnection())
                 {
                     transaction = _demoRepository.GetConnection().BeginTransaction(); //开始事务
-                    string sql = "DELETE FROM [dbo].[Demo] WHERE ID=@ID";
-                    result.data = await _demoRepository.DeleteByIDAsync(ID, sql);
+                    string sql = "DELETE FROM [dbo].[Demo] WHERE Id=@Id";
+                    result.data = await _demoRepository.DeleteByIDAsync(Id, sql);
                     transaction.Commit();//提交事务
                     return result;
                 }

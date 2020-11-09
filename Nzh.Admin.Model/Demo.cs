@@ -11,9 +11,9 @@ namespace Nzh.Admin.Model
     public class Demo 
     {
         /// <summary>
-        ///ID 
+        ///Id 
         /// </summary>
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Name 

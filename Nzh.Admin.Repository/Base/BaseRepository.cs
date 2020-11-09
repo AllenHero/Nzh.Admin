@@ -93,12 +93,12 @@ namespace Nzh.Admin.Repository.Base
         #region  删除
 
         /// <summary>
-        /// 根据ID删除
+        /// 根据Id删除
         /// </summary>
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteByIDAsync(Guid Id, string sql)
+        public async Task<bool> DeleteByIdAsync(Guid Id, string sql)
         {
             using (GetConnection())
             {
@@ -107,12 +107,12 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 根据ID删除
+        /// 根据Id删除
         /// </summary>
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public bool DeleteByID(Guid Id, string sql)
+        public bool DeleteById(Guid Id, string sql)
         {
             using (GetConnection())
             {

@@ -20,9 +20,9 @@ namespace Nzh.Admin.IRepository.Base
 
         bool AddRange(List<T> entitylist, string sql);
 
-        Task<bool> DeleteByIDAsync(Guid Id, string sql);
+        Task<bool> DeleteByIdAsync(Guid Id, string sql);
 
-        bool DeleteByID(Guid Id, string sql);
+        bool DeleteById(Guid Id, string sql);
 
         Task<bool> DeleteAsync(T entity, string sql);
 

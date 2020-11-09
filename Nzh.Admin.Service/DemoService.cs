@@ -139,7 +139,7 @@ namespace Nzh.Admin.Service
                 {
                     transaction = _demoRepository.GetConnection().BeginTransaction(); //开始事务
                     string sql = "DELETE FROM [dbo].[Demo] WHERE Id=@Id";
-                    result.data = await _demoRepository.DeleteByIDAsync(Id, sql);
+                    result.data = await _demoRepository.DeleteByIdAsync(Id, sql);
                     transaction.Commit();//提交事务
                     return result;
                 }

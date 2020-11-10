@@ -14,14 +14,7 @@ namespace Nzh.Admin.Repository.Config
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
-        //private static string DefaultSqlConnectionString = @"Data Source=localhost;Initial Catalog=STD_DB;User ID=sa;Password=123456;";
-
-        /// <summary>
-        ///  获取
-        /// </summary>                                                
-        //public static string ConnStr { get { return DefaultSqlConnectionString; } }
-
-        public static string ConnStr { get; set; }
+        public static string ConnectionString { get; set; }
 
         /// <summary>
         /// 获取数据库连接信息
@@ -32,7 +25,7 @@ namespace Nzh.Admin.Repository.Config
         {
             if (string.IsNullOrWhiteSpace(sqlConnectionString))
             {
-                sqlConnectionString = ConnStr;
+                sqlConnectionString = ConnectionString;
             }
             IDbConnection conn = new SqlConnection(sqlConnectionString);
             conn.Open();

@@ -20,7 +20,7 @@ namespace Nzh.Admin.IService
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<Demo> GetDemoById(Guid Id);
+        Task<Demo> GetDemoById(long Id);
 
         /// <summary>
         /// 添加Demo
@@ -41,13 +41,13 @@ namespace Nzh.Admin.IService
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
-        Task<OperationResult<bool>> UpdateDemo(Guid Id, string Name, string Sex, int Age, string Remark);
+        Task<OperationResult<bool>> UpdateDemo(long Id, string Name, string Sex, int Age, string Remark);
 
         /// <summary>
         /// 删除Demo
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<OperationResult<bool>> DeleteDemo(Guid Id);
+        Task<OperationResult<bool>> DeleteDemo(long Id);
     }
 }

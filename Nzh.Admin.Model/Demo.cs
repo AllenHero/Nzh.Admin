@@ -13,7 +13,7 @@ namespace Nzh.Admin.Model
         /// <summary>
         ///Id 
         /// </summary>
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Name 

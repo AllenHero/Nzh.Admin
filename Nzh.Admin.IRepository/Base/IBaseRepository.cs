@@ -20,9 +20,9 @@ namespace Nzh.Admin.IRepository.Base
 
         bool AddRange(List<T> entitylist, string sql);
 
-        Task<bool> DeleteByIdAsync(Guid Id, string sql);
+        Task<bool> DeleteByIdAsync(long Id, string sql);
 
-        bool DeleteById(Guid Id, string sql);
+        bool DeleteById(long Id, string sql);
 
         Task<bool> DeleteAsync(T entity, string sql);
 
@@ -44,9 +44,9 @@ namespace Nzh.Admin.IRepository.Base
 
         int Count(string sql);
 
-        Task<T> GetAsync(Guid Id, string sql);
+        Task<T> GetAsync(long Id, string sql);
 
-        T Get(Guid Id, string sql);
+        T Get(long Id, string sql);
 
         Task<List<T>> GetListAsync(string sql);
 

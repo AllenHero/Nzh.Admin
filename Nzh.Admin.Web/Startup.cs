@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Nzh.Admin.Extension;
+using Nzh.Admin.Repository.Config;
 
 namespace Nzh.Admin.Web
 {
@@ -24,6 +26,10 @@ namespace Nzh.Admin.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddRepositories();
+
+            DataBaseConfig.ConnectionString = this.Configuration.GetSection("ConnectionStrings:MySql").Value;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

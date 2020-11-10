@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -27,7 +28,7 @@ namespace Nzh.Admin.Repository.Config
             {
                 sqlConnectionString = ConnectionString;
             }
-            IDbConnection conn = new SqlConnection(sqlConnectionString);
+            IDbConnection conn = new MySqlConnection(sqlConnectionString);
             conn.Open();
             return conn;
         }

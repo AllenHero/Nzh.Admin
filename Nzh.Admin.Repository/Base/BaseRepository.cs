@@ -98,7 +98,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteByIdAsync(Guid Id, string sql)
+        public async Task<bool> DeleteByIdAsync(long Id, string sql)
         {
             using (GetConnection())
             {
@@ -112,7 +112,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public bool DeleteById(Guid Id, string sql)
+        public bool DeleteById(long Id, string sql)
         {
             using (GetConnection())
             {
@@ -274,7 +274,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<T> GetAsync(Guid Id, string sql)
+        public async Task<T> GetAsync(long Id, string sql)
         {
             using (GetConnection())
             {
@@ -289,7 +289,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public T Get(Guid Id, string sql)
+        public T Get(long Id, string sql)
         {
             using (GetConnection())
             {

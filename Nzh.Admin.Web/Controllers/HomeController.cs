@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Nzh.Admin.IService;
 using Nzh.Admin.Web.Models;
 
 namespace Nzh.Admin.Web.Controllers
@@ -13,13 +14,18 @@ namespace Nzh.Admin.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IDemoService _demoService;
+
+        public HomeController(ILogger<HomeController> logger, IDemoService demoService)
         {
             _logger = logger;
+            _demoService = demoService;
         }
 
         public IActionResult Index()
         {
+            long Id = 1325637489460908032;
+            dynamic result =  _demoService.GetDemoById(Id).Result;
             return View();
         }
 

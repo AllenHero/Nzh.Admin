@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using DapperExtensions;
+using MySql.Data.MySqlClient;
 using Nzh.Admin.Model.Base;
 using Nzh.Admin.Repository.Config;
 using System;
@@ -18,6 +19,16 @@ namespace Nzh.Admin.Repository.Extensions
     /// <typeparam name="T"></typeparam>
     public partial class DapperExtensions<T> where T : class, new()
     {
+        /// <summary>
+        /// 数据库连接信息
+        /// </summary>
+        /// <returns></returns>
+        public IDbConnection GetConnection()
+        {
+            IDbConnection conn = DataBaseConfig.GetSqlConnection();
+            return conn;
+        }
+
         #region 新增
 
         /// <summary>
@@ -27,9 +38,9 @@ namespace Nzh.Admin.Repository.Extensions
         /// <returns></returns>
         public bool Insert(T model)
         {
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return cn.Insert(model);
+                return GetConnection().Insert(model);
             }
         }
 
@@ -40,9 +51,9 @@ namespace Nzh.Admin.Repository.Extensions
         /// <returns></returns>
         public async Task<bool> InsertAsync(T model)
         {
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return await cn.InsertAsync(model);
+                return await GetConnection().InsertAsync(model);
             }
         }
 
@@ -54,11 +65,11 @@ namespace Nzh.Admin.Repository.Extensions
         public bool InsertBatch(List<T> models)
         {
             bool result = false;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
                 foreach (var model in models)
                 {
-                    cn.Insert(model);
+                    GetConnection().Insert(model);
                 }
                 result = true;
             }
@@ -73,11 +84,11 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<bool> InsertBatchAsync(List<T> models)
         {
             bool result = false;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
                 foreach (var model in models)
                 {
-                    await cn.InsertAsync(model);
+                    await GetConnection().InsertAsync(model);
                 }
                 result = true;
             }
@@ -95,9 +106,9 @@ namespace Nzh.Admin.Repository.Extensions
         /// <returns></returns>
         public bool Update(T model)
         {
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return cn.Update(model);
+                return GetConnection().Update(model);
             }
         }
 
@@ -108,9 +119,9 @@ namespace Nzh.Admin.Repository.Extensions
         /// <returns></returns>
         public async Task<bool> UpdateAsync(T model)
         {
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return await cn.UpdateAsync(model);
+                return await GetConnection().UpdateAsync(model);
             }
         }
 
@@ -122,11 +133,11 @@ namespace Nzh.Admin.Repository.Extensions
         public bool UpdateBatch(List<T> models)
         {
             bool result = false;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
                 foreach (var model in models)
                 {
-                    result = cn.Update(model);
+                    result = GetConnection().Update(model);
                 }
                 result = true;
             }
@@ -141,11 +152,11 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<bool> UpdateBatchAsync(List<T> models)
         {
             bool result = false;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
                 foreach (var model in models)
                 {
-                    result = await cn.UpdateAsync(model);
+                    result = await GetConnection().UpdateAsync(model);
                 }
                 result = true;
             }
@@ -163,9 +174,9 @@ namespace Nzh.Admin.Repository.Extensions
         /// <returns></returns>
         public bool Delete(T model)
         {
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return cn.Delete(model);
+                return GetConnection().Delete(model);
             }
         }
 
@@ -176,9 +187,9 @@ namespace Nzh.Admin.Repository.Extensions
         /// <returns></returns>
         public async Task<bool> DeleteAsync(T model)
         {
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return await cn.DeleteAsync(model);
+                return await GetConnection().DeleteAsync(model);
             }
         }
 
@@ -189,9 +200,9 @@ namespace Nzh.Admin.Repository.Extensions
         /// <returns></returns>
         public bool Delete(object predicate)
         {
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return cn.Delete(predicate);
+                return GetConnection().Delete(predicate);
             }
         }
 
@@ -202,9 +213,9 @@ namespace Nzh.Admin.Repository.Extensions
         /// <returns></returns>
         public async Task<bool> DeleteAsync(object predicate)
         {
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return await cn.DeleteAsync(predicate);
+                return await GetConnection().DeleteAsync(predicate);
             }
         }
 
@@ -216,11 +227,11 @@ namespace Nzh.Admin.Repository.Extensions
         public bool DeleteBatch(List<T> models)
         {
             bool result = false;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
                 foreach (var model in models)
                 {
-                    result = cn.Delete(model);
+                    result = GetConnection().Delete(model);
                 }
                 result = true;
             }
@@ -235,11 +246,11 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<bool> DeleteBatchAsync(List<T> models)
         {
             bool result = false;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
                 foreach (var model in models)
                 {
-                    result =await cn.DeleteAsync(model);
+                    result =await GetConnection().DeleteAsync(model);
                 }
                 result = true;
             }
@@ -261,9 +272,9 @@ namespace Nzh.Admin.Repository.Extensions
                 return result;
             }
             sql.AppendFormat(" where {0} ", where);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                result = cn.Execute(sql.ToString(), param) > 0;
+                result = GetConnection().Execute(sql.ToString(), param) > 0;
                 return result;
             }
         }
@@ -283,9 +294,9 @@ namespace Nzh.Admin.Repository.Extensions
                 return result;
             }
             sql.AppendFormat(" where {0} ", where);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                result =await cn.ExecuteAsync(sql.ToString(), param) > 0;
+                result =await GetConnection().ExecuteAsync(sql.ToString(), param) > 0;
                 return result;
             }
         }
@@ -302,9 +313,9 @@ namespace Nzh.Admin.Repository.Extensions
         public T QueryFirst(string sql)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.QueryFirst<T>(sql);
+                t = GetConnection().QueryFirst<T>(sql);
             }
             return t;
         }
@@ -317,9 +328,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<T> QueryFirstAsync(string sql)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await cn.QueryFirstAsync<T>(sql);
+                t = await GetConnection().QueryFirstAsync<T>(sql);
             }
             return t;
         }
@@ -333,9 +344,9 @@ namespace Nzh.Admin.Repository.Extensions
         public T QueryFirstOrDefault(string sql)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.QueryFirstOrDefault<T>(sql);
+                t = GetConnection().QueryFirstOrDefault<T>(sql);
             }
             return t;
         }
@@ -348,9 +359,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<T> QueryFirstOrDefaultAsync(string sql)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await cn.QueryFirstOrDefaultAsync<T>(sql);
+                t = await GetConnection().QueryFirstOrDefaultAsync<T>(sql);
             }
             return t;
         }
@@ -364,9 +375,9 @@ namespace Nzh.Admin.Repository.Extensions
         public T QuerySingle(string sql)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.QuerySingle<T>(sql);
+                t = GetConnection().QuerySingle<T>(sql);
             }
             return t;
         }
@@ -379,9 +390,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<T> QuerySingleAsync(string sql)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await cn.QuerySingleAsync<T>(sql);
+                t = await GetConnection().QuerySingleAsync<T>(sql);
             }
             return t;
         }
@@ -394,9 +405,9 @@ namespace Nzh.Admin.Repository.Extensions
         public T QuerySingleOrDefault(string sql)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.QuerySingleOrDefault<T>(sql);
+                t = GetConnection().QuerySingleOrDefault<T>(sql);
             }
             return t;
         }
@@ -409,9 +420,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<T> QuerySingleOrDefaultAsync(string sql)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await cn.QuerySingleOrDefaultAsync<T>(sql);
+                t = await GetConnection().QuerySingleOrDefaultAsync<T>(sql);
             }
             return t;
         }
@@ -424,9 +435,9 @@ namespace Nzh.Admin.Repository.Extensions
         public T FirstOrDefault(object id)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.FirstOrDefault<T>(id);
+                t = GetConnection().FirstOrDefault<T>(id);
             }
             return t;
         }
@@ -439,9 +450,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<T> FirstOrDefaultAsync(object id)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await cn.FirstOrDefaultAsync<T>(id);
+                t = await GetConnection().FirstOrDefaultAsync<T>(id);
             }
             return t;
         }
@@ -454,9 +465,9 @@ namespace Nzh.Admin.Repository.Extensions
         public T SingleOrDefault(object id)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.SingleOrDefault<T>(id);
+                t = GetConnection().SingleOrDefault<T>(id);
             }
             return t;
         }
@@ -469,9 +480,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<T> SingleOrDefaultAsync(object id)
         {
             T t = default(T);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await cn.SingleOrDefaultAsync<T>(id);
+                t = await GetConnection().SingleOrDefaultAsync<T>(id);
             }
             return t;
         }
@@ -484,9 +495,9 @@ namespace Nzh.Admin.Repository.Extensions
         public T Get(object id)
         {
             T t = default(T); 
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.Get<T>(id);
+                t = GetConnection().Get<T>(id);
             }
             return t;
         }
@@ -499,9 +510,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<T> GetAsync(object id)
         {
             T t = default(T); 
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t =await cn.GetAsync<T>(id);
+                t =await GetConnection().GetAsync<T>(id);
             }
             return t;
         }
@@ -517,9 +528,9 @@ namespace Nzh.Admin.Repository.Extensions
             var tableName = typeof(T).Name;
             StringBuilder sql = new StringBuilder().AppendFormat("SELECT  TOP 1 * FROM {0} WHERE {1}=@id ", tableName, keyName);
             var pms = new { id = id };
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return cn.Query<T>(sql.ToString(), pms).FirstOrDefault();
+                return GetConnection().Query<T>(sql.ToString(), pms).FirstOrDefault();
             }
         }
 
@@ -533,9 +544,9 @@ namespace Nzh.Admin.Repository.Extensions
             var tableName = typeof(T).Name;
             StringBuilder sql = new StringBuilder().AppendFormat("SELECT  TOP 1 * FROM {0} WHERE {1}=@id ", tableName, keyName);
             var pms = new { id = id };
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return await Task.Run(() => cn.Query<T>(sql.ToString(), pms).FirstOrDefault());
+                return await Task.Run(() => GetConnection().Query<T>(sql.ToString(), pms).FirstOrDefault());
             }
         }      
         
@@ -548,9 +559,9 @@ namespace Nzh.Admin.Repository.Extensions
         public List<T> GetList(object predicate = null, IList<ISort> sort = null)
         {
             List<T> t = null;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.GetList<T>(predicate, sort).ToList();//不使用ToList  SqlConnection未初始化
+                t = GetConnection().GetList<T>(predicate, sort).ToList();//不使用ToList  SqlConnection未初始化
             }
             return t;
         }
@@ -564,9 +575,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<List<T>> GetListAsync(object predicate = null, IList<ISort> sort = null)
         {
             List<T> t = null;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await Task.Run(() => cn.GetList<T>(predicate, sort).ToList());//不使用ToList  SqlConnection未初始化
+                t = await Task.Run(() => GetConnection().GetList<T>(predicate, sort).ToList());//不使用ToList  SqlConnection未初始化
             }
             return t;
         }
@@ -591,9 +602,9 @@ namespace Nzh.Admin.Repository.Extensions
             {
                 sql.AppendFormat(" order by {0} ", sort);
             }
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return cn.Query<T>(sql.ToString()).ToList();
+                return GetConnection().Query<T>(sql.ToString()).ToList();
             }
         }
 
@@ -616,9 +627,9 @@ namespace Nzh.Admin.Repository.Extensions
             {
                 sql.AppendFormat(" order by {0} ", sort);
             }
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return await Task.Run(() => cn.Query<T>(sql.ToString()).ToList());
+                return await Task.Run(() => GetConnection().Query<T>(sql.ToString()).ToList());
             }
         }
 
@@ -631,9 +642,9 @@ namespace Nzh.Admin.Repository.Extensions
         public int Count(object predicate = null)
         {
             int t = 0;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.Count<T>(predicate);
+                t = GetConnection().Count<T>(predicate);
             }
             return t;
         }
@@ -647,9 +658,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<int> CountAsync(object predicate = null)
         {
             int t = 0;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await cn.CountAsync<T>(predicate);
+                t = await GetConnection().CountAsync<T>(predicate);
             }
             return t;
         }
@@ -668,9 +679,9 @@ namespace Nzh.Admin.Repository.Extensions
             {
                 sql.AppendFormat(" where {0} ", where);
             }
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return cn.ExecuteScalar<int>(sql.ToString());
+                return GetConnection().ExecuteScalar<int>(sql.ToString());
             }
         }
 
@@ -688,9 +699,9 @@ namespace Nzh.Admin.Repository.Extensions
             {
                 sql.AppendFormat(" where {0} ", where);
             }
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                return await cn.ExecuteScalarAsync<int>(sql.ToString());
+                return await GetConnection().ExecuteScalarAsync<int>(sql.ToString());
             }
         }
 
@@ -705,9 +716,9 @@ namespace Nzh.Admin.Repository.Extensions
         public List<T> GetPage(object predicate, IList<ISort> sort, int page, int resultsPerPage)
         {
             List<T> t = null;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = cn.GetPage<T>(predicate, sort, page, resultsPerPage).ToList();
+                t = GetConnection().GetPage<T>(predicate, sort, page, resultsPerPage).ToList();
             }
             return t;
         }
@@ -723,9 +734,9 @@ namespace Nzh.Admin.Repository.Extensions
         public async Task<List<T>> GetPageAsync(object predicate, IList<ISort> sort, int page, int resultsPerPage)
         {
             List<T> t = null;
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                t = await Task.Run(() => cn.GetPage<T>(predicate, sort, page, resultsPerPage).ToList());
+                t = await Task.Run(() => GetConnection().GetPage<T>(predicate, sort, page, resultsPerPage).ToList());
             }
             return t;
         }
@@ -751,9 +762,9 @@ namespace Nzh.Admin.Repository.Extensions
             p.Add("@pageIndex", page);
             p.Add("@TotalPage", 0, direction: ParameterDirection.Output);
             p.Add("@Totalrow", 0, direction: ParameterDirection.Output);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                var data = cn.Query<T>(SpName, p, commandType: CommandType.StoredProcedure, commandTimeout: 120);
+                var data = GetConnection().Query<T>(SpName, p, commandType: CommandType.StoredProcedure, commandTimeout: 120);
                 int totalPage = p.Get<int>("@TotalPage");
                 int totalrow = p.Get<int>("@Totalrow");
                 var rep = new PageDateRep<T>()
@@ -790,9 +801,9 @@ namespace Nzh.Admin.Repository.Extensions
             p.Add("@pageIndex", page);
             p.Add("@TotalPage", 0, direction: ParameterDirection.Output);
             p.Add("@Totalrow", 0, direction: ParameterDirection.Output);
-            using (SqlConnection cn = new SqlConnection(DataBaseConfig.ConnectionString))
+            using (GetConnection())
             {
-                var data = await Task.Run(() => cn.Query<T>(SpName, p, commandType: CommandType.StoredProcedure, commandTimeout: 120));
+                var data = await Task.Run(() => GetConnection().Query<T>(SpName, p, commandType: CommandType.StoredProcedure, commandTimeout: 120));
                 int totalPage = p.Get<int>("@TotalPage");
                 int totalrow = p.Get<int>("@Totalrow");
                 var rep = new PageDateRep<T>()

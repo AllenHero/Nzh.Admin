@@ -38,6 +38,6 @@ namespace Nzh.Admin.Model.Base
         /// <summary>
         /// 数据
         /// </summary>
-        public T data { get; set; }
+        public dynamic data { get; set; }
     }
 }

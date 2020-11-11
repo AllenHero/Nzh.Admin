@@ -28,6 +28,67 @@ namespace Nzh.Admin.Repository.Base
             return conn;
         }
 
+        #region 事务
+
+        /// <summary>
+        /// 开始事务
+        /// </summary>
+        public IDbTransaction BeginTransaction()
+        {
+            IDbTransaction tran = GetConnection().BeginTransaction();
+            return tran;
+        }
+
+        /// <summary>
+        /// 提交事务
+        /// </summary>
+        public void CommitTransaction(IDbTransaction tran)
+        {
+            tran.Commit();
+        }
+
+        /// <summary>
+        /// 回滚事务
+        /// </summary>
+        /// <param name="tran"></param>
+        /// <param name="conn"></param>
+        public void RollbackTransaction(IDbTransaction tran)
+        {
+            tran.Rollback();
+        }
+
+        #endregion
+
+        #region Sql操作
+
+        /// <summary>
+        /// 执行sql（异步）
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<bool> ExecuteSqlAsync(string sql)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().ExecuteAsync(sql) > 0;
+            }
+        }
+
+        /// <summary>
+        /// 执行sql
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public bool ExecuteSql(string sql)
+        {
+            using (GetConnection())
+            {
+                return GetConnection().Execute(sql) > 0;
+            }
+        }
+
+        #endregion
+
         #region  新增
 
         /// <summary>

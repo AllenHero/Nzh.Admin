@@ -20,9 +20,6 @@ namespace Nzh.Admin.Service
             _demoRepository = demoRepository;
         }
 
-        IDbTransaction transaction = null;
-
-
         /// <summary>
         /// 获取Demo分页
         /// </summary>
@@ -63,10 +60,10 @@ namespace Nzh.Admin.Service
         /// <returns></returns>
         public async Task<OperationResult<bool>> InsertDemoAsync(string Name, string Sex, int Age, string Remark)
         {
-            var result = new OperationResult<bool>();
-            try
+            using (IDbTransaction tran = _demoRepository.BeginTransaction())//开始事务
             {
-                using (_demoRepository.GetConnection())
+                var result = new OperationResult<bool>();
+                try
                 {
                     byte[] buffer = Guid.NewGuid().ToByteArray();
                     Demo demo = new Demo();
@@ -75,20 +72,28 @@ namespace Nzh.Admin.Service
                     demo.Sex = Sex;
                     demo.Age = Age;
                     demo.Remark = Remark;
-                    transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = @"INSERT INTO Demo(Id, Name, Sex, Age, Remark) VALUES(@Id, @Name, @Sex, @Age, @Remark)";
-                    result.data = await _demoRepository.InsertAsync(demo, sql);
-                    //result.data = await _demoRepository.InsertAsync(demo);  //dapper扩展方法
-                    transaction.Commit();//提交事务
+                    //StringBuilder sb = new StringBuilder();
+                    //sb.AppendFormat(" INSERT INTO `Demo` (`Id`, `Name`, `Sex`, `Age`, `Remark`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');", GuidToLongId(), Name, Sex, Age, Remark);
+                    result.data = await _demoRepository.InsertAsync(demo,sql);//dapper
+                    //result.data = await _demoRepository.ExecuteSqlAsync(sb.ToString());//执行sql
+                    //result.data = await _demoRepository.InsertAsync(demo);//dapper扩展方法
+                    _demoRepository.CommitTransaction(tran);//提交事务
                     return result;
                 }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();//回滚
-                throw ex;
+                catch (Exception ex)
+                {
+                    _demoRepository.RollbackTransaction(tran);//回滚事务
+                    throw ex;
+                }
             }
         }
+
+        //public static long GuidToLongId()
+        //{
+        //    byte[] buffer = Guid.NewGuid().ToByteArray();
+        //    return BitConverter.ToInt64(buffer, 0);
+        //}
 
         /// <summary>
         /// 修改Demo
@@ -101,10 +106,10 @@ namespace Nzh.Admin.Service
         /// <returns></returns>
         public async Task<OperationResult<bool>> UpdateDemoAsync(long Id, string Name, string Sex, int Age, string Remark)
         {
-            var result = new OperationResult<bool>();
-            try
+            using (IDbTransaction tran = _demoRepository.BeginTransaction())//开始事务
             {
-                using (_demoRepository.GetConnection())
+                var result = new OperationResult<bool>();
+                try
                 {
                     Demo demo = new Demo();
                     demo.Id = Id;
@@ -112,17 +117,16 @@ namespace Nzh.Admin.Service
                     demo.Sex = Sex;
                     demo.Age = Age;
                     demo.Remark = Remark;
-                    transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
                     string sql = "UPDATE Demo SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE Id=@Id";
                     result.data = await _demoRepository.UpdateAsync(demo, sql);
-                    transaction.Commit(); //提交事务
+                    _demoRepository.CommitTransaction(tran);//提交事务
                     return result;
                 }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();//回滚
-                throw ex;
+                catch (Exception ex)
+                {
+                    _demoRepository.RollbackTransaction(tran);//回滚事务
+                    throw ex;
+                }
             }
         }
 
@@ -133,22 +137,21 @@ namespace Nzh.Admin.Service
         /// <returns></returns>
         public async Task<OperationResult<bool>> DeleteDemoAsync(long Id)
         {
-            var result = new OperationResult<bool>();
-            try
+            using (IDbTransaction tran = _demoRepository.BeginTransaction()) //开始事务
             {
-                using (_demoRepository.GetConnection())
+                var result = new OperationResult<bool>();
+                try
                 {
-                    transaction = _demoRepository.GetConnection().BeginTransaction(); //开始事务
                     string sql = "DELETE FROM Demo WHERE Id=@Id";
                     result.data = await _demoRepository.DeleteByIdAsync(Id, sql);
-                    transaction.Commit();//提交事务
+                    _demoRepository.CommitTransaction(tran);//提交事务
                     return result;
                 }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();//回滚
-                throw ex;
+                catch (Exception ex)
+                {
+                    _demoRepository.RollbackTransaction(tran);//回滚事务
+                    throw ex;
+                }
             }
         }
     }

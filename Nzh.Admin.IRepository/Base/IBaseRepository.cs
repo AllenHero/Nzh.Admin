@@ -12,6 +12,16 @@ namespace Nzh.Admin.IRepository.Base
     {
         IDbConnection GetConnection();
 
+        IDbTransaction BeginTransaction();
+
+        void CommitTransaction(IDbTransaction tran);
+
+        void RollbackTransaction(IDbTransaction tran);
+
+        Task<bool> ExecuteSqlAsync(string sql);
+
+        bool ExecuteSql(string sql);
+
         Task<bool> InsertAsync(T entity, string sql);
 
         bool Insert(T entity, string sql);

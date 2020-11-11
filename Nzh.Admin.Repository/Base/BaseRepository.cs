@@ -344,6 +344,19 @@ namespace Nzh.Admin.Repository.Base
         /// <summary>
         /// 获取实体
         /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public async Task<T> GetAsync(string sql)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().QueryFirstOrDefaultAsync<T>(sql);
+            }
+        }
+
+        /// <summary>
+        /// 获取实体
+        /// </summary>
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
@@ -352,6 +365,19 @@ namespace Nzh.Admin.Repository.Base
             using (GetConnection())
             {
                 return  GetConnection().QueryFirstOrDefault<T>(sql, new { Id = Id });  
+            }
+        }
+
+        /// <summary>
+        /// 查询实体
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public T Get(string sql)
+        {
+            using (GetConnection())
+            {
+                return GetConnection().QueryFirstOrDefault<T>(sql);
             }
         }
 

@@ -56,7 +56,11 @@ namespace Nzh.Admin.IRepository.Base
 
         Task<T> GetAsync(long Id, string sql);
 
+        Task<T> GetAsync(string sql);
+
         T Get(long Id, string sql);
+
+        T Get(string sql);
 
         Task<List<T>> GetListAsync(string sql);
 

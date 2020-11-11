@@ -17,7 +17,7 @@ namespace Nzh.Admin.Common.Helper
         /// <param name="str">明文（待解密）</param>
         /// <param name="key">密文</param>
         /// <returns></returns>
-        public string AesDecrypt(string str, string key)
+        public static string AesDecrypt(string str, string key)
         {
             if (string.IsNullOrEmpty(str)) return null;
             Byte[] toEncryptArray = Convert.FromBase64String(str);
@@ -47,7 +47,7 @@ namespace Nzh.Admin.Common.Helper
         /// </summary>
         /// <param name="securityTxt">加密字符串</param>
         /// <returns></returns>
-        public string DesDecrypt(string securityTxt)//解密  
+        public static string DesDecrypt(string securityTxt)//解密  
         {
             //byte[] byKey = System.Text.ASCIIEncoding.ASCII.GetBytes(_KEY);
             //byte[] byIV = System.Text.ASCIIEncoding.ASCII.GetBytes(_IV);

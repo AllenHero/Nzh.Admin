@@ -9,7 +9,7 @@ namespace Nzh.Admin.Common.Helper
     /// <summary>
     /// Encryption辅助类
     /// </summary>
-    class EncryptionHelper
+    public class EncryptionHelper
     {
         /// <summary>
         ///  AES 加密
@@ -17,7 +17,7 @@ namespace Nzh.Admin.Common.Helper
         /// <param name="str">明文（待加密）</param>
         /// <param name="key">密文</param>
         /// <returns></returns>
-        public string AesEncrypt(string str, string key)
+        public static string AesEncrypt(string str, string key)
         {
             if (string.IsNullOrEmpty(str)) return null;
             Byte[] toEncryptArray = Encoding.UTF8.GetBytes(str);
@@ -47,7 +47,7 @@ namespace Nzh.Admin.Common.Helper
         /// </summary>
         /// <param name="normalTxt"></param>
         /// <returns></returns>
-        public string DesEncrypt(string normalTxt)
+        public static string DesEncrypt(string normalTxt)
         {
             //byte[] byKey = System.Text.ASCIIEncoding.ASCII.GetBytes(_KEY);
             //byte[] byIV = System.Text.ASCIIEncoding.ASCII.GetBytes(_IV);

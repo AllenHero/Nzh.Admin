@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Nzh.Admin.IRepository;
+using Nzh.Admin.IRepository.Sys;
 using Nzh.Admin.IService;
+using Nzh.Admin.IService.Sys;
 using Nzh.Admin.Repository;
+using Nzh.Admin.Repository.Sys;
 using Nzh.Admin.Service;
+using Nzh.Admin.Service.Sys;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +27,12 @@ namespace Nzh.Admin.Extension
 
             services.AddScoped<IDemoRepository, DemoRepository>();
             services.AddScoped<IDemoService, DemoService>();
+
+            services.AddScoped<ILogRepository, LogRepository>();
+            services.AddScoped<ILogService, LogService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

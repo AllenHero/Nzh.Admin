@@ -37,13 +37,13 @@ namespace Nzh.Admin.Controllers
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        [HttpGet("GetDemoPageList")]
-        public async Task<JsonResult> GetDemoPageList(int PageIndex, int PageSize)
+        [HttpGet("GetDemoPageListAsync")]
+        public async Task<JsonResult> GetDemoPageListAsync(int PageIndex, int PageSize)
         {
             var result = new OperationResult<PageResult<Demo>>();
             try
             {
-                result.data = await _demoService.GetDemoPageList(PageIndex, PageSize);
+                result.data = await _demoService.GetDemoPageListAsync(PageIndex, PageSize);
             }
             catch (Exception ex)
             {
@@ -59,13 +59,13 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet("GetDemoById")]
-        public async Task<JsonResult> GetDemoById(long Id)
+        [HttpGet("GetDemoByIdAsync")]
+        public async Task<JsonResult> GetDemoByIdAsync(long Id)
         {
             var result = new OperationResult<Demo>();
             try
             {
-                result.data = await _demoService.GetDemoById(Id);
+                result.data = await _demoService.GetDemoByIdAsync(Id);
             }
             catch (Exception ex)
             {
@@ -84,13 +84,13 @@ namespace Nzh.Admin.Controllers
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
-        [HttpPost("AddDemo")]
-        public async Task<JsonResult> AddDemo(string Name, string Sex, int Age, string Remark)
+        [HttpPost("InsertDemoAsync")]
+        public async Task<JsonResult> InsertDemoAsync(string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
             {
-                result = await _demoService.AddDemo(Name, Sex, Age, Remark);
+                result = await _demoService.InsertDemoAsync(Name, Sex, Age, Remark);
             }
             catch (Exception ex)
             {
@@ -110,13 +110,13 @@ namespace Nzh.Admin.Controllers
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
-        [HttpPut("UpdateDemo")]
-        public async Task<JsonResult> UpdateDemo(long Id, string Name, string Sex, int Age, string Remark)
+        [HttpPut("UpdateDemoAsync")]
+        public async Task<JsonResult> UpdateDemoAsync(long Id, string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
             {
-                result = await _demoService.UpdateDemo(Id, Name, Sex, Age, Remark);
+                result = await _demoService.UpdateDemoAsync(Id, Name, Sex, Age, Remark);
             }
             catch (Exception ex)
             {
@@ -132,13 +132,13 @@ namespace Nzh.Admin.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpDelete("DeleteDemo")]
-        public async Task<JsonResult> DeleteDemo(long Id)
+        [HttpDelete("DeleteDemoAsync")]
+        public async Task<JsonResult> DeleteDemoAsync(long Id)
         {
             var result = new OperationResult<bool>();
             try
             {
-                result = await _demoService.DeleteDemo(Id);
+                result = await _demoService.DeleteDemoAsync(Id);
             }
             catch (Exception ex)
             {

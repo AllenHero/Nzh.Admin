@@ -25,7 +25,7 @@ namespace Nzh.Admin.Web.Controllers
         public IActionResult Index()
         {
             long Id = 1325637489460908032;
-            dynamic result =  _demoService.GetDemoById(Id).Result;
+            dynamic result =  _demoService.GetDemoByIdAsync(Id).Result;
             return View();
         }
 

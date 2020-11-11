@@ -29,7 +29,7 @@ namespace Nzh.Admin.Service
         /// <param name="PageIndex"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public async Task<PageResult<Demo>> GetDemoPageList(int PageIndex, int PageSize)
+        public async Task<PageResult<Demo>> GetDemoPageListAsync(int PageIndex, int PageSize)
         {
             var demoList = new PageResult<Demo>();
             string sql = @"SELECT Id, Name, Sex, Age, Remark FROM Demo";
@@ -46,7 +46,7 @@ namespace Nzh.Admin.Service
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<Demo> GetDemoById(long Id)
+        public async Task<Demo> GetDemoByIdAsync(long Id)
         {
             string sql = @"SELECT Id, Name, Sex, Age, Remark FROM Demo WHERE Id=@Id";
             var demoModel = await _demoRepository.GetAsync(Id, sql);
@@ -61,7 +61,7 @@ namespace Nzh.Admin.Service
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
-        public async Task<OperationResult<bool>> AddDemo(string Name, string Sex, int Age, string Remark)
+        public async Task<OperationResult<bool>> InsertDemoAsync(string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
@@ -99,7 +99,7 @@ namespace Nzh.Admin.Service
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
-        public async Task<OperationResult<bool>> UpdateDemo(long Id, string Name, string Sex, int Age, string Remark)
+        public async Task<OperationResult<bool>> UpdateDemoAsync(long Id, string Name, string Sex, int Age, string Remark)
         {
             var result = new OperationResult<bool>();
             try
@@ -131,7 +131,7 @@ namespace Nzh.Admin.Service
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<OperationResult<bool>> DeleteDemo(long Id)
+        public async Task<OperationResult<bool>> DeleteDemoAsync(long Id)
         {
             var result = new OperationResult<bool>();
             try

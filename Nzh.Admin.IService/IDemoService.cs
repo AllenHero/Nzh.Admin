@@ -13,14 +13,14 @@ namespace Nzh.Admin.IService
         /// 获取Demo分页
         /// </summary>
         /// <returns></returns>
-        Task<PageResult<Demo>> GetDemoPageList(int PageIndex, int PageSize);
+        Task<PageResult<Demo>> GetDemoPageListAsync(int PageIndex, int PageSize);
 
         /// <summary>
         /// 获取Demo
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<Demo> GetDemoById(long Id);
+        Task<Demo> GetDemoByIdAsync(long Id);
 
         /// <summary>
         /// 添加Demo
@@ -30,7 +30,7 @@ namespace Nzh.Admin.IService
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
-        Task<OperationResult<bool>> AddDemo(string Name, string Sex, int Age, string Remark);
+        Task<OperationResult<bool>> InsertDemoAsync(string Name, string Sex, int Age, string Remark);
 
         /// <summary>
         /// 修改Demo
@@ -41,13 +41,13 @@ namespace Nzh.Admin.IService
         /// <param name="Age"></param>
         /// <param name="Remark"></param>
         /// <returns></returns>
-        Task<OperationResult<bool>> UpdateDemo(long Id, string Name, string Sex, int Age, string Remark);
+        Task<OperationResult<bool>> UpdateDemoAsync(long Id, string Name, string Sex, int Age, string Remark);
 
         /// <summary>
         /// 删除Demo
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        Task<OperationResult<bool>> DeleteDemo(long Id);
+        Task<OperationResult<bool>> DeleteDemoAsync(long Id);
     }
 }

@@ -4,5 +4,138 @@
         <name>Nzh.Admin.Model</name>
     </assembly>
     <members>
+        <member name="T:Nzh.Admin.Model.Base.OperationResult">
+            <summary>
+            返回通用类
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.OperationResult.code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.OperationResult.msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="T:Nzh.Admin.Model.Base.OperationResult`1">
+            <summary>
+             返回通用类
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Nzh.Admin.Model.Base.OperationResult`1.#ctor">
+            <summary>
+            返回通用类
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.OperationResult`1.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Nzh.Admin.Model.Base.PageDateRep`1">
+            <summary>
+            分页
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageDateRep`1.code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageDateRep`1.msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageDateRep`1.count">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageDateRep`1.totalPage">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageDateRep`1.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageDateRep`1.PageNum">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageDateRep`1.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="T:Nzh.Admin.Model.Base.PageResult`1">
+            <summary>
+             分页返回类
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Nzh.Admin.Model.Base.PageResult`1.#ctor">
+            <summary>
+             分页返回类
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageResult`1.TotalCount">
+            <summary>
+            总记录数
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageResult`1.PageSize">
+            <summary>
+            一页展示的条数
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageResult`1.PageIndex">
+            <summary>
+            当前页
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Base.PageResult`1.list">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="T:Nzh.Admin.Model.Demo">
+            <summary>
+             Demo
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Demo.Id">
+             <summary>
+            Id 
+             </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Demo.Name">
+            <summary>
+            Name 
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Demo.Sex">
+            <summary>
+            Sex
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Demo.Age">
+            <summary>
+            Age
+            </summary>
+        </member>
+        <member name="P:Nzh.Admin.Model.Demo.Remark">
+            <summary>
+            Remark
+            </summary>
+        </member>
     </members>
 </doc>

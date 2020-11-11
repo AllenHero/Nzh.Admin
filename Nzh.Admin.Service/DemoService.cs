@@ -76,9 +76,9 @@ namespace Nzh.Admin.Service
                     demo.Age = Age;
                     demo.Remark = Remark;
                     transaction = _demoRepository.GetConnection().BeginTransaction();//开始事务
-                    string sql = @"INSERT INTO Demo(Id, Name, Sex, Age, Remark) VALUES(@Id, @Name, @Sex, @Age, @Remark)";
-                    result.data = await _demoRepository.AddAsync(demo, sql);
-                    //result.data = _demoRepository.Insert(demo);  //dapper扩展方法
+                    //string sql = @"INSERT INTO Demo(Id, Name, Sex, Age, Remark) VALUES(@Id, @Name, @Sex, @Age, @Remark)";
+                    //result.data = await _demoRepository.AddAsync(demo, sql);
+                    result.data = _demoRepository.Insert(demo);  //dapper扩展方法
                     transaction.Commit();//提交事务
                     return result;
                 }

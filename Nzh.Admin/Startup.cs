@@ -77,7 +77,7 @@ namespace Nzh.Admin
             });
             #endregion
 
-            DataBaseConfig.ConnectionString = this.Configuration.GetSection("ConnectionStrings:SqlServer").Value;
+            DataBaseConfig.ConnectionString = this.Configuration.GetSection("ConnectionStrings:MySql").Value;
 
         }
 

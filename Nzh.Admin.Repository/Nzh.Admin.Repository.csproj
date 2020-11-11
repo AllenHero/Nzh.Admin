@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.5" />
-    <PackageReference Include="DapperExtensions.NetCore" Version="2.0.5" />
     <PackageReference Include="MySql.Data" Version="8.0.22" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>

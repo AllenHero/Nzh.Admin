@@ -1,5 +1,5 @@
-﻿using DapperExtensions;
-using Nzh.Admin.Model.Base;
+﻿using Nzh.Admin.Model.Base;
+using Nzh.Admin.Model.Filter;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -64,95 +64,29 @@ namespace Nzh.Admin.IRepository.Base
 
         List<T> GetList(string sql, int pageIndex, int pageSize, object param = null);
 
-        #region   Dapper扩展方法
+        #region 扩展方法
 
-        bool Insert(T model);
+        T Get(int Id);
 
-        Task<bool> InsertAsync(T model);
+        int Insert(T model);
 
-        bool InsertBatch(List<T> models);
+        int Update(T model);
 
-        Task<bool> InsertBatchAsync(List<T> models);
+        int UpdateFields(T model, string updateFields);
 
-        bool Update(T model);
+        int Delete(int Id);
 
-        Task<bool> UpdateAsync(T model);
+        int DeleteByWhere(string where);
 
-        bool UpdateBatch(List<T> models);
+        IEnumerable<T> GetByPage(SearchFilter filter, out long total);
 
-        Task<bool> UpdateBatchAsync(List<T> models);
+        IEnumerable<T> GetByPageUnite(SearchFilter filter, out long total);
 
-        bool Delete(T model);
+        IEnumerable<T> GetAll(string returnFields = null, string orderby = null);
 
-        Task<bool> DeleteAsync(T model);
+        IEnumerable<T> GetByWhere(string where = null, object param = null, string returnFields = null, string orderby = null);
 
-        bool Delete(object predicate);
-
-        Task<bool> DeleteAsync(object predicate);
-
-        bool DeleteBatch(List<T> models);
-
-        Task<bool> DeleteBatchAsync(List<T> models);
-
-        bool DeleteByWhere(string where, object param = null);
-
-        Task<bool> DeleteByWhereAsync(string where, object param = null);
-
-        T QueryFirst(string sql);
-
-        Task<T> QueryFirstAsync(string sql);
-
-        T QueryFirstOrDefault(string sql);
-
-        Task<T> QueryFirstOrDefaultAsync(string sql);
-
-        T QuerySingle(string sql);
-
-        Task<T> QuerySingleAsync(string sql);
-
-        T QuerySingleOrDefault(string sql);
-
-        Task<T> QuerySingleOrDefaultAsync(string sql);
-
-        T FirstOrDefault(object id);
-
-        Task<T> FirstOrDefaultAsync(object id);
-
-        T SingleOrDefault(object id);
-
-        Task<T> SingleOrDefaultAsync(object id);
-
-        T Get(object id);
-
-        Task<T> GetAsync(object id);
-
-        T Query(object id, string keyName);
-
-        Task<T> QueryAsync(object id, string keyName);
-
-        List<T> GetList(object predicate = null, IList<ISort> sort = null);
-
-        Task<List<T>> GetListAsync(object predicate = null, IList<ISort> sort = null);
-
-        List<T> Query(string where, string sort = null, int limits = -1, string fileds = " * ", string orderby = "");
-
-        Task<List<T>> QueryAsync(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "");
-
-        int Count(object predicate = null);
-
-        Task<int> CountAsync(object predicate = null);
-
-        int CountByWhere(string where);
-
-        Task<int> CountByWhereAsync(string where);
-
-        List<T> GetPage(object predicate, IList<ISort> sort, int page, int resultsPerPage);
-
-        Task<List<T>> GetPageAsync(object predicate, IList<ISort> sort, int page, int resultsPerPage);
-
-        PageDateRep<T> GetPage(string SpName,string where, string sort, int page, int resultsPerPage, string fields = "*");
-
-        Task<PageDateRep<T>> GetPageAsync(string SpName, string where, string sort, int page, int resultsPerPage, string fields = "*");
+        long GetTotal(SearchFilter filter);
 
         #endregion
     }

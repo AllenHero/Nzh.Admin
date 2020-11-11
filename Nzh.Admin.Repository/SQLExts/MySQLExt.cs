@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Nzh.Admin.Repository.SQLExts.MySQLExt
 {
@@ -77,6 +78,33 @@ namespace Nzh.Admin.Repository.SQLExts.MySQLExt
             else
             {
                 return conn.Execute(sqls.InsertSql, entity, transaction, commandTimeout);
+            }
+        }
+
+        public static async Task<dynamic> InsertAsync<T>(this IDbConnection conn, T entity, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            DapperExtSqls sqls = GetDapperExtSqls(typeof(T));
+            if (sqls.HasKey && sqls.IsIdentity)
+            {
+                switch (sqls.KeyType)
+                {
+                    case "Int32": return await conn.ExecuteScalarAsync<int>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //int
+                    case "Int64": return await conn.ExecuteScalarAsync<long>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //long
+                    case "Decimal": return await conn.ExecuteScalarAsync<decimal>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //decimal
+                    case "UInt32": return await conn.ExecuteScalarAsync<uint>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //uint
+                    case "UInt64": return await conn.ExecuteScalarAsync<ulong>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //ulong
+                    case "Double": return await conn.ExecuteScalarAsync<double>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //double
+                    case "Single": return await conn.ExecuteScalarAsync<float>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //float
+                    case "Byte": return await conn.ExecuteScalarAsync<byte>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout);  //byte
+                    case "SByte": return await conn.ExecuteScalarAsync<sbyte>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //sbyte
+                    case "Int16": return await conn.ExecuteScalarAsync<short>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //short
+                    case "UInt16": return await conn.ExecuteScalarAsync<ushort>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //ushort
+                    default: return await conn.ExecuteScalarAsync<dynamic>(sqls.InsertSql + ";SELECT @@IDENTITY", entity, transaction, commandTimeout); //dynamic
+                }
+            }
+            else
+            {
+                return await conn.ExecuteAsync(sqls.InsertSql, entity, transaction, commandTimeout);
             }
         }
 
@@ -193,6 +221,11 @@ namespace Nzh.Admin.Repository.SQLExts.MySQLExt
         public static T GetById<T>(this IDbConnection conn, dynamic id, string returnFields = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             return GetByIdBase<T>(conn, typeof(T), id, returnFields, transaction, commandTimeout);
+        }
+
+        public static async Task<T> GetByIdAsync<T>(this IDbConnection conn, dynamic id, string returnFields = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return await GetByIdBase<T>(conn, typeof(T), id, returnFields, transaction, commandTimeout);
         }
 
         public static T GetById<Table, T>(this IDbConnection conn, dynamic id, string returnFields = null, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -313,6 +346,21 @@ namespace Nzh.Admin.Repository.SQLExts.MySQLExt
             }
         }
 
+        public static async Task<int> DeleteByIdAsync<T>(this IDbConnection conn, dynamic id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            DapperExtSqls sqls = GetDapperExtSqls(typeof(T));
+            if (sqls.HasKey)
+            {
+                DynamicParameters dpar = new DynamicParameters();
+                dpar.Add("@id", id);
+                return await conn.ExecuteAsync(sqls.DeleteByIdSql, dpar, transaction, commandTimeout);
+            }
+            else
+            {
+                throw new ArgumentException("表" + sqls.TableName + "没有主键，无法DeleteById。");
+            }
+        }
+
         public static int DeleteByIds<T>(this IDbConnection conn, object ids, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             if (DapperExtCommon.ObjectIsEmpty(ids))
@@ -343,6 +391,13 @@ namespace Nzh.Admin.Repository.SQLExts.MySQLExt
             return conn.Execute(sql, param, transaction, commandTimeout);
         }
 
+        public static async Task<int> DeleteByWhereAsync<T>(this IDbConnection conn, string where, object param = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            DapperExtSqls sqls = GetDapperExtSqls(typeof(T));
+            string sql = string.Format("DELETE FROM `{0}` {1}", sqls.TableName, where);
+            return await conn.ExecuteAsync(sql, param, transaction, commandTimeout);
+        }
+
         public static int UpdateById<T>(this IDbConnection conn, T entity, string updateFields = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             DapperExtSqls sqls = GetDapperExtSqls(typeof(T));
@@ -357,6 +412,28 @@ namespace Nzh.Admin.Repository.SQLExts.MySQLExt
                     string updateList = DapperExtCommon.GetFieldsEqStr(updateFields.Split(',').ToList(), "`", "`");
                     string sql = string.Format("UPDATE `{0}` SET {1} WHERE `{2}`=@{2}", sqls.TableName, updateList, sqls.KeyName);
                     return conn.Execute(sql, entity, transaction, commandTimeout);
+                }
+            }
+            else
+            {
+                throw new ArgumentException("表" + sqls.TableName + "没有主键，无法UpdateById。");
+            }
+        }
+
+        public static async Task<int> UpdateByIdAsync<T>(this IDbConnection conn, T entity, string updateFields = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            DapperExtSqls sqls = GetDapperExtSqls(typeof(T));
+            if (sqls.HasKey)
+            {
+                if (updateFields == null)
+                {
+                    return await conn.ExecuteAsync(sqls.UpdateByIdSql, entity, transaction, commandTimeout);
+                }
+                else
+                {
+                    string updateList = DapperExtCommon.GetFieldsEqStr(updateFields.Split(',').ToList(), "`", "`");
+                    string sql = string.Format("UPDATE `{0}` SET {1} WHERE `{2}`=@{2}", sqls.TableName, updateList, sqls.KeyName);
+                    return await conn.ExecuteAsync(sql, entity, transaction, commandTimeout);
                 }
             }
             else
@@ -400,6 +477,13 @@ namespace Nzh.Admin.Repository.SQLExts.MySQLExt
             DapperExtSqls sqls = GetDapperExtSqls(typeof(T));
             string sql = string.Format("SELECT COUNT(1) FROM `{0}` {1}", sqls.TableName, where);
             return conn.ExecuteScalar<long>(sql, param, transaction, commandTimeout);
+        }
+
+        public static async Task<long> GetTotalAsync<T>(this IDbConnection conn, string where = null, object param = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            DapperExtSqls sqls = GetDapperExtSqls(typeof(T));
+            string sql = string.Format("SELECT COUNT(1) FROM `{0}` {1}", sqls.TableName, where);
+            return await conn.ExecuteScalarAsync<long>(sql, param, transaction, commandTimeout);
         }
 
         private static IEnumerable<T> GetBySkipBase<T>(this IDbConnection conn, Type t, int skip, int take, string returnFields = null, string where = null, object param = null, string orderBy = null, IDbTransaction transaction = null, int? commandTimeout = null)

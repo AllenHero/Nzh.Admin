@@ -12,13 +12,13 @@ namespace Nzh.Admin.IRepository.Base
     {
         IDbConnection GetConnection();
 
-        Task<bool> AddAsync(T entity, string sql);
+        Task<bool> InsertAsync(T entity, string sql);
 
-        bool Add(T entity, string sql);
+        bool Insert(T entity, string sql);
 
-        Task<bool> AddRangeAsync(List<T> entitylist, string sql);
+        Task<bool> InsertRangeAsync(List<T> entitylist, string sql);
 
-        bool AddRange(List<T> entitylist, string sql);
+        bool InsertRange(List<T> entitylist, string sql);
 
         Task<bool> DeleteByIdAsync(long Id, string sql);
 
@@ -68,15 +68,27 @@ namespace Nzh.Admin.IRepository.Base
 
         T Get(int Id);
 
+        Task<T> GetAsync(int Id);
+
         int Insert(T model);
+
+        Task<int> InsertAsync(T model);
 
         int Update(T model);
 
+        Task<int> UpdateAsync(T model);
+
         int UpdateFields(T model, string updateFields);
+
+        Task<int> UpdateFieldsAsync(T model, string updateFields);
 
         int Delete(int Id);
 
+        Task<int> DeleteAsync(int Id);
+
         int DeleteByWhere(string where);
+
+        Task<int> DeleteByWhereAsync(string where);
 
         IEnumerable<T> GetByPage(SearchFilter filter, out long total);
 
@@ -87,6 +99,8 @@ namespace Nzh.Admin.IRepository.Base
         IEnumerable<T> GetByWhere(string where = null, object param = null, string returnFields = null, string orderby = null);
 
         long GetTotal(SearchFilter filter);
+
+        Task<long> GetTotalAsync(SearchFilter filter);
 
         #endregion
     }

@@ -31,12 +31,12 @@ namespace Nzh.Admin.Repository.Base
         #region  新增
 
         /// <summary>
-        /// 添加
+        /// 新增（异步）
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<bool> AddAsync(T entity, string sql)
+        public async Task<bool> InsertAsync(T entity, string sql)
         {
             using (GetConnection())
             {
@@ -45,12 +45,12 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        ///  添加
+        ///  新增
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public bool Add(T entity, string sql)
+        public bool Insert(T entity, string sql)
         {
             using (GetConnection())
             {
@@ -59,12 +59,12 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 批量添加
+        /// 批量新增（异步）
         /// </summary>
         /// <param name="entitylist"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<bool> AddRangeAsync(List<T> entitylist, string sql)
+        public async Task<bool> InsertRangeAsync(List<T> entitylist, string sql)
         {
             using (GetConnection())
             {
@@ -73,12 +73,12 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        ///  批量添加
+        ///  批量新增
         /// </summary>
         /// <param name="entitylist"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public bool AddRange(List<T> entitylist, string sql)
+        public bool InsertRange(List<T> entitylist, string sql)
         {
             using (GetConnection())
             {
@@ -91,7 +91,7 @@ namespace Nzh.Admin.Repository.Base
         #region  删除
 
         /// <summary>
-        /// 根据Id删除
+        /// 根据Id删除（异步）
         /// </summary>
         /// <param name="Id"></param>
         /// <param name="sql"></param>
@@ -119,7 +119,7 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 删除
+        /// 删除（异步）
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="sql"></param>
@@ -147,7 +147,7 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 批量删除
+        /// 批量删除（异步）
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="sql"></param>
@@ -179,7 +179,7 @@ namespace Nzh.Admin.Repository.Base
         #region 修改
 
         /// <summary>
-        /// 修改
+        /// 修改（异步）
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="sql"></param>
@@ -207,7 +207,7 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 批量修改
+        /// 批量修改（异步）
         /// </summary>
         /// <param name="entitylist"></param>
         /// <param name="sql"></param>
@@ -239,7 +239,7 @@ namespace Nzh.Admin.Repository.Base
         #region   查询
 
         /// <summary>
-        /// 返回数量
+        /// 返回数量（异步）
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="param"></param>
@@ -267,7 +267,7 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 获取实体
+        /// 获取实体（异步）
         /// </summary>
         /// <param name="Id"></param>
         /// <param name="sql"></param>
@@ -279,7 +279,6 @@ namespace Nzh.Admin.Repository.Base
                 return await GetConnection().QueryFirstOrDefaultAsync<T>(sql, new { Id = Id });
             }
         }
-
 
         /// <summary>
         /// 获取实体
@@ -296,7 +295,7 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 获取List
+        /// 获取List（异步）
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
@@ -322,7 +321,7 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 分页
+        /// 分页（异步）
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="pageIndex"></param>
@@ -352,7 +351,7 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 根据条件获取List
+        /// 根据条件获取List（异步）
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="param"></param>
@@ -380,7 +379,7 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
-        /// 分页加条件
+        /// 分页加条件（异步）
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="pageIndex"></param>
@@ -428,6 +427,19 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
+        /// 根据Id获取（异步）
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public async Task<T> GetAsync(int Id)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().GetByIdAsync<T>(Id);
+            }
+        }
+
+        /// <summary>
         /// 新增
         /// </summary>
         /// <param name="model"></param>
@@ -441,6 +453,19 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
+        /// 新增（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> InsertAsync(T model)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().InsertAsync<T>(model);
+            }
+        }
+
+        /// <summary>
         /// 更新
         /// </summary>
         /// <param name="model"></param>
@@ -450,6 +475,19 @@ namespace Nzh.Admin.Repository.Base
             using (GetConnection())
             {
                 return GetConnection().UpdateById<T>(model);
+            }
+        }
+
+        /// <summary>
+        /// 更新（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> UpdateAsync(T model)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().UpdateByIdAsync<T>(model);
             }
         }
 
@@ -468,6 +506,20 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
+        /// 更新列（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="updateFields"></param>
+        /// <returns></returns>
+        public async Task<int> UpdateFieldsAsync(T model, string updateFields)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().UpdateByIdAsync<T>(model, updateFields);
+            }
+        }
+
+        /// <summary>
         /// 根据Id删除
         /// </summary>
         /// <param name="Id"></param>
@@ -481,6 +533,19 @@ namespace Nzh.Admin.Repository.Base
         }
 
         /// <summary>
+        /// 根据Id删除（异步）
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public async Task<int> DeleteAsync(int Id)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().DeleteByIdAsync<T>(Id);
+            }
+        }
+
+        /// <summary>
         /// 根据条件删除
         /// </summary>
         /// <param name="where"></param>
@@ -490,6 +555,19 @@ namespace Nzh.Admin.Repository.Base
             using (GetConnection())
             {
                 return GetConnection().DeleteByWhere<T>(where);
+            }
+        }
+
+        /// <summary>
+        /// 根据条件删除（异步）
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public async Task<int> DeleteByWhereAsync(string where)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().DeleteByWhereAsync<T>(where);
             }
         }
 
@@ -561,6 +639,19 @@ namespace Nzh.Admin.Repository.Base
             using (GetConnection())
             {
                 return GetConnection().GetTotal<T>(filter.where, filter.param);
+            }
+        }
+
+        /// <summary>
+        /// 查询总数（异步）
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public async Task<long> GetTotalAsync(SearchFilter filter)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().GetTotalAsync<T>(filter.where, filter.param);
             }
         }
 

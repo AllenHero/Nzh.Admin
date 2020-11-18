@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nzh.Admin.IService", "Nzh.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nzh.Admin.Extension", "Nzh.Admin.Extension\Nzh.Admin.Extension.csproj", "{1D3D15FD-CDD0-4750-9357-8F17D0A32A12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nzh.Admin.Web", "Nzh.Admin.Web\Nzh.Admin.Web.csproj", "{F8CBFFB6-9007-43E0-87E1-7002029E7FFC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,10 +57,6 @@ Global
 		{1D3D15FD-CDD0-4750-9357-8F17D0A32A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D3D15FD-CDD0-4750-9357-8F17D0A32A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D3D15FD-CDD0-4750-9357-8F17D0A32A12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8CBFFB6-9007-43E0-87E1-7002029E7FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8CBFFB6-9007-43E0-87E1-7002029E7FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8CBFFB6-9007-43E0-87E1-7002029E7FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8CBFFB6-9007-43E0-87E1-7002029E7FFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

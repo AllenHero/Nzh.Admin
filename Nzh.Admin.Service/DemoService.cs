@@ -28,14 +28,14 @@ namespace Nzh.Admin.Service
         /// <returns></returns>
         public async Task<PageResult<Demo>> GetDemoPageListAsync(int PageIndex, int PageSize)
         {
-            var demoList = new PageResult<Demo>();
+            var result = new PageResult<Demo>();
             string sql = @"SELECT Id, Name, Sex, Age, Remark FROM Demo";
             string sqlCount = @"SELECT count(*) FROM Demo";
-            demoList.list = await _demoRepository.GetListAsync(sql, PageIndex, PageSize);
-            demoList.TotalCount = await _demoRepository.CountAsync(sqlCount);
-            demoList.PageIndex = PageIndex;
-            demoList.PageSize = PageSize;
-            return demoList;
+            result.list = await _demoRepository.GetListAsync(sql, PageIndex, PageSize);
+            result.TotalCount = await _demoRepository.CountAsync(sqlCount);
+            result.PageIndex = PageIndex;
+            result.PageSize = PageSize;
+            return result;
         }
 
         /// <summary>

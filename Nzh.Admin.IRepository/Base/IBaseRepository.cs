@@ -80,9 +80,9 @@ namespace Nzh.Admin.IRepository.Base
 
         #region 扩展方法
 
-        T Get(int Id);
+        T Get(long Id);
 
-        Task<T> GetAsync(int Id);
+        Task<T> GetAsync(long Id);
 
         int Insert(T model);
 
@@ -96,9 +96,9 @@ namespace Nzh.Admin.IRepository.Base
 
         Task<int> UpdateFieldsAsync(T model, string updateFields);
 
-        int Delete(int Id);
+        int Delete(long Id);
 
-        Task<int> DeleteAsync(int Id);
+        Task<int> DeleteAsync(long Id);
 
         int DeleteByWhere(string where);
 

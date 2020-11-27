@@ -505,7 +505,7 @@ namespace Nzh.Admin.Repository.Base
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public T Get(int Id)
+        public T Get(long Id)
         {
             using (GetConnection())
             {
@@ -518,7 +518,7 @@ namespace Nzh.Admin.Repository.Base
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<T> GetAsync(int Id)
+        public async Task<T> GetAsync(long Id)
         {
             using (GetConnection())
             {
@@ -611,7 +611,7 @@ namespace Nzh.Admin.Repository.Base
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public int Delete(int Id)
+        public int Delete(long Id)
         {
             using (GetConnection())
             {
@@ -624,7 +624,7 @@ namespace Nzh.Admin.Repository.Base
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<int> DeleteAsync(int Id)
+        public async Task<int> DeleteAsync(long Id)
         {
             using (GetConnection())
             {

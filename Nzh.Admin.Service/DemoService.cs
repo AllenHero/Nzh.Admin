@@ -3,6 +3,7 @@ using Nzh.Admin.IRepository;
 using Nzh.Admin.IService;
 using Nzh.Admin.Model;
 using Nzh.Admin.Model.Base;
+using Nzh.Admin.Service.Base;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Nzh.Admin.Service
 {
-    public class DemoService : IDemoService
+    public class DemoService : BaseService, IDemoService
     {
         private readonly IDemoRepository _demoRepository;
 

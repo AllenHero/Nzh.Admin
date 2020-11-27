@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using DapperExtensions;
+using Nzh.Admin.Model.Base;
 using Nzh.Admin.Repository.Config;
 using System;
 using System.Collections.Generic;
@@ -208,6 +209,45 @@ namespace Nzh.Admin.Repository.Extensions
             using (GetConnection())
             {
                 return GetConnection().GetPage<T>(predicate, sort, page, resultsPerPage).ToList();
+            }
+        }
+
+        /// <summary>
+        /// 存储过程分页查询
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="sort">分类</param>
+        /// <param name="page">页索引</param>
+        /// <param name="resultsPerPage">页大小</param>
+        /// <param name="fields">查询字段</param>
+        /// <returns></returns>
+        public PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*", Type result = null)
+        {
+            var tableName = typeof(T).Name;
+            var p = new DynamicParameters();
+            p.Add("@TableName", tableName);
+            p.Add("@Fields", fields);
+            p.Add("@OrderField", sort);
+            p.Add("@sqlWhere", where);
+            p.Add("@pageSize", resultsPerPage);
+            p.Add("@pageIndex", page);
+            p.Add("@TotalPage", 0, direction: ParameterDirection.Output);
+            p.Add("@Totalrow", 0, direction: ParameterDirection.Output);
+            using (GetConnection())
+            {
+                var data = GetConnection().Query<T>("P_ZGrid_PagingLarge", p, commandType: CommandType.StoredProcedure, commandTimeout: 120);
+                int totalPage = p.Get<int>("@TotalPage");
+                int totalrow = p.Get<int>("@Totalrow");
+                var rep = new PageDateRep<T>()
+                {
+                    code = 0,
+                    count = totalrow,
+                    totalPage = totalPage,
+                    data = data.ToList(),
+                    PageNum = page,
+                    PageSize = resultsPerPage
+                };
+                return rep;
             }
         }
     }

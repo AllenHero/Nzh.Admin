@@ -1,7 +1,8 @@
 ﻿using Nzh.Admin.Model.Base;
-using Nzh.Admin.Model.ExtAttributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Nzh.Admin.Model
@@ -15,7 +16,7 @@ namespace Nzh.Admin.Model
         /// <summary>
         ///Id 
         /// </summary>
-        [Key(true)]
+        [Key]
         public long Id { get; set; }
 
         /// <summary>

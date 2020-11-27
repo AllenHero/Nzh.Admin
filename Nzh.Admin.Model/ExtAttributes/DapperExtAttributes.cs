@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nzh.Admin.Repository.Dapper
+namespace Nzh.Admin.Model.ExtAttributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class TableAttribute : Attribute

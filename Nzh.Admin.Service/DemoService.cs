@@ -45,9 +45,9 @@ namespace Nzh.Admin.Service
         /// <returns></returns>
         public async Task<Demo> GetDemoByIdAsync(long Id)
         {
-            //string sql = @"SELECT Id, Name, Sex, Age, Remark FROM Demo WHERE Id=@Id";
-            //var demoModel = await _demoRepository.GetAsync(Id, sql);
-            var demoModel = await _demoRepository.GetAsync(Id);//dapper扩展方法
+            string sql = @"SELECT Id, Name, Sex, Age, Remark FROM Demo WHERE Id=@Id";
+            var demoModel = await _demoRepository.GetAsync(Id, sql);
+            //var demoModel = await _demoRepository.GetAsync(Id);//dapper扩展方法
             return demoModel;
         }
 
@@ -74,8 +74,8 @@ namespace Nzh.Admin.Service
                     demo.Age = Age;
                     demo.Remark = Remark;
                     string sql = @"INSERT INTO Demo(Id, Name, Sex, Age, Remark) VALUES(@Id, @Name, @Sex, @Age, @Remark)";
-                    //StringBuilder sb = new StringBuilder();
-                    //sb.AppendFormat(" INSERT INTO `Demo` (`Id`, `Name`, `Sex`, `Age`, `Remark`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');", GuidToLongId(), Name, Sex, Age, Remark);
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendFormat(" INSERT INTO `Demo` (`Id`, `Name`, `Sex`, `Age`, `Remark`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');", GuidToLongId(), Name, Sex, Age, Remark);
                     result.data = await _demoRepository.InsertAsync(demo,sql);//dapper
                     //result.data = await _demoRepository.ExecuteSqlAsync(sb.ToString());//执行sql
                     //result.data = await _demoRepository.InsertAsync(demo);//dapper扩展方法
@@ -90,11 +90,11 @@ namespace Nzh.Admin.Service
             }
         }
 
-        //public static long GuidToLongId()
-        //{
-        //    byte[] buffer = Guid.NewGuid().ToByteArray();
-        //    return BitConverter.ToInt64(buffer, 0);
-        //}
+        public static long GuidToLongId()
+        {
+            byte[] buffer = Guid.NewGuid().ToByteArray();
+            return BitConverter.ToInt64(buffer, 0);
+        }
 
         /// <summary>
         /// 修改Demo
@@ -118,9 +118,9 @@ namespace Nzh.Admin.Service
                     demo.Sex = Sex;
                     demo.Age = Age;
                     demo.Remark = Remark;
-                    //string sql = "UPDATE Demo SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE Id=@Id";
-                    //result.data = await _demoRepository.UpdateAsync(demo, sql);
-                    result.data = await _demoRepository.UpdateAsync(demo);//dapper扩展方法
+                    string sql = "UPDATE Demo SET Name=@Name, Sex=@Sex, Age=@Age, Remark=@Remark WHERE Id=@Id";
+                    result.data = await _demoRepository.UpdateAsync(demo, sql);
+                    //result.data = await _demoRepository.UpdateAsync(demo);//dapper扩展方法
                     _demoRepository.CommitTransaction(tran);//提交事务
                     return result;
                 }
@@ -144,9 +144,9 @@ namespace Nzh.Admin.Service
                 var result = new OperationResult<bool>();
                 try
                 {
-                    //string sql = "DELETE FROM Demo WHERE Id=@Id";
-                    //result.data = await _demoRepository.DeleteByIdAsync(Id, sql);
-                    result.data = await _demoRepository.DeleteAsync(Id);//dapper扩展方法
+                    string sql = "DELETE FROM Demo WHERE Id=@Id";
+                    result.data = await _demoRepository.DeleteByIdAsync(Id, sql);
+                    //result.data = await _demoRepository.DeleteAsync(Id);//dapper扩展方法
                     _demoRepository.CommitTransaction(tran);//提交事务
                     return result;
                 }

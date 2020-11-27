@@ -1,4 +1,5 @@
 ﻿using Nzh.Admin.Model.Base;
+using Nzh.Admin.Model.ExtAttributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +9,13 @@ namespace Nzh.Admin.Model
     /// <summary>
     ///  Demo
     /// </summary>
+    [Table("Demo")]
     public class Demo 
     {
         /// <summary>
         ///Id 
         /// </summary>
+        [Key(true)]
         public long Id { get; set; }
 
         /// <summary>

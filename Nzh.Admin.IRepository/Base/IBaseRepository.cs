@@ -77,45 +77,5 @@ namespace Nzh.Admin.IRepository.Base
         Task<List<T>> GetListAsync(string sql, int pageIndex, int pageSize, object param = null);
 
         List<T> GetList(string sql, int pageIndex, int pageSize, object param = null);
-
-        #region 扩展方法
-
-        T Get(long Id);
-
-        Task<T> GetAsync(long Id);
-
-        int Insert(T model);
-
-        Task<int> InsertAsync(T model);
-
-        int Update(T model);
-
-        Task<int> UpdateAsync(T model);
-
-        int UpdateFields(T model, string updateFields);
-
-        Task<int> UpdateFieldsAsync(T model, string updateFields);
-
-        int Delete(long Id);
-
-        Task<int> DeleteAsync(long Id);
-
-        int DeleteByWhere(string where);
-
-        Task<int> DeleteByWhereAsync(string where);
-
-        IEnumerable<T> GetByPage(SearchFilter filter, out long total);
-
-        IEnumerable<T> GetByPageUnite(SearchFilter filter, out long total);
-
-        IEnumerable<T> GetAll(string returnFields = null, string orderby = null);
-
-        IEnumerable<T> GetByWhere(string where = null, object param = null, string returnFields = null, string orderby = null);
-
-        long GetTotal(SearchFilter filter);
-
-        Task<long> GetTotalAsync(SearchFilter filter);
-
-        #endregion
     }
 }

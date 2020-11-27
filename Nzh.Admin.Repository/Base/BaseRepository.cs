@@ -1,8 +1,10 @@
 ﻿using Dapper;
+using DapperExtensions;
 using Nzh.Admin.IRepository.Base;
 using Nzh.Admin.Model.Base;
 using Nzh.Admin.Model.Filter;
 using Nzh.Admin.Repository.Config;
+using Nzh.Admin.Repository.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +18,8 @@ namespace Nzh.Admin.Repository.Base
     public class BaseRepository<T> : IBaseRepository<T> where T : class, new()
     {
         protected bool _RestoreMapping = true;
+
+        DapperExtensions<T> _dapperExtension = new DapperExtensions<T>(); //dapper扩展
 
         /// <summary>
         /// 数据库连接信息
@@ -156,7 +160,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteByIdAsync(long Id, string sql)
+        public async Task<bool> DeleteByIdAsync(object Id, string sql)
         {
             using (GetConnection())
             {
@@ -170,7 +174,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public bool DeleteById(long Id, string sql)
+        public bool DeleteById(object Id, string sql)
         {
             using (GetConnection())
             {
@@ -332,7 +336,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public async Task<T> GetAsync(long Id, string sql)
+        public async Task<T> GetAsync(object Id, string sql)
         {
             using (GetConnection())
             {
@@ -359,7 +363,7 @@ namespace Nzh.Admin.Repository.Base
         /// <param name="Id"></param>
         /// <param name="sql"></param>
         /// <returns></returns>
-        public T Get(long Id, string sql)
+        public T Get(object Id, string sql)
         {
             using (GetConnection())
             {
@@ -495,6 +499,232 @@ namespace Nzh.Admin.Repository.Base
                 return  GetConnection().Query<T>(sql, param).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
             }
         }
+        #endregion
+
+        #region dapper扩展方法
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool Insert(T model)
+        {
+            return _dapperExtension.Insert(model);
+        }
+
+        /// <summary>
+        /// 新增（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<bool> InsertAsync(T model)
+        {
+            return await _dapperExtension.InsertAsync(model);
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool Update(T model)
+        {
+            return _dapperExtension.Update(model);
+        }
+
+        /// <summary>
+        /// 更新（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateAsync(T model)
+        {
+            return await _dapperExtension.UpdateAsync(model);
+        }
+
+        /// <summary> 
+        ///根据实体删除
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool Delete(T model)
+        {
+            return _dapperExtension.Delete(model);
+        }
+
+        /// <summary>
+        /// 根据实体删除（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteAsync(T model)
+        {
+            return await _dapperExtension.DeleteAsync(model);
+        }
+
+        /// <summary>
+        /// 根据条件删除
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool Delete(object predicate)
+        {
+            return _dapperExtension.Delete(predicate);
+        }
+
+        /// <summary>
+        /// 根据条件删除（异步）
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteAsync(object predicate)
+        {
+            return await _dapperExtension.DeleteAsync(predicate);
+        }
+
+        /// <summary>
+        /// 根据条件删除
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool DeleteByWhere(string where, object param = null)
+        {
+            return _dapperExtension.DeleteByWhere(where, param);
+        }
+
+        /// <summary>
+        /// 根据条件删除（异步）
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteByWhereAsync(string where, object param = null)
+        {
+            return await _dapperExtension.DeleteByWhereAsync(where, param);
+        }
+
+        /// <summary>
+        /// 根据id获取实体
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        public T Get(object id)
+        {
+            return _dapperExtension.Get(id);
+        }
+
+        /// <summary>
+        /// 根据id获取实体（异步）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<T> GetAsync(object id)
+        {
+            return await _dapperExtension.GetAsync(id);
+        }
+
+        /// <summary>
+        /// 获取一个实体对象
+        /// </summary>
+        /// <param name="models"></param>
+        /// <returns></returns>
+        //public T Get(object id, string keyName)
+        //{
+        //    return _dapperExtension.Get(id, keyName);
+        //}
+
+        /// <summary>
+        /// 根据条件查询实体列表
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public List<T> GetList(object predicate = null, IList<ISort> sort = null)
+        {
+            return _dapperExtension.GetList(predicate, sort);
+        }
+
+        /// <summary>
+        /// 根据条件查询实体列表
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="limits">前几条</param>
+        /// <returns></returns>
+        public List<T> GetList(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "")
+        {
+            return _dapperExtension.GetList(where, sort, limits, fields, orderby);
+        }
+
+        /// <summary>
+        /// 获取记录条数
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public int Count(object predicate = null)
+        {
+            return _dapperExtension.Count(predicate);
+        }
+
+        /// <summary>
+        /// 获取记录条数（异步）
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public async Task<int> CountAsync(object predicate = null)
+        {
+            return  await _dapperExtension.CountAsync(predicate);
+        }
+
+        /// <summary>
+        /// 获取记录条数
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public int CountByWhere(string where)
+        {
+            return _dapperExtension.CountByWhere(where);
+        }
+
+        /// <summary>
+        /// 获取记录条数（异步）
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public async Task<int> CountByWhereAsync(string where)
+        {
+            return await _dapperExtension.CountByWhereAsync(where);
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="page">页索引</param>
+        /// <param name="resultsPerPage">页大小</param>
+        /// <returns></returns>
+        public List<T> GetPage(object predicate, IList<ISort> sort, int page, int resultsPerPage)
+        {
+            page = page - 1;
+            return _dapperExtension.GetPage(predicate, sort, page, resultsPerPage);
+        }
+
+        /// <summary>
+        /// 存储过程分页查询
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="sort"></param>
+        /// <param name="page"></param>
+        /// <param name="resultsPerPage"></param>
+        /// <returns></returns>
+        public PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*")
+        {
+            return _dapperExtension.GetPage(where, sort, page, resultsPerPage, fields);
+        }
+
         #endregion
     }
 }

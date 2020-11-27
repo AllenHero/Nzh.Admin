@@ -1,4 +1,5 @@
-﻿using Nzh.Admin.Model.Base;
+﻿using DapperExtensions;
+using Nzh.Admin.Model.Base;
 using Nzh.Admin.Model.Filter;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,9 @@ namespace Nzh.Admin.IRepository.Base
 
         bool InsertRange(List<T> entitylist, string sql);
 
-        Task<bool> DeleteByIdAsync(long Id, string sql);
+        Task<bool> DeleteByIdAsync(object Id, string sql);
 
-        bool DeleteById(long Id, string sql);
+        bool DeleteById(object Id, string sql);
 
         Task<bool> DeleteAsync(T entity, string sql);
 
@@ -54,11 +55,11 @@ namespace Nzh.Admin.IRepository.Base
 
         int Count(string sql);
 
-        Task<T> GetAsync(long Id, string sql);
+        Task<T> GetAsync(object Id, string sql);
 
         Task<T> GetAsync(string sql);
 
-        T Get(long Id, string sql);
+        T Get(object Id, string sql);
 
         T Get(string sql);
 
@@ -77,5 +78,51 @@ namespace Nzh.Admin.IRepository.Base
         Task<List<T>> GetListAsync(string sql, int pageIndex, int pageSize, object param = null);
 
         List<T> GetList(string sql, int pageIndex, int pageSize, object param = null);
+
+        #region  dapper扩展方法
+
+        bool Insert(T model);
+
+        Task<bool> InsertAsync(T model);
+
+        bool Update(T model);
+
+        Task<bool> UpdateAsync(T model);
+
+        bool Delete(T model);
+
+        Task<bool> DeleteAsync(T model);
+
+        bool Delete(object predicate);
+
+        Task<bool> DeleteAsync(object predicate);
+
+        bool DeleteByWhere(string where, object param = null);
+
+        Task<bool> DeleteByWhereAsync(string where, object param = null);
+
+        T Get(object id);
+
+        Task<T> GetAsync(object id);
+
+        //T Get(object id, string keyName);
+
+        List<T> GetList(object predicate = null, IList<ISort> sort = null);
+
+        List<T> GetList(string where, string sort = null, int limits = -1, string fields = " * ", string orderby = "");
+
+        int Count(object predicate = null);
+
+        Task<int> CountAsync(object predicate = null);
+
+        int CountByWhere(string where);
+
+        Task<int> CountByWhereAsync(string where);
+
+        List<T> GetPage(object predicate, IList<ISort> sort, int page, int resultsPerPage);
+
+        PageDateRep<T> GetPage(string where, string sort, int page, int resultsPerPage, string fields = "*");
+
+        #endregion 
     }
 }

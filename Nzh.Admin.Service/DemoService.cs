@@ -73,12 +73,12 @@ namespace Nzh.Admin.Service
                     demo.Sex = Sex;
                     demo.Age = Age;
                     demo.Remark = Remark;
-                    string sql = @"INSERT INTO Demo(Id, Name, Sex, Age, Remark) VALUES(@Id, @Name, @Sex, @Age, @Remark)";
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendFormat(" INSERT INTO `Demo` (`Id`, `Name`, `Sex`, `Age`, `Remark`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');", GuidToLongId(), Name, Sex, Age, Remark);
-                    result.data = await _demoRepository.InsertAsync(demo,sql);//dapper
+                    //string sql = @"INSERT INTO Demo(Id, Name, Sex, Age, Remark) VALUES(@Id, @Name, @Sex, @Age, @Remark)";
+                    //StringBuilder sb = new StringBuilder();
+                    //sb.AppendFormat(" INSERT INTO `Demo` (`Id`, `Name`, `Sex`, `Age`, `Remark`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');", GuidToLongId(), Name, Sex, Age, Remark);
+                    //result.data = await _demoRepository.InsertAsync(demo,sql);//dapper
                     //result.data = await _demoRepository.ExecuteSqlAsync(sb.ToString());//执行sql
-                    //result.data = await _demoRepository.InsertAsync(demo);//dapper扩展方法
+                    result.data = await _demoRepository.InsertAsync(demo);//dapper扩展方法
                     _demoRepository.CommitTransaction(tran);//提交事务
                     return result;
                 }

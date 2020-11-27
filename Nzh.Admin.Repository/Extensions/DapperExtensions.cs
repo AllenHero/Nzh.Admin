@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Nzh.Admin.Repository.Extensions
 {
@@ -40,6 +41,19 @@ namespace Nzh.Admin.Repository.Extensions
         }
 
         /// <summary>
+        /// 新增（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<bool> InsertAsync(T model)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().InsertAsync(model);
+            }
+        }
+
+        /// <summary>
         /// 修改
         /// </summary>
         /// <param name="model"></param>
@@ -49,6 +63,19 @@ namespace Nzh.Admin.Repository.Extensions
             using (GetConnection())
             {
                 return GetConnection().Update(model);
+            }
+        }
+
+        /// <summary>
+        /// 修改（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateAsync(T model)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().UpdateAsync(model);
             }
         }
 
@@ -66,6 +93,19 @@ namespace Nzh.Admin.Repository.Extensions
         }
 
         /// <summary>
+        /// 根据实体删除（异步）
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteAsync(T model)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().DeleteAsync(model);
+            }
+        }
+
+        /// <summary>
         /// 根据条件删除
         /// </summary>
         /// <param name="model"></param>
@@ -75,6 +115,19 @@ namespace Nzh.Admin.Repository.Extensions
             using (GetConnection())
             {
                 return GetConnection().Delete(predicate);
+            }
+        }
+
+        /// <summary>
+        /// 根据条件删除（异步）
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteAsync(object predicate)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().DeleteAsync(predicate);
             }
         }
 
@@ -95,7 +148,24 @@ namespace Nzh.Admin.Repository.Extensions
         }
 
         /// <summary>
-        /// 根据一个实体对象
+        /// 根据条件删除（异步）
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteByWhereAsync(string where, object param = null)
+        {
+            var tableName = typeof(T).Name;
+            StringBuilder sql = new StringBuilder().AppendFormat(" Delete FROM {0} ", tableName);
+            sql.AppendFormat(" where {0} ", where);
+            using (GetConnection())
+            {
+                return await GetConnection().ExecuteAsync(sql.ToString(), param) > 0;
+            }
+        }
+
+        /// <summary>
+        ///根据id获取实体
         /// </summary>
         /// <param name="models"></param>
         /// <returns></returns>
@@ -104,6 +174,19 @@ namespace Nzh.Admin.Repository.Extensions
             using (GetConnection())
             {
                 return GetConnection().Get<T>(id);
+            }
+        }
+
+        /// <summary>
+        /// 根据id获取实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<T> GetAsync(object id)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().GetAsync<T>(id);
             }
         }
 
@@ -133,7 +216,7 @@ namespace Nzh.Admin.Repository.Extensions
         {
             using (GetConnection())
             {
-                return GetConnection().GetList<T>(predicate, sort).ToList();//不使用ToList  SqlConnection未初始化
+                return GetConnection().GetList<T>(predicate, sort).ToList();
             }
         }
 
@@ -177,10 +260,22 @@ namespace Nzh.Admin.Repository.Extensions
         }
 
         /// <summary>
-        /// 获取记录条数
+        /// 获取记录条数（异步）
         /// </summary>
         /// <param name="predicate"></param>
-        /// <param name="sort"></param>
+        /// <returns></returns>
+        public async Task<int> CountAsync(object predicate = null)
+        {
+            using (GetConnection())
+            {
+                return await GetConnection().CountAsync<T>(predicate);
+            }
+        }
+
+        /// <summary>
+        /// 获取记录条数
+        /// </summary>
+        /// <param name="where"></param>
         /// <returns></returns>
         public int CountByWhere(string where)
         {
@@ -193,6 +288,26 @@ namespace Nzh.Admin.Repository.Extensions
             using (GetConnection())
             {
                 return GetConnection().ExecuteScalar<int>(sql.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 获取记录条数（异步）
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public async Task<int> CountByWhereAsync(string where)
+        {
+            var tableName = typeof(T).Name;
+            StringBuilder sql = new StringBuilder().AppendFormat("SELECT COUNT(1) FROM {0} ", tableName);
+            if (!string.IsNullOrEmpty(where))
+            {
+                sql.AppendFormat(" where {0} ", where);
+            }
+            using (GetConnection())
+            {
+                return await GetConnection().ExecuteScalarAsync<int>(sql.ToString());
             }
         }
 

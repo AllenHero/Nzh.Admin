@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>bin\Debug\netcoreapp2.1\</OutputPath>
-    <DocumentationFile>bin\Debug\netcoreapp2.1\Nzh.Admin.xml</DocumentationFile>
+    <OutputPath></OutputPath>
+    <DocumentationFile>D:\Github\Nzh.Admin\Nzh.Admin\Nzh.Admin.xml</DocumentationFile>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nzh.Admin</name>
+    </assembly>
+    <members>
+        <member name="T:Nzh.Admin.Controllers.DemoController">
+            <summary>
+            Demo
+            </summary>
+        </member>
+        <member name="M:Nzh.Admin.Controllers.DemoController.#ctor(Nzh.Admin.IService.IDemoService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="demoService"></param>
+        </member>
+        <member name="M:Nzh.Admin.Controllers.DemoController.GetDemoPageListAsync(System.Int32,System.Int32)">
+            <summary>
+            获取Demo分页
+            </summary>
+            <param name="PageIndex"></param>
+            <param name="PageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nzh.Admin.Controllers.DemoController.GetDemoByIdAsync(System.Int64)">
+            <summary>
+            获取Demo
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nzh.Admin.Controllers.DemoController.InsertDemoAsync(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            添加Demo
+            </summary>
+            <param name="Name"></param>
+            <param name="Sex"></param>
+            <param name="Age"></param>
+            <param name="Remark"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nzh.Admin.Controllers.DemoController.UpdateDemoAsync(System.Int64,System.String,System.String,System.Int32,System.String)">
+            <summary>
+             修改Demo
+            </summary>
+            <param name="Id"></param>
+            <param name="Name"></param>
+            <param name="Sex"></param>
+            <param name="Age"></param>
+            <param name="Remark"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nzh.Admin.Controllers.DemoController.DeleteDemoAsync(System.Int64)">
+            <summary>
+            删除Demo
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nzh.Admin.Controllers.ValuesController">
+            <summary>
+             Values
+            </summary>
+        </member>
+        <member name="T:Nzh.Admin.SwaggerHelp.SwaggerDocTag">
+            <summary>
+            Swagger配置
+            </summary>
+        </member>
+        <member name="M:Nzh.Admin.SwaggerHelp.SwaggerDocTag.Apply(Swashbuckle.AspNetCore.Swagger.SwaggerDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            添加附加注释
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
+    </members>
+</doc>

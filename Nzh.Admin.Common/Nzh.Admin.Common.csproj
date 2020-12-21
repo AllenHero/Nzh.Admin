@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\64450\Desktop\Nzh.Admin\Nzh.Admin.Common\Nzh.Admin.Common.xml</DocumentationFile>
-    <OutputPath>C:\Users\64450\Desktop\Nzh.Admin\Nzh.Admin\bin\Debug\netcoreapp2.1\</OutputPath>
+    <DocumentationFile>D:\Github\Nzh.Admin\Nzh.Admin.Common\Nzh.Admin.Common.xml</DocumentationFile>
+    <OutputPath></OutputPath>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
